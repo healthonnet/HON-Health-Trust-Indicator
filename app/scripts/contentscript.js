@@ -24,10 +24,10 @@ var updateLinks = function(){
 
   links.forEach(function(link, index){
     //TODO Must be HTTPS (otherwise: rejected by chrome)
+    //TODO tester la pertinence du résultat avant affichage
 
     //Readability
     $.get( 'http://api.kconnect.honservices.org/~kconnect/cgi-bin/readability.cgi?data={"url":"' + link + '"}', function( data ) {
-      //TODO tester la pertinence du résultat avant affichage
       var html =
         '<span class="hon rdb" style="color: ' + colors[data.readability.difficulty] + '; display: none;">' +
         'Rdb : ' + data.readability.score + '(' + data.readability.difficulty + ')' +
