@@ -26,7 +26,10 @@
     "gulp-zip": "^3.0.2",
     "main-bower-files": "^2.5.0",
     "run-sequence": "^1.1.4",
-    "wiredep": "^2.2.2"
+    "wiredep": "^2.2.2",
+    "mocha": "~2.4.5",
+    "gulp-mocha": "~2.2.0",
+    "gulp-util": "~3.0.7"
   },
   "eslintConfig": {
     "env": {

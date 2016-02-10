@@ -1,7 +1,9 @@
 // generated on 2016-02-09 using generator-chrome-extension 0.5.2
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
+import util from 'gulp-util';
 import del from 'del';
+import mocha from 'gulp-mocha';
 import runSequence from 'run-sequence';
 import {stream as wiredep} from 'wiredep';
 
@@ -127,9 +129,15 @@ gulp.task('package', function () {
       .pipe(gulp.dest('package'));
 });
 
+gulp.task('test', function () {
+  return gulp.src(['test/**/*.js'], { read: false })
+    .pipe(mocha({ reporter: 'spec' }))
+    .on('error', util.log);
+});
+
 gulp.task('build', (cb) => {
   runSequence(
-    'lint', 'chromeManifest',
+    'lint', 'test', 'chromeManifest',
     ['html', 'images', 'extras'],
     'size', cb);
 });
