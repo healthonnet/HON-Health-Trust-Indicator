@@ -18,7 +18,7 @@ Run
 $ gulp
 ```
 
-Or you can use watch tqsk to update source continuously
+Or you can use watch task to update source continuously
 ```bash
 $ gulp watch
 ```
@@ -35,7 +35,7 @@ Enable extension on Chrome
 TODO
 -----------
  - Unit tests (be able to test a chrome extension with moka)
- - Design
+ - Better Design
  - Result conditions
  - Extension options
  
@@ -46,4 +46,4 @@ Developers
 
 Licence
 -------
-
+Apache Licence 2.0
