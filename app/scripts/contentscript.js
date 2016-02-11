@@ -1,7 +1,5 @@
 'use strict';
 
-console.log('\'Allo \'Allo! Content script');
-
 //Config
 var difficultyColors = {
   'easy': 'limegreen',
@@ -26,11 +24,12 @@ var updateLinks = function(){
     //TODO Must be HTTPS (otherwise: rejected by chrome)
     //TODO Test results pertinence
 
+    //Get root domain name.
+    //TODO make it clearer
     var url = document.createElement('a');
     url.href = link;
     var host = url.hostname;
     host = host.split('.');
-
     var domain = host.pop();
     domain = host.pop() + '.' + domain;
 
@@ -38,7 +37,7 @@ var updateLinks = function(){
     $.get( 'http://api.kconnect.honservices.org/~kconnect/cgi-bin/is-trustable.cgi?domain=' + domain , function( data ) {
       if(data.info == undefined) {
         var html =
-          '<span class="hon trb">' +
+          '<span class="hon trb" style="display: none;">' +
           'Trb : ' + data.trustability.score + '(' + data.trustability.principles.length + ' / 9)' +
           '</span>';
         $(nodeList.item(index)).parent().parent().children('.s').prepend(html);
@@ -46,13 +45,15 @@ var updateLinks = function(){
         //Readability
         $.get('http://api.kconnect.honservices.org/~kconnect/cgi-bin/readability.cgi?data={"url":"' + link + '"}', function (data) {
           var html =
-            '<span class="hon rdb" style="color: ' + difficultyColors[data.readability.difficulty] + ';">' +
+            '<span class="hon rdb" style="color: ' + difficultyColors[data.readability.difficulty] + '; display: none;">' +
             'Rdb : ' + data.readability.score + '(' + data.readability.difficulty + ')' +
             '</span>';
           $(nodeList.item(index)).parent().parent().children('.s').prepend(html);
+        }).done(function() {
+          $('.hon').show();
         });
       }
-    });
+    })
   });
 };
 
