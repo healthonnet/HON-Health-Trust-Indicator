@@ -5,8 +5,12 @@ var difficultyColors = {
   'easy': 'limegreen',
   'average': '#ffc520',
   'difficult': 'crimson'
+},
+  difficultyKeyword = {
+  'easy': chrome.i18n.getMessage('tooltipReadabilityEasy'),
+  'average': chrome.i18n.getMessage('tooltipReadabilityAverage'),
+  'difficult': chrome.i18n.getMessage('tooltipReadabilityDifficult')
 };
-
 
 var updateLinks = function(){
   //clean DOM
@@ -34,26 +38,29 @@ var updateLinks = function(){
     domain = host.pop() + '.' + domain;
 
   //Trustability
-    $.get( 'http://api.kconnect.honservices.org/~kconnect/cgi-bin/is-trustable.cgi?domain=' + domain , function( data ) {
-      if(data.info == undefined) {
+    $.get( 'http://api.kconnect.honservices.org/~kconnect/cgi-bin/is-trustable.cgi?domain=' + domain, function( data ) {
+      if(data.info === undefined) {
         var html =
-          '<span class="hon trb" style="display: none;">' +
-          'Trb : ' + data.trustability.score + '(' + data.trustability.principles.length + ' / 9)' +
-          '</span>';
+          '<div class="hon trb" style="display: none;">' +
+            '<span class="meter" style=" width: ' + Math.round((data.trustability.principles.length / 9) * 100) + '%"> </span>' +
+          '</div>';
         $(nodeList.item(index)).parent().parent().children('.s').prepend(html);
 
         //Readability
-        $.get('http://api.kconnect.honservices.org/~kconnect/cgi-bin/readability.cgi?data={"url":"' + link + '"}', function (data) {
-          var html =
-            '<span class="hon rdb" style="color: ' + difficultyColors[data.readability.difficulty] + '; display: none;">' +
-            'Rdb : ' + data.readability.score + '(' + data.readability.difficulty + ')' +
-            '</span>';
-          $(nodeList.item(index)).parent().parent().children('.s').prepend(html);
+        $.get('http://api.kconnect.honservices.org/~kconnect/cgi-bin/readability.cgi?data={"url":"' + link + '"}', function (dataRdb) {
+          var htmlRdb =
+            '<a class="hon rdb" href="' + link + '" style="background-color: ' + difficultyColors[dataRdb.readability.difficulty] + ';">' +
+              '' +
+              '<span>' +
+                difficultyKeyword[dataRdb.readability.difficulty] +
+              '</span>' +
+            '</a>';
+          $(nodeList.item(index)).parent().parent().children('.s').prepend(htmlRdb);
         }).done(function() {
           $('.hon').show();
         });
       }
-    })
+    });
   });
 };
 
