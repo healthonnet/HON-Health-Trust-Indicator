@@ -3,7 +3,7 @@
 console.log('\'Allo \'Allo! Content script');
 
 //Config
-var colors = {
+var difficultyColors = {
   'easy': 'limegreen',
   'average': '#ffc520',
   'difficult': 'crimson'
@@ -24,23 +24,35 @@ var updateLinks = function(){
 
   links.forEach(function(link, index){
     //TODO Must be HTTPS (otherwise: rejected by chrome)
-    //TODO tester la pertinence du résultat avant affichage
+    //TODO Test results pertinence
 
-    //Readability
-    $.get( 'http://api.kconnect.honservices.org/~kconnect/cgi-bin/readability.cgi?data={"url":"' + link + '"}', function( data ) {
-      var html =
-        '<span class="hon rdb" style="color: ' + colors[data.readability.difficulty] + '; display: none;">' +
-        'Rdb : ' + data.readability.score + '(' + data.readability.difficulty + ')' +
-        '</span>';
-      $(nodeList.item(index)).parent().parent().children('.s').prepend(html);
+    var url = document.createElement('a');
+    url.href = link;
+    var host = url.hostname;
+    host = host.split('.');
+
+    var domain = host.pop();
+    domain = host.pop() + '.' + domain;
+
+  //Trustability
+    $.get( 'http://api.kconnect.honservices.org/~kconnect/cgi-bin/is-trustable.cgi?domain=' + domain , function( data ) {
+      if(data.info == undefined) {
+        var html =
+          '<span class="hon trb">' +
+          'Trb : ' + data.trustability.score + '(' + data.trustability.principles.length + ' / 9)' +
+          '</span>';
+        $(nodeList.item(index)).parent().parent().children('.s').prepend(html);
+
+        //Readability
+        $.get('http://api.kconnect.honservices.org/~kconnect/cgi-bin/readability.cgi?data={"url":"' + link + '"}', function (data) {
+          var html =
+            '<span class="hon rdb" style="color: ' + difficultyColors[data.readability.difficulty] + ';">' +
+            'Rdb : ' + data.readability.score + '(' + data.readability.difficulty + ')' +
+            '</span>';
+          $(nodeList.item(index)).parent().parent().children('.s').prepend(html);
+        });
+      }
     });
-
-    //Trustability
-    /*$.get( 'http://api.kconnect.honservices.org/~kconnect/cgi-bin/trustability.cgi?data={"url":"'+link+'"}', function( data ) {
-     //On test la pertinence du résultat avant affichage
-     console.log(data);
-     });*/
-
   });
 };
 
