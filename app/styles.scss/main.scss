@@ -23,37 +23,7 @@
       transform: rotate(40deg);
     }
 
-    span {
-      position: absolute;
-      color: #FFFFFF;
-      width: 250px;
-      padding: 10px;
-      background: #000000;
-      visibility: hidden;
-      border-radius: 16px;
 
-      &:after {
-        content: '';
-        position: absolute;
-        top: 100%;
-        left: 27%;
-        margin-left: -8px;
-        width: 0; height: 0;
-        border-top: 8px solid #000000;
-        border-right: 8px solid transparent;
-        border-left: 8px solid transparent;
-      }
-    }
-    &:hover {
-      span {
-        visibility: visible;
-        opacity: 0.7;
-        bottom: 30px;
-        left: 50%;
-        margin-left: -76px;
-        z-index: 999;
-      }
-    }
   }
   &.trb {
     height: 5px;  /* Can be anything */
@@ -80,6 +50,38 @@
         inset 0 -2px 6px rgba(0,0,0,0.4);
       position: relative;
       overflow: hidden;
+    }
+  }
+
+  .tooltip {
+    position: absolute;
+    color: #FFFFFF;
+    width: 250px;
+    padding: 10px;
+    background: #000000;
+    visibility: hidden;
+    border-radius: 16px;
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 27%;
+      margin-left: -8px;
+      width: 0; height: 0;
+      border-top: 8px solid #000000;
+      border-right: 8px solid transparent;
+      border-left: 8px solid transparent;
+    }
+  }
+  &:hover {
+    .tooltip {
+      visibility: visible;
+      opacity: 0.7;
+      bottom: 30px;
+      left: 50%;
+      margin-left: -76px;
+      z-index: 999;
     }
   }
 

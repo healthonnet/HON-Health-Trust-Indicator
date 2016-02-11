@@ -10,7 +10,19 @@ var difficultyColors = {
   'easy': chrome.i18n.getMessage('tooltipReadabilityEasy'),
   'average': chrome.i18n.getMessage('tooltipReadabilityAverage'),
   'difficult': chrome.i18n.getMessage('tooltipReadabilityDifficult')
-};
+},
+  honCodeCompliance = [
+    'Advertising policy',
+    'Attribution',
+    'Authoritative',
+    'Complementarity',
+    'Date',
+    'Financial disclosure',
+    'Justificability',
+    'Privacy',
+    'Transparency'
+  ];
+
 
 var updateLinks = function(){
   //clean DOM
@@ -40,9 +52,31 @@ var updateLinks = function(){
   //Trustability
     $.get( 'http://api.kconnect.honservices.org/~kconnect/cgi-bin/is-trustable.cgi?domain=' + domain, function( data ) {
       if(data.info === undefined) {
+        var tooltip = chrome.i18n.getMessage('tooltipTrustabilityLevel'),
+          trustabilityLevel = Math.round((data.trustability.principles.length / 9) * 100);
+
+        tooltip = tooltip.replace(/%VALUE%/g, trustabilityLevel);
+
+        if(trustabilityLevel !== 100){
+          var missingPrinciples = '';
+          tooltip += '</br>' + chrome.i18n.getMessage('tooltipTrustabilityMissingPrinciples');
+
+          honCodeCompliance.forEach(function(element){
+            if(data.trustability.principles.indexOf(element) < 0){
+              missingPrinciples += ', ' + element;
+            }
+          });
+          missingPrinciples = missingPrinciples.substr(1);
+
+          tooltip = tooltip.replace(/%PRINCIPLES%/g, missingPrinciples);
+        }
+
         var html =
           '<div class="hon trb" style="display: none;">' +
-            '<span class="meter" style=" width: ' + Math.round((data.trustability.principles.length / 9) * 100) + '%"> </span>' +
+            '<span class="tooltip">' +
+            tooltip +
+            '</span>' +
+            '<span class="meter" style=" width: ' + trustabilityLevel + '%"> </span>' +
           '</div>';
         $(nodeList.item(index)).parent().parent().children('.s').prepend(html);
 
@@ -51,7 +85,7 @@ var updateLinks = function(){
           var htmlRdb =
             '<a class="hon rdb" href="' + link + '" style="background-color: ' + difficultyColors[dataRdb.readability.difficulty] + ';">' +
               '' +
-              '<span>' +
+              '<span class="tooltip">' +
                 difficultyKeyword[dataRdb.readability.difficulty] +
               '</span>' +
             '</a>';

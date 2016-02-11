@@ -18,5 +18,13 @@
   "tooltipReadabilityEasy": {
     "message": "Readability: Basic knowledge of health terminology required",
     "description": "The tooltip description of content easy readability"
-  }
+  },
+  "tooltipTrustabilityLevel": {
+    "message": "HONcode compliance: %VALUE% %",
+    "description": "The tooltip description of content trustability level"
+  },
+  "tooltipTrustabilityMissingPrinciples": {
+  "message": "Missing Principles: %PRINCIPLES%",
+  "description": "The tooltip description of Trustability missing content"
+}
 }
