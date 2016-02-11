@@ -1,15 +1,15 @@
 'use strict';
 
 //Config
-var difficultyColors = {
-  'easy': 'limegreen',
-  'average': '#ffc520',
-  'difficult': 'crimson'
+var difficultyIcons = {
+  'easy': 'easy.png',
+  'average': 'average.png',
+  'difficult': 'difficult.png'
 },
   difficultyKeyword = {
-  'easy': chrome.i18n.getMessage('tooltipReadabilityEasy'),
-  'average': chrome.i18n.getMessage('tooltipReadabilityAverage'),
-  'difficult': chrome.i18n.getMessage('tooltipReadabilityDifficult')
+    'easy': chrome.i18n.getMessage('tooltipReadabilityEasy'),
+    'average': chrome.i18n.getMessage('tooltipReadabilityAverage'),
+    'difficult': chrome.i18n.getMessage('tooltipReadabilityDifficult')
 },
   honCodeCompliance = [
     'Advertising policy',
@@ -26,7 +26,7 @@ var difficultyColors = {
 
 var updateLinks = function(){
   //clean DOM
-  $('div.rc .s .hon.rdb').remove();
+  $('div.rc .s .hon').remove();
 
   //Get links
   var links = [];
@@ -41,7 +41,6 @@ var updateLinks = function(){
     //TODO Test results pertinence
 
     //Get root domain name.
-    //TODO make it clearer
     var url = document.createElement('a');
     url.href = link;
     var host = url.hostname;
@@ -49,26 +48,27 @@ var updateLinks = function(){
     var domain = host.pop();
     domain = host.pop() + '.' + domain;
 
-  //Trustability
+    //Trustability
     $.get( 'http://api.kconnect.honservices.org/~kconnect/cgi-bin/is-trustable.cgi?domain=' + domain, function( data ) {
+      //No warning or error from the API.
       if(data.info === undefined) {
         var tooltip = chrome.i18n.getMessage('tooltipTrustabilityLevel'),
           trustabilityLevel = Math.round((data.trustability.principles.length / 9) * 100);
 
         tooltip = tooltip.replace(/%VALUE%/g, trustabilityLevel);
 
+        //If some HONCode are missing we found them.
         if(trustabilityLevel !== 100){
-          var missingPrinciples = '';
           tooltip += '</br>' + chrome.i18n.getMessage('tooltipTrustabilityMissingPrinciples');
 
+          var missingPrinciples = '';
           honCodeCompliance.forEach(function(element){
             if(data.trustability.principles.indexOf(element) < 0){
               missingPrinciples += ', ' + element;
             }
           });
-          missingPrinciples = missingPrinciples.substr(1);
 
-          tooltip = tooltip.replace(/%PRINCIPLES%/g, missingPrinciples);
+          tooltip = tooltip.replace(/%PRINCIPLES%/g, missingPrinciples.substr(1));
         }
 
         var html =
@@ -78,18 +78,21 @@ var updateLinks = function(){
             '</span>' +
             '<span class="meter" style=" width: ' + trustabilityLevel + '%"> </span>' +
           '</div>';
+
         $(nodeList.item(index)).parent().parent().children('.s').prepend(html);
 
-        //Readability
+    //Readability
         $.get('http://api.kconnect.honservices.org/~kconnect/cgi-bin/readability.cgi?data={"url":"' + link + '"}', function (dataRdb) {
           var htmlRdb =
-            '<a class="hon rdb" href="' + link + '" style="background-color: ' + difficultyColors[dataRdb.readability.difficulty] + ';">' +
+            '<a class="hon rdb" href="' + link + '" style=\'background-image: url("chrome-extension://' + chrome.i18n.getMessage('@@extension_id') + '/images/' + difficultyIcons[dataRdb.readability.difficulty] + '");\'>' +
               '' +
               '<span class="tooltip">' +
                 difficultyKeyword[dataRdb.readability.difficulty] +
               '</span>' +
             '</a>';
+
           $(nodeList.item(index)).parent().parent().children('.s').prepend(htmlRdb);
+
         }).done(function() {
           $('.hon').show();
         });

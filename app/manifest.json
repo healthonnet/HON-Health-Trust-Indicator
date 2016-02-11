@@ -41,6 +41,7 @@
     }
   ],
   "web_accessible_resources": [
-    "styles/main.css"
+    "styles/main.css",
+    "images/*"
   ]
 }

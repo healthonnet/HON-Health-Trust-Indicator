@@ -1,29 +1,14 @@
 .hon {
+  text-align: center;
+  vertical-align: middle;
 
   &.rdb {
     position: relative;
-    width:20px;
-    height:20px;
-    border-radius:50%;
-    text-align: center;
-    vertical-align: middle;
-    box-shadow: inset -1px -1px 10px #000, 1px 1px 2px black, inset 0 0 1px black;
+    background-size: cover;
+    width:30px;
+    height:30px;
     display: inline-block;
     margin: 0.5% 2% 2% 0;
-
-    &:after {
-      background-color: rgba(255, 255, 255, 0.3);
-      content: '';
-      height: 45%;
-      width: 12%;
-      position: absolute;
-      top: 4%;
-      left: 15%;
-      border-radius: 50%;
-      transform: rotate(40deg);
-    }
-
-
   }
   &.trb {
     height: 5px;  /* Can be anything */
