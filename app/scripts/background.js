@@ -9,12 +9,15 @@ chrome.runtime.onInstalled.addListener(function (details) {
 
 
 chrome.webRequest.onCompleted.addListener(function(details) {
+  chrome.tabs.executeScript(
+      details.tabId, {file: 'bower_components/jquery/dist/jquery.min.js', allFrames: true}
+  );
   chrome.tabs.executeScript(details.tabId, {
-    file: 'contentscript.js',
+    file: 'scripts/contentscript.js',
     allFrames: true
   });
 }, {
-  urls: ['http://google.*/*'],
+  urls: ['https://*/*'],
   types: ['xmlhttprequest']
 });
 
