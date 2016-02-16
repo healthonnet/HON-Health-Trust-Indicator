@@ -25,8 +25,6 @@ var difficultyIcons = {
 
 
 var updateLinks = function(){
-  //clean DOM
-  $('div.rc .s .hon').remove();
 
   //Get links
   var links = [];
@@ -78,8 +76,9 @@ var updateLinks = function(){
             '</span>' +
             '<span class="meter" style=" width: ' + trustabilityLevel + '%"> </span>' +
           '</div>';
-
-        $(nodeList.item(index)).parent().parent().children('.s').prepend(html);
+        if($(nodeList.item(index)).parent().siblings('.s').children('.trb').length < 1){
+            $(nodeList.item(index)).parent().siblings('.s').prepend(html);
+        }
 
     //Readability
         $.get('http://api.kconnect.honservices.org/~kconnect/cgi-bin/readability.cgi?data={"url":"' + link + '"}', function (dataRdb) {
@@ -90,8 +89,9 @@ var updateLinks = function(){
                 difficultyKeyword[dataRdb.readability.difficulty] +
               '</span>' +
             '</a>';
-
-          $(nodeList.item(index)).parent().parent().children('.s').prepend(htmlRdb);
+            if($(nodeList.item(index)).parent().siblings('.s').children('.rdb').length < 1){
+                $(nodeList.item(index)).parent().siblings('.s').prepend(htmlRdb);
+            }
 
         }).done(function() {
           $('.hon').show();
