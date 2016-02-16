@@ -94,7 +94,7 @@ var updateLinks = function(){
             }
 
         }).done(function() {
-          $('.hon').show();
+            $(nodeList.item(index)).parent().siblings('.s').children('.hon').show();
         });
       }
     });
