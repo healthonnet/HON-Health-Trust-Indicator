@@ -33,19 +33,16 @@ var updateLinks = function(){
 
   //Match Google
   if(window.location.host.indexOf("google") > -1){
-      console.log('chrome');
       hrefSelector = 'div.rc h3.r a';
       targetSelector = '.s';
   }
   //Match Yahoo
   else if(window.location.host.indexOf("yahoo") > -1) {
-      console.log('yahoo');
       hrefSelector = 'div.compTitle h3.title a';
       targetSelector = 'div:first';
   }
   //Match Bing
   else if(window.location.host.indexOf("bing") > -1) {
-      console.log('bing');
       hrefSelector = 'li.b_algo h2 a';
       targetSelector = 'div.b_caption';
   }
