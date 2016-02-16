@@ -38,7 +38,9 @@ chrome.webRequest.onCompleted.addListener(function(details) {
     'https://*.google.ro/*',
     'https://*.google.si/*',
     'https://*.google.sk/*',
-    'https://*.google.se/*'
+    'https://*.google.se/*',
+    'https://*.bing.com/*',
+    'https://*search.yahoo.com/*'
   ],
   types: ['xmlhttprequest']
 });

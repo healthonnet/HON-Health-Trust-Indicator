@@ -27,8 +27,30 @@ var difficultyIcons = {
 var updateLinks = function(){
 
   //Get links
-  var links = [];
-  var nodeList = document.querySelectorAll('div.rc h3.r a');
+  var links = [],
+      hrefSelector = '',
+      targetSelector = '';
+
+  //Match Google
+  if(window.location.host.indexOf("google") > -1){
+      console.log('chrome');
+      hrefSelector = 'div.rc h3.r a';
+      targetSelector = '.s';
+  }
+  //Match Yahoo
+  else if(window.location.host.indexOf("yahoo") > -1) {
+      console.log('yahoo');
+      hrefSelector = 'div.compTitle h3.title a';
+      targetSelector = 'div:first';
+  }
+  //Match Bing
+  else if(window.location.host.indexOf("bing") > -1) {
+      console.log('bing');
+      hrefSelector = 'li.b_algo h2 a';
+      targetSelector = 'div.b_caption';
+  }
+
+  var nodeList = document.querySelectorAll(hrefSelector);
 
   for (var i = 0; i < nodeList.length; ++i) {
     links[i] = nodeList[i].href;
@@ -36,7 +58,7 @@ var updateLinks = function(){
 
   links.forEach(function(link, index){
     //TODO Must be HTTPS (otherwise: rejected by chrome)
-    //TODO Test results pertinence
+    var target = $(nodeList.item(index)).parent().siblings(targetSelector);
 
     //Get root domain name.
     var url = document.createElement('a');
@@ -76,8 +98,8 @@ var updateLinks = function(){
             '</span>' +
             '<span class="meter" style=" width: ' + trustabilityLevel + '%"> </span>' +
           '</div>';
-        if($(nodeList.item(index)).parent().siblings('.s').children('.trb').length < 1){
-            $(nodeList.item(index)).parent().siblings('.s').prepend(html);
+        if(target.children('.trb').length < 1){
+            target.prepend(html);
         }
 
     //Readability
@@ -89,12 +111,12 @@ var updateLinks = function(){
                 difficultyKeyword[dataRdb.readability.difficulty] +
               '</span>' +
             '</a>';
-            if($(nodeList.item(index)).parent().siblings('.s').children('.rdb').length < 1){
-                $(nodeList.item(index)).parent().siblings('.s').prepend(htmlRdb);
+            if(target.children('.rdb').length < 1){
+                target.prepend(htmlRdb);
             }
 
         }).done(function() {
-            $(nodeList.item(index)).parent().siblings('.s').children('.hon').show();
+            target.children('.hon').show();
         });
       }
     });
