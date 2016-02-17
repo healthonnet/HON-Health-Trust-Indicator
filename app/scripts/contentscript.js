@@ -23,69 +23,6 @@ var difficultyIcons = {
     'Transparency'
   ];
 
-var updateLinks = function(){
-  var deferred = $.Deferred();
-
-    //Get links
-  var links = [],
-      hrefSelector = '',
-      targetSelector = '',
-      trustabilityRequested = 0;
-
-  //Match Google
-  if(window.location.host.indexOf("google") > -1){
-      hrefSelector = 'div.rc h3.r a';
-      targetSelector = '.s';
-  }
-  //Match Yahoo
-  else if(window.location.host.indexOf("yahoo") > -1) {
-      hrefSelector = 'div.compTitle h3.title a';
-      targetSelector = 'div:first';
-  }
-  //Match Bing
-  else if(window.location.host.indexOf("bing") > -1) {
-      hrefSelector = 'li.b_algo h2 a';
-      targetSelector = 'div.b_caption';
-  }
-
-  var nodeList = document.querySelectorAll(hrefSelector);
-
-  for (var i = 0; i < nodeList.length; ++i) {
-    links[i] = nodeList[i].href;
-  }
-
-  links.forEach(function(link, index){
-    //TODO Must be HTTPS (otherwise: rejected by chrome)
-    var target = $(nodeList.item(index)).parent().siblings(targetSelector),
-    //Get root domain name.
-        url = document.createElement('a');
-    url.href = link;
-    var host = url.hostname;
-    host = host.split('.');
-
-    var domain = host.pop();
-    domain = host.pop() + '.' + domain;
-
-
-    var trustabilityRequest = $.get( 'http://api.kconnect.honservices.org/~kconnect/cgi-bin/is-trustable.cgi?domain=' + domain),
-      readabilityRequest = $.get('http://api.kconnect.honservices.org/~kconnect/cgi-bin/readability.cgi?data={"url":"' + link + '"}');
-
-    $.when( trustabilityRequest, readabilityRequest)
-        .then( function( trustabilityResponse, readabilityResponse ) {
-            trustabilityCallback(trustabilityResponse[0], target, link);
-            readabilityCallback(readabilityResponse[0], target, link);
-        })
-        .always(function() {
-            target.children('.hon').show();
-
-            trustabilityRequested++;
-            if(trustabilityRequested === links.length){
-                deferred.resolve();
-            }
-        });
-  });
-    return deferred.promise();
-};
 
 var readabilityCallback = function(dataRdb, target, link) {
     if(dataRdb.readability === undefined){
@@ -101,10 +38,9 @@ var readabilityCallback = function(dataRdb, target, link) {
         '</a>';
     if(target.children('.rdb').length < 1){
         target.prepend(htmlRdb);
-        return target.promise();
     }
 };
-var trustabilityCallback = function(data, target, link) {
+var trustabilityCallback = function(data, target) {
     if(data.trustability === undefined){
         return;
     }
@@ -137,10 +73,74 @@ var trustabilityCallback = function(data, target, link) {
         '</div>';
     if(target.children('.trb').length < 1){
         target.prepend(html);
-        return target.promise();
     }
 };
 
+
+var updateLinks = function(){
+  var deferred = new $.Deferred();
+
+    //Get links
+  var links = [],
+      hrefSelector = '',
+      targetSelector = '',
+      trustabilityRequested = 0;
+
+  //Match Google
+  if(window.location.host.indexOf('google') > -1){
+      hrefSelector = 'div.rc h3.r a';
+      targetSelector = '.s';
+  }
+  //Match Yahoo
+  else if(window.location.host.indexOf('yahoo') > -1) {
+      hrefSelector = 'div.compTitle h3.title a';
+      targetSelector = 'div:first';
+  }
+  //Match Bing
+  else if(window.location.host.indexOf('bing') > -1) {
+      hrefSelector = 'li.b_algo h2 a';
+      targetSelector = 'div.b_caption';
+  }
+
+  var nodeList = document.querySelectorAll(hrefSelector);
+
+  for (var i = 0; i < nodeList.length; ++i) {
+    links[i] = nodeList[i].href;
+  }
+
+  links.forEach(function(link, index){
+    //TODO Must be HTTPS (otherwise: rejected by chrome)
+    var target = $(nodeList.item(index)).parent().siblings(targetSelector),
+    //Get root domain name.
+        url = document.createElement('a');
+    url.href = link;
+    var host = url.hostname;
+    host = host.split('.');
+
+    var domain = host.pop();
+    domain = host.pop() + '.' + domain;
+
+
+    var trustabilityRequest = $.get( 'http://api.kconnect.honservices.org/~kconnect/cgi-bin/is-trustable.cgi?domain=' + domain),
+      readabilityRequest = $.get('http://api.kconnect.honservices.org/~kconnect/cgi-bin/readability.cgi?data={"url":"' + link + '"}');
+
+    $.when( trustabilityRequest, readabilityRequest)
+        .then( function( trustabilityResponse, readabilityResponse ) {
+            trustabilityCallback(trustabilityResponse[0], target);
+            readabilityCallback(readabilityResponse[0], target, link);
+        })
+        .always(function() {
+            target.children('.hon').show();
+
+            trustabilityRequested++;
+            if(trustabilityRequested === links.length){
+                deferred.resolve();
+            }
+        });
+  });
+    return deferred.promise();
+};
+
 updateLinks().done(function(){
-    console.log("hon-kconnect-chrome-extension");
+    console.log('hon-kconnect-chrome-extension');
 });
