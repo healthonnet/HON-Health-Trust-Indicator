@@ -1,7 +1,7 @@
 Kconnect Chrome extension
 ===============
 
-Add kconnect informations into google search results
+Add kconnect informations into google/yahoo/bing 's kresults
 
 Build
 -----
