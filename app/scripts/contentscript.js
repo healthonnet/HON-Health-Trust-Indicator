@@ -23,13 +23,14 @@ var difficultyIcons = {
     'Transparency'
   ];
 
-
 var updateLinks = function(){
+  var deferred = $.Deferred();
 
-  //Get links
+    //Get links
   var links = [],
       hrefSelector = '',
-      targetSelector = '';
+      targetSelector = '',
+      trustabilityRequested = 0;
 
   //Match Google
   if(window.location.host.indexOf("google") > -1){
@@ -55,69 +56,91 @@ var updateLinks = function(){
 
   links.forEach(function(link, index){
     //TODO Must be HTTPS (otherwise: rejected by chrome)
-    var target = $(nodeList.item(index)).parent().siblings(targetSelector);
-
+    var target = $(nodeList.item(index)).parent().siblings(targetSelector),
     //Get root domain name.
-    var url = document.createElement('a');
+        url = document.createElement('a');
     url.href = link;
     var host = url.hostname;
     host = host.split('.');
+
     var domain = host.pop();
     domain = host.pop() + '.' + domain;
 
-    //Trustability
-    $.get( 'http://api.kconnect.honservices.org/~kconnect/cgi-bin/is-trustable.cgi?domain=' + domain, function( data ) {
-      //No warning or error from the API.
-      if(data.info === undefined) {
-        var tooltip = chrome.i18n.getMessage('tooltipTrustabilityLevel'),
-          trustabilityLevel = Math.round((data.trustability.principles.length / 9) * 100);
 
-        tooltip = tooltip.replace(/%VALUE%/g, trustabilityLevel);
+    var trustabilityRequest = $.get( 'http://api.kconnect.honservices.org/~kconnect/cgi-bin/is-trustable.cgi?domain=' + domain),
+      readabilityRequest = $.get('http://api.kconnect.honservices.org/~kconnect/cgi-bin/readability.cgi?data={"url":"' + link + '"}');
 
-        //If some HONCode are missing we found them.
-        if(trustabilityLevel !== 100){
-          tooltip += '</br>' + chrome.i18n.getMessage('tooltipTrustabilityMissingPrinciples');
-
-          var missingPrinciples = '';
-          honCodeCompliance.forEach(function(element){
-            if(data.trustability.principles.indexOf(element) < 0){
-              missingPrinciples += ', ' + element;
-            }
-          });
-
-          tooltip = tooltip.replace(/%PRINCIPLES%/g, missingPrinciples.substr(1));
-        }
-
-        var html =
-          '<div class="hon trb" style="display: none;">' +
-            '<span class="tooltip">' +
-            tooltip +
-            '</span>' +
-            '<span class="meter" style=" width: ' + trustabilityLevel + '%"> </span>' +
-          '</div>';
-        if(target.children('.trb').length < 1){
-            target.prepend(html);
-        }
-
-    //Readability
-        $.get('http://api.kconnect.honservices.org/~kconnect/cgi-bin/readability.cgi?data={"url":"' + link + '"}', function (dataRdb) {
-          var htmlRdb =
-            '<a class="hon rdb" href="' + link + '" style=\'background-image: url("chrome-extension://' + chrome.i18n.getMessage('@@extension_id') + '/images/' + difficultyIcons[dataRdb.readability.difficulty] + '");\'>' +
-              '' +
-              '<span class="tooltip">' +
-                difficultyKeyword[dataRdb.readability.difficulty] +
-              '</span>' +
-            '</a>';
-            if(target.children('.rdb').length < 1){
-                target.prepend(htmlRdb);
-            }
-
-        }).done(function() {
+    $.when( trustabilityRequest, readabilityRequest)
+        .then( function( trustabilityResponse, readabilityResponse ) {
+            trustabilityCallback(trustabilityResponse[0], target, link);
+            readabilityCallback(readabilityResponse[0], target, link);
+        })
+        .always(function() {
             target.children('.hon').show();
+
+            trustabilityRequested++;
+            if(trustabilityRequested === links.length){
+                deferred.resolve();
+            }
         });
-      }
-    });
   });
+    return deferred.promise();
 };
 
-updateLinks();
+var readabilityCallback = function(dataRdb, target, link) {
+    if(dataRdb.readability === undefined){
+        return;
+    }
+
+    var htmlRdb =
+        '<a class="hon rdb" href="' + link + '" style=\'background-image: url("chrome-extension://' + chrome.i18n.getMessage('@@extension_id') + '/images/' + difficultyIcons[dataRdb.readability.difficulty] + '");\'>' +
+        '' +
+        '<span class="tooltip">' +
+        difficultyKeyword[dataRdb.readability.difficulty] +
+        '</span>' +
+        '</a>';
+    if(target.children('.rdb').length < 1){
+        target.prepend(htmlRdb);
+        return target.promise();
+    }
+};
+var trustabilityCallback = function(data, target, link) {
+    if(data.trustability === undefined){
+        return;
+    }
+
+    var tooltip = chrome.i18n.getMessage('tooltipTrustabilityLevel'),
+        trustabilityLevel = Math.round((data.trustability.principles.length / 9) * 100);
+
+    tooltip = tooltip.replace(/%VALUE%/g, trustabilityLevel);
+
+//If some HONCode are missing we found them.
+    if(trustabilityLevel !== 100){
+        tooltip += '</br>' + chrome.i18n.getMessage('tooltipTrustabilityMissingPrinciples');
+
+        var missingPrinciples = '';
+        honCodeCompliance.forEach(function(element){
+            if(data.trustability.principles.indexOf(element) < 0){
+                missingPrinciples += ', ' + element;
+            }
+        });
+
+        tooltip = tooltip.replace(/%PRINCIPLES%/g, missingPrinciples.substr(1));
+    }
+
+    var html =
+        '<div class="hon trb" style="display: none;">' +
+        '<span class="tooltip">' +
+        tooltip +
+        '</span>' +
+        '<span class="meter" style=" width: ' + trustabilityLevel + '%"> </span>' +
+        '</div>';
+    if(target.children('.trb').length < 1){
+        target.prepend(html);
+        return target.promise();
+    }
+};
+
+updateLinks().done(function(){
+    console.log("hon-kconnect-chrome-extension");
+});
