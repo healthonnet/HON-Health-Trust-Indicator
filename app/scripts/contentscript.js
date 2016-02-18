@@ -29,8 +29,7 @@ var readabilityCallback = function (dataRdb, target, link) {
     }
 
     var htmlRdb =
-        '<a class="hon rdb" href="' + link + '" style=\'background-image: url("chrome-extension://' + chrome.i18n.getMessage('@@extension_id') + '/images/' + difficultyIcons[dataRdb.readability.difficulty] + '");\'>' +
-        '' +
+        '<a class="hon rdb" href="' + link + '" style=\'background-image: url("chrome-extension://' + chrome.i18n.getMessage('@@extension_id') + '/images/' + difficultyIcons[dataRdb.readability.difficulty] + '");\'">' +
         '<span class="tooltip">' +
         difficultyKeyword[dataRdb.readability.difficulty] +
         '</span>' +
@@ -64,7 +63,7 @@ var trustabilityCallback = function (data, target) {
     }
 
     var html =
-        '<div class="hon trb" style="display: none;">' +
+        '<div class="hon trb">' +
         '<span class="tooltip">' +
         tooltip +
         '</span>' +
@@ -125,7 +124,9 @@ var updateLinks = function () {
                 readabilityCallback(readabilityResponse[0], target, link);
             })
             .always(function () {
-                target.children('.hon').show();
+                if(target.children('.hon').length !== 2){
+                    target.children('.hon').hide();
+                }
 
                 trustabilityRequested++;
                 if (trustabilityRequested === links.length) {

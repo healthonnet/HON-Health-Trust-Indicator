@@ -38,7 +38,7 @@ chrome.webRequest.onCompleted.addListener(function(details) {
     'https://*.google.sk/*',
     'https://*.google.se/*',
     'https://*.bing.com/*',
-    'https://*search.yahoo.com/*'
+    'https://*.search.yahoo.com/*'
   ],
   types: ['xmlhttprequest']
 });
