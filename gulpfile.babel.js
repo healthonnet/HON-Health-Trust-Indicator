@@ -4,6 +4,7 @@ import gulpLoadPlugins from 'gulp-load-plugins';
 import util from 'gulp-util';
 import del from 'del';
 import mocha from 'gulp-mocha';
+import casperJs from 'gulp-casperjs';
 import runSequence from 'run-sequence';
 import {stream as wiredep} from 'wiredep';
 
@@ -130,9 +131,8 @@ gulp.task('package', function () {
 });
 
 gulp.task('test', function () {
-  return gulp.src(['test/**/*.js'], { read: false })
-    .pipe(mocha({ reporter: 'spec' }))
-    .on('error', util.log);
+  gulp.src('test/casper.js')
+      .pipe(casperJs({command:'test --web-security=no'})); //run casperjs test
 });
 
 gulp.task('build', (cb) => {

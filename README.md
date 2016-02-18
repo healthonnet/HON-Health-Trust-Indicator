@@ -3,6 +3,12 @@ Kconnect Chrome extension
 
 Add kconnect informations into google/yahoo/bing 's kresults
 
+Development Prerequisites
+-----
+Casperjs is used for integration testing. In order to run it you need :
+ - [PhantomJS](http://phantomjs.org)  1.9.1 or greater. [Please read the installation instructions for PhantomJS](http://phantomjs.org/download.html)
+ - [Python](https://www.python.org/)  2.6 or greater for casperjs in the bin/ directory
+
 Build
 -----
 
