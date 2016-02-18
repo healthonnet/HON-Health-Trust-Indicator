@@ -35,7 +35,7 @@ var readabilityCallback = function (dataRdb, target, link) {
         difficultyKeyword[dataRdb.readability.difficulty] +
         '</span>' +
         '</a>';
-    if (target.children('.rdb').length < 1) {
+    if (target.children('.rdb').length === 0) {
         target.prepend(htmlRdb);
     }
 };
@@ -70,7 +70,7 @@ var trustabilityCallback = function (data, target) {
         '</span>' +
         '<span class="meter" style=" width: ' + trustabilityLevel + '%"> </span>' +
         '</div>';
-    if (target.children('.trb').length < 1) {
+    if (target.children('.trb').length === 0) {
         target.prepend(html);
     }
 };
@@ -104,7 +104,6 @@ var updateLinks = function () {
     for (var i = 0; i < nodeList.length; ++i) {
         links[i] = nodeList[i].href;
     }
-
     links.forEach(function (link, index) {
         //TODO Must be HTTPS (otherwise: rejected by chrome)
         var target = $(nodeList.item(index)).parent().siblings(targetSelector),
