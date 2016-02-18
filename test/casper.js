@@ -8,6 +8,8 @@ casper.test.begin('Add Readability & Trustability Information in Google search r
         this.fill('form[action="/search"]', {
             q: "vidal"
         }, true);
+
+        this.waitForSelector('h3.r a');
     });
 
     //Debug
@@ -34,8 +36,8 @@ casper.test.begin('Add Readability & Trustability Information in Google search r
                 readabilityReq;
             trustabilityReq = __utils__.sendAJAX('http://api.kconnect.honservices.org/~kconnect/cgi-bin/is-trustable.cgi?domain=vidal.fr', "GET");
             readabilityReq  = __utils__.sendAJAX('http://api.kconnect.honservices.org/~kconnect/cgi-bin/readability.cgi?data={"url":"https://www.vidal.fr"}', "GET");
-            trustabilityCallback(JSON.parse(trustabilityReq), $(document.querySelectorAll('h3.r a').item(1)).parent().siblings('.s'));
-            readabilityCallback( JSON.parse(readabilityReq), $(document.querySelectorAll('h3.r a').item(1)).parent().siblings('.s'), "https://www.vidal.fr");
+            trustabilityCallback(JSON.parse(trustabilityReq), $(document.querySelectorAll('h3.r a').item(0)).parent().siblings('.s'));
+            readabilityCallback( JSON.parse(readabilityReq), $(document.querySelectorAll('h3.r a').item(0)).parent().siblings('.s'), "https://www.vidal.fr");
         });
 
         test.assertTitle("vidal - Recherche Google", "google title is ok");
@@ -64,7 +66,8 @@ casper.test.begin('Add Readability & Trustability Information in Yahoo search re
             p: "vidal"
         }, true);
         test.assertExists('input[name="p"]', "input form is found");
-        this.waitForSelectorTextChange('title');
+        this.waitForSelector('h3.title a');
+
     });
 
     casper.then(function() {
@@ -86,15 +89,15 @@ casper.test.begin('Add Readability & Trustability Information in Yahoo search re
                 readabilityReq;
             trustabilityReq = __utils__.sendAJAX('http://api.kconnect.honservices.org/~kconnect/cgi-bin/is-trustable.cgi?domain=vidal.fr', "GET");
             readabilityReq  = __utils__.sendAJAX('http://api.kconnect.honservices.org/~kconnect/cgi-bin/readability.cgi?data={"url":"https://www.vidal.fr"}', "GET");
-            trustabilityCallback(JSON.parse(trustabilityReq), $(document.querySelectorAll('h3.title a').item(1)).parent().siblings('div:first'));
-            readabilityCallback( JSON.parse(readabilityReq), $(document.querySelectorAll('h3.title a').item(1)).parent().siblings('div:first'), "https://www.vidal.fr");
+            trustabilityCallback(JSON.parse(trustabilityReq), $(document.querySelectorAll('h3.title a').item(0)).parent().siblings('div:first'));
+            readabilityCallback( JSON.parse(readabilityReq), $(document.querySelectorAll('h3.title a').item(0)).parent().siblings('div:first'), "https://www.vidal.fr");
         });
 
         test.assertTitle("vidal - Yahoo Search - Actualités", "yahoo title is ok");
         test.assertUrlMatch(/p=vidal/, "search term has been submitted");
 
         test.assertEval(function() {
-            return __utils__.findAll(".hon.trb").length == 1;
+            return __utils__.findAll(".hon.trb").length >= 1;
         }, "trustability informations found");
         test.assertEval(function() {
             return __utils__.findAll(".hon.rdb").length == 1;
@@ -115,7 +118,7 @@ casper.test.begin('Add Readability & Trustability Information in Bing search res
         this.fill('form[action="/search"]', {
             q: "vidal"
         }, true);
-        this.waitForSelectorTextChange('title');
+        this.waitForSelector('.b_algo h2 a');
     });
 
     casper.then(function() {
@@ -137,8 +140,8 @@ casper.test.begin('Add Readability & Trustability Information in Bing search res
                 readabilityReq;
             trustabilityReq = __utils__.sendAJAX('http://api.kconnect.honservices.org/~kconnect/cgi-bin/is-trustable.cgi?domain=vidal.fr', "GET");
             readabilityReq  = __utils__.sendAJAX('http://api.kconnect.honservices.org/~kconnect/cgi-bin/readability.cgi?data={"url":"https://www.vidal.fr"}', "GET");
-            trustabilityCallback(JSON.parse(trustabilityReq), $(document.querySelectorAll('.b_algo h2 a').item(1)).parent().siblings('div'));
-            readabilityCallback( JSON.parse(readabilityReq),  $(document.querySelectorAll('.b_algo h2 a').item(1)).parent().siblings('div'), "https://www.vidal.fr");
+            trustabilityCallback(JSON.parse(trustabilityReq), $(document.querySelectorAll('.b_algo h2 a').item(0)).parent().siblings('div'));
+            readabilityCallback( JSON.parse(readabilityReq),  $(document.querySelectorAll('.b_algo h2 a').item(0)).parent().siblings('div'), "https://www.vidal.fr");
         });
 
         test.assertTitle("vidal - Bing", "bing title is ok");
