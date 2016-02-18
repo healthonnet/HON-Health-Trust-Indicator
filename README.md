@@ -2,6 +2,7 @@ Kconnect Chrome extension
 ===============
 
 Add kconnect informations into google/yahoo/bing 's kresults
+This extension also works on chromium based Opera versions (15.0+).
 
 Development Prerequisites
 -----
