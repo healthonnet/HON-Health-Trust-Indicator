@@ -3,7 +3,6 @@ import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import util from 'gulp-util';
 import del from 'del';
-import mocha from 'gulp-mocha';
 import casperJs from 'gulp-casperjs';
 import runSequence from 'run-sequence';
 import {stream as wiredep} from 'wiredep';
