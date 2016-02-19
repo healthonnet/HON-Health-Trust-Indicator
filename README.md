@@ -2,7 +2,13 @@ Kconnect Chrome extension
 ===============
 
 Add kconnect informations into google/yahoo/bing 's kresults
-This extension also works on chromium based Opera versions (15.0+).
+
+
+Browser Compatibilies
+-----
+ - Chrome (18+)
+ - chromium based Opera versions (15.0+).
+ - Firefox - Nightly build (45.0+) checkout [WebExtensions-API](https://developer.mozilla.org/en-US/Add-ons/WebExtensions). Rename and use manifest.json.firefox file.
 
 Development Prerequisites
 -----
@@ -29,7 +35,6 @@ Or you can use watch task to update source continuously
 ```bash
 $ gulp watch
 ```
-
 
 Enable extension on Chrome
 -------------
