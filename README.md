@@ -46,9 +46,7 @@ Enable extension on Chrome
 
 TODO
 -----------
- - Unit tests (be able to test a chrome extension with moka)
  - Better Design
- - Result conditions
  - Extension options
  
 Developers
