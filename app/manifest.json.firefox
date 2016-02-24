@@ -7,7 +7,7 @@
   "homepage_url": "https://github.com/mdn/webextensions-examples/tree/master/borderify",
   "default_locale":"en",
   "icons": {
-    "48": "icons/border-48.png"
+    "48": "images/icons/icon-48.png"
   },
 
   "applications": {
