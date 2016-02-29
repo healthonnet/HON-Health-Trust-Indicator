@@ -29,7 +29,7 @@ var readabilityCallback = function (dataRdb, target, link) {
     }
 
     var htmlRdb =
-        '<a class="hon rdb" href="' + link + '" style=\'background-image: url("' + chrome.extension.getURL( 'images/' + difficultyIcons[dataRdb.readability.difficulty] )  + '");\'">' +
+        '<a class="hon rdb" href="' + link + '" style=\'background-image: url("' + chrome.extension.getURL( 'images/' + difficultyIcons[dataRdb.readability.difficulty] ) + '");\'">' +
         '<span class="tooltip">' +
         difficultyKeyword[dataRdb.readability.difficulty] +
         '</span>' +
