@@ -48,6 +48,8 @@ TODO
 -----------
  - Better Design
  - Extension options
+ - PopUp for current website R&T informations
+ - query optimisation
  
 Developers
 -----------
