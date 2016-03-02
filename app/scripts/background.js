@@ -1,14 +1,29 @@
 'use strict';
 
-chrome.webRequest.onCompleted.addListener(function(details) {
-  chrome.tabs.executeScript(
-    details.tabId, {file: 'bower_components/jquery/dist/jquery.min.js', allFrames: true}
-  );
-  chrome.tabs.executeScript(details.tabId, {
-    file: 'scripts/contentscript.js',
-    allFrames: true
-  });
-}, {
+function debounce(func, wait, immediate) {
+  var timeout;
+  return function() {
+    var context = this, args = arguments;
+    var later = function() {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+}
+
+chrome.webRequest.onCompleted.addListener(debounce(function(details) {
+    chrome.tabs.executeScript(
+        details.tabId, {file: 'bower_components/jquery/dist/jquery.min.js', allFrames: true}
+    );
+    chrome.tabs.executeScript(details.tabId, {
+      file: 'scripts/contentscript.js',
+      allFrames: true
+    });
+  }, 1000), {
   urls: [
     'https://*.google.com/*',
     'https://*.google.ch/*',

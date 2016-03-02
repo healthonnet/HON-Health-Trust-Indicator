@@ -104,7 +104,6 @@ var updateLinks = function () {
         links[i] = nodeList[i].href;
     }
     links.forEach(function (link, index) {
-        //TODO Must be HTTPS (otherwise: rejected by chrome)
         var target = $(nodeList.item(index)).parent().siblings(targetSelector),
         //Get root domain name.
             url = document.createElement('a');
@@ -115,8 +114,8 @@ var updateLinks = function () {
         var domain = host.pop();
         domain = host.pop() + '.' + domain;
 
-        var trustabilityRequest = $.get('http://api.kconnect.honservices.org/~kconnect/cgi-bin/is-trustable.cgi?domain=' + domain),
-            readabilityRequest = $.get('http://api.kconnect.honservices.org/~kconnect/cgi-bin/readability.cgi?data={"url":"' + link + '"}');
+        var trustabilityRequest = $.get('http://apikconnect.honservices.org/~kconnect/cgi-bin/is-trustable.cgi?domain=' + domain),
+            readabilityRequest = $.get('http://apikconnect.honservices.org/~kconnect/cgi-bin/readability.cgi?data={"url":"' + link + '"}');
 
         $.when(trustabilityRequest, readabilityRequest)
             .then(function (trustabilityResponse, readabilityResponse) {
