@@ -18,7 +18,8 @@
     "activeTab",
     "http://*/*",
     "https://*/*",
-    "webRequest"
+    "webRequest",
+    "storage"
   ],
   "options_ui": {
     "page": "options.html",
