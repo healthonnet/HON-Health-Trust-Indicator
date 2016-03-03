@@ -26,8 +26,7 @@ chrome.tabs.query(query, function(tabs) {
 
             $('#readability').html(
                 "<span class='" + readabilityResponse[0].readability.difficulty + "'>" +
-                kconnect.config.difficultyKeyword[readabilityResponse[0].readability.difficulty]) +
-                "</span>"
-            ;
+                kconnect.config.difficultyKeyword[readabilityResponse[0].readability.difficulty] +
+                "</span>");
         });
 });
