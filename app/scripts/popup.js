@@ -26,7 +26,8 @@ chrome.tabs.query(query, function(tabs) {
             });
 
             $('#trustability').html(
-            '<h3>Trustability : </h3>' +
+                '<h3>Trustability : </h3>' +
+                '<div id="circle"></div>' +
                 '<ul>' + principlesHtml + '</ul>');
 
             $('#readability').html(
@@ -34,5 +35,17 @@ chrome.tabs.query(query, function(tabs) {
                 '<span class="' + readabilityResponse[0].readability.difficulty + '">' +
                 kconnect.config.difficultyKeyword[readabilityResponse[0].readability.difficulty] +
                 '</span>');
+
+            var progress = new CircularProgress({
+                radius: 40,
+                strokeStyle: 'limegreen',
+                lineCap: 'round',
+                lineWidth: 5
+            });
+
+            $('#circle').html(progress.el);
+
+            progress.update(score);
         });
 });
+
