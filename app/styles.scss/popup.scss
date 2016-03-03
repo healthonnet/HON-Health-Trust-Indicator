@@ -1,0 +1,11 @@
+span {
+  &.easy {
+    color: limegreen;
+  }
+  &.average{
+    color: #ffc520;
+  }
+  &.difficult{
+    color: crimson;
+  }
+}
