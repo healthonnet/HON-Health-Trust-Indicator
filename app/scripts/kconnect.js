@@ -1,10 +1,5 @@
 var kconnect = {
     config: {
-        difficultyIcons: {
-            'easy': 'easy.png',
-            'average': 'average.png',
-            'difficult': 'difficult.png'
-        },
         difficultyKeyword : {
             'easy': chrome.i18n.getMessage('tooltipReadabilityEasy'),
             'average': chrome.i18n.getMessage('tooltipReadabilityAverage'),

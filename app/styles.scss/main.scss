@@ -9,6 +9,16 @@
     height:30px;
     display: inline-block;
     margin: 0.5% 2% 2% 0;
+
+    &.easy{
+      background-image: url('chrome-extension://__MSG_@@extension_id__/images/easy.png')
+    }
+    &.average{
+      background-image: url('chrome-extension://__MSG_@@extension_id__/images/average.png')
+    }
+    &.difficult{
+      background-image: url('chrome-extension://__MSG_@@extension_id__/images/difficult.png')
+    }
   }
   &.trb {
     height: 5px;  /* Can be anything */
