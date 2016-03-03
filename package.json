@@ -31,7 +31,10 @@
     "mocha": "~2.4.5",
     "run-sequence": "^1.1.4",
     "sinon-chrome": "^1.1.2",
-    "wiredep": "^2.2.2"
+    "wiredep": "^2.2.2",
+    "gulp-jscs": "~3.0.2",
+    "jshint": "~2.9.1",
+    "gulp-jshint": "~2.0.0"
   },
   "eslintConfig": {
     "env": {

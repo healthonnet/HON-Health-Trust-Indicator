@@ -3,7 +3,8 @@
 function debounce(func, wait, immediate) {
   var timeout;
   return function() {
-    var context = this, args = arguments;
+    var context = this;
+    var args = arguments;
     var later = function() {
       timeout = null;
       if (!immediate) {
@@ -21,11 +22,14 @@ function debounce(func, wait, immediate) {
 
 chrome.webRequest.onCompleted.addListener(debounce(function(details) {
     chrome.tabs.executeScript(
-        details.tabId, {file: 'bower_components/jquery/dist/jquery.min.js', allFrames: true}
+        details.tabId, {
+          file: 'bower_components/jquery/dist/jquery.min.js',
+          allFrames: true,
+        }
     );
     chrome.tabs.executeScript(details.tabId, {
       file: 'scripts/contentscript.js',
-      allFrames: true
+      allFrames: true,
     });
   }, 1000), {
   urls: [
@@ -53,7 +57,7 @@ chrome.webRequest.onCompleted.addListener(debounce(function(details) {
     'https://*.google.sk/*',
     'https://*.google.se/*',
     'https://*.bing.com/*',
-    'https://*.search.yahoo.com/*'
+    'https://*.search.yahoo.com/*',
   ],
-  types: ['xmlhttprequest']
+  types: ['xmlhttprequest'],
 });
