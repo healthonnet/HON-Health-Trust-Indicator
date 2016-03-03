@@ -55,6 +55,7 @@ Developers
 -----------
 
  - Cedric FROSSARD
+ - Pierre REPETTO-ANDIPATIN
 
 Licence
 -------
