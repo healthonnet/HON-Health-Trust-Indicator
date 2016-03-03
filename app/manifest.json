@@ -34,8 +34,31 @@
   "content_scripts": [
     {
       "matches": [
-        "http://*/*",
-        "https://*/*"
+        "https://*.google.com/*",
+        "https://*.google.ch/*",
+        "https://*.google.fr/*",
+        "https://*.google.co.uk/*",
+        "https://*.google.it/*",
+        "https://*.google.bg/*",
+        "https://*.google.cz/*",
+        "https://*.google.dk/*",
+        "https://*.google.gr/*",
+        "https://*.google.ee/*",
+        "https://*.google.es/*",
+        "https://*.google.hr/*",
+        "https://*.google.lv/*",
+        "https://*.google.lt/*",
+        "https://*.google.hu/*",
+        "https://*.google.com.mt/*",
+        "https://*.google.nl/*",
+        "https://*.google.pl/*",
+        "https://*.google.pt/*",
+        "https://*.google.ro/*",
+        "https://*.google.si/*",
+        "https://*.google.sk/*",
+        "https://*.google.se/*",
+        "https://*.bing.com/*",
+        "https://*.search.yahoo.com/*"
       ],
       "js": [
         "bower_components/jquery/dist/jquery.min.js",
