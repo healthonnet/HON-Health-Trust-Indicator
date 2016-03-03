@@ -20,7 +20,6 @@ chrome.tabs.query(query, function(tabs) {
             var principlesHtml = '',
                 score = trustabilityResponse[0].trustability.score;
 
-            console.log(score);
             trustabilityResponse[0].trustability.principles.forEach(function(principle){
                 principlesHtml += '<li>' + principle + '</li>';
             });
@@ -31,10 +30,11 @@ chrome.tabs.query(query, function(tabs) {
                 '<ul>' + principlesHtml + '</ul>');
 
             $('#readability').html(
-                ' <h3>Readability : ' + readabilityResponse[0].readability.difficulty + '</h3>' +
-                '<span class="' + readabilityResponse[0].readability.difficulty + '">' +
+                ' <h3>Readability :</h3>' +
+                '<div id="difficultyIcon" class="' + readabilityResponse[0].readability.difficulty  + '"></div>' +
+                '<p class="' + readabilityResponse[0].readability.difficulty + '">' +
                 kconnect.config.difficultyKeyword[readabilityResponse[0].readability.difficulty] +
-                '</span>');
+                '</p>');
 
             var progress = new CircularProgress({
                 radius: 40,

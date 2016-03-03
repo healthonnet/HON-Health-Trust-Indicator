@@ -30,7 +30,10 @@ h2{
     border: 1px solid gray;
     border-radius: 5%;
     background-color: #ffffff;
-
+    p {
+      padding: 5px;
+      color: #888;
+    }
     &#trustability {
       width: 40%;
       vertical-align: top;
@@ -43,20 +46,37 @@ h2{
       }
     }
     &#readability {
+      #difficultyIcon {
+        position: relative;
+        background-size: cover;
+        width:60px;
+        height:60px;
+        margin: 5% 35%;
+        &.easy{
+          background-image: url('chrome-extension://__MSG_@@extension_id__/images/easy.png')
+        }
+        &.average{
+          background-image: url('chrome-extension://__MSG_@@extension_id__/images/average.png')
+        }
+        &.difficult{
+          background-image: url('chrome-extension://__MSG_@@extension_id__/images/difficult.png')
+        }
+      }
+      p {
+        &.easy {
+          color: limegreen;
+        }
+        &.average{
+          color: #ffc520;
+        }
+        &.difficult{
+          color: crimson;
+        }
+      }
       width: 40%;
       vertical-align: top;
       display: table-cell;
     }
   }
 }
-span {
-  &.easy {
-    color: limegreen;
-  }
-  &.average{
-    color: #ffc520;
-  }
-  &.difficult{
-    color: crimson;
-  }
-}
+
