@@ -15,6 +15,8 @@ chrome.tabs.query(query, function(tabs) {
             console.log(readabilityResponse);
             //Trustability Informations
             if (trustabilityResponse[0].trustability === undefined) {
+                $('#trustability').html('<p>No Trustability informations for this domain</p>');
+                $('#readability').html('<p>No Readability  informations</p>');
                 return;
             }
             var principlesHtml = '',
@@ -27,6 +29,7 @@ chrome.tabs.query(query, function(tabs) {
             $('#trustability').html(
                 '<h3>Trustability : </h3>' +
                 '<div id="circle"></div>' +
+                '<p><a target="_blank" href="http://www.hon.ch/HONcode/Patients/Conduct.html">HonCode :</a></p>' +
                 '<ul>' + principlesHtml + '</ul>');
 
             $('#readability').html(
@@ -46,6 +49,9 @@ chrome.tabs.query(query, function(tabs) {
             $('#circle').html(progress.el);
 
             progress.update(score);
+        }, function(){
+            $('#trustability').html('<p>No Trustability informations for this domain</p>');
+            $('#readability').html('<p>No Readability  informations</p>');
         });
 });
 
