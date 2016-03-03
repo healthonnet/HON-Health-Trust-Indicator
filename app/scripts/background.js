@@ -61,3 +61,4 @@ chrome.webRequest.onCompleted.addListener(debounce(function(details) {
   ],
   types: ['xmlhttprequest'],
 });
+

@@ -20,6 +20,7 @@
   "globals" : {
     "$": true,
     "chrome": true,
+    "kconnect": true,
     "crypto": true
   }
 }

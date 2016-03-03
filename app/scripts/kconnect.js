@@ -1,11 +1,13 @@
+'use strict';
+
 var kconnect = {
     config: {
-        difficultyKeyword : {
+        difficultyKeyword: {
             'easy': chrome.i18n.getMessage('tooltipReadabilityEasy'),
             'average': chrome.i18n.getMessage('tooltipReadabilityAverage'),
             'difficult': chrome.i18n.getMessage('tooltipReadabilityDifficult')
         },
-        honCodeCompliance : [
+        honCodeCompliance: [
             'Advertising policy',
             'Attribution',
             'Authoritative',
@@ -18,13 +20,14 @@ var kconnect = {
         ]
     },
 
-    getDomainFromUrl : function(link){
+    getDomainFromUrl: function(link){
         var url = document.createElement('a');
         url.href = link;
         var host = url.hostname;
         host = host.split('.');
         var domain = host.pop();
-        return domain = host.pop() + '.' + domain;
+        domain = host.pop() + '.' + domain;
+        return domain;
     },
 
     getIsTrustable: function(domain){

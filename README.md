@@ -48,8 +48,8 @@ TODO
 -----------
  - Better Design
  - Extension options
- - PopUp for current website R&T informations
- - query optimisation
+ - PopUp for current website R&T informations (in progress)
+ - Eslint to Jshint (unused jshintrc)
  
 Developers
 -----------

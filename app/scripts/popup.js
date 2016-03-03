@@ -1,3 +1,5 @@
+'use strict';
+
 var currentTab;
 var query = { active: true, currentWindow: true };
 
@@ -6,7 +8,7 @@ chrome.tabs.query(query, function(tabs) {
     var domain = kconnect.getDomainFromUrl(currentTab.url);
     $('#host').html(domain);
     var trustabilityRequest = kconnect.getIsTrustable(domain),
-        readabilityRequest  = kconnect.getReadability(currentTab.url);
+        readabilityRequest = kconnect.getReadability(currentTab.url);
 
     $.when(trustabilityRequest, readabilityRequest)
         .then(function (trustabilityResponse, readabilityResponse) {
@@ -15,18 +17,22 @@ chrome.tabs.query(query, function(tabs) {
             if (trustabilityResponse[0].trustability === undefined) {
                 return;
             }
-            var principlesHtml ="",
+            var principlesHtml = '',
                 score = trustabilityResponse[0].trustability.score;
 
+            console.log(score);
             trustabilityResponse[0].trustability.principles.forEach(function(principle){
-                principlesHtml += "<li>" + principle + "</li>";
+                principlesHtml += '<li>' + principle + '</li>';
             });
 
-            $('#trustability').html("<ul>" + principlesHtml + "</ul>");
+            $('#trustability').html(
+            '<h3>Trustability : </h3>' +
+                '<ul>' + principlesHtml + '</ul>');
 
             $('#readability').html(
-                "<span class='" + readabilityResponse[0].readability.difficulty + "'>" +
+                ' <h3>Readability : ' + readabilityResponse[0].readability.difficulty + '</h3>' +
+                '<span class="' + readabilityResponse[0].readability.difficulty + '">' +
                 kconnect.config.difficultyKeyword[readabilityResponse[0].readability.difficulty] +
-                "</span>");
+                '</span>');
         });
 });
