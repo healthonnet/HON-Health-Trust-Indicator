@@ -63,7 +63,7 @@ chrome.webRequest.onCompleted.addListener(debounce(function(details) {
     'https://*.google.sk/*',
     'https://*.google.se/*',
     'https://*.bing.com/*',
-    "http://*.bing.com/*",
+    'http://*.bing.com/*',
     'https://*.search.yahoo.com/*',
   ],
   types: ['xmlhttprequest'],
