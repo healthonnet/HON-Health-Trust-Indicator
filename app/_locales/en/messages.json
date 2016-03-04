@@ -8,15 +8,15 @@
     "description": "The description of the application"
   },
   "tooltipReadabilityDifficult": {
-    "message": "Readability: Advanced knowledge of health terminology required",
+    "message": "Advanced knowledge of health terminology required",
     "description": "The tooltip description of content difficult readability"
   },
   "tooltipReadabilityAverage": {
-    "message": "Readability: Average knowledge of health terminology required",
+    "message": "Average knowledge of health terminology required",
     "description": "The tooltip description of content average readability"
   },
   "tooltipReadabilityEasy": {
-    "message": "Readability: Basic knowledge of health terminology required",
+    "message": "Basic knowledge of health terminology required",
     "description": "The tooltip description of content easy readability"
   },
   "tooltipTrustabilityLevel": {

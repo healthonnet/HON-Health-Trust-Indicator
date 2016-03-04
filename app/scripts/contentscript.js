@@ -8,7 +8,7 @@ var readabilityCallback = function(dataRdb, target, link) {
   var htmlRdb =
     '<a class="hon rdb ' + dataRdb.readability.difficulty +
     ' " href="' + link + '">' +
-    '<span class="tooltip">' +
+    '<span class="tooltip"> Readability: ' +
     kconnect.config.difficultyKeyword[dataRdb.readability.difficulty] +
     '</span>' +
     '</a>';
