@@ -29,6 +29,7 @@ casper.test.begin('Add Readability & Trustability Information in Google search r
         },chrome);
 
         this.page.injectJs('app/bower_components/jquery/dist/jquery.min.js');
+        this.page.injectJs('app/scripts/kconnect.js');
         this.page.injectJs('app/scripts/contentscript.js');
 
         this.evaluate(function () {
@@ -82,6 +83,7 @@ casper.test.begin('Add Readability & Trustability Information in Yahoo search re
         },chrome);
 
         this.page.injectJs('app/bower_components/jquery/dist/jquery.min.js');
+        this.page.injectJs('app/scripts/kconnect.js');
         this.page.injectJs('app/scripts/contentscript.js');
 
         this.evaluate(function () {
@@ -113,7 +115,7 @@ casper.test.begin('Add Readability & Trustability Information in Yahoo search re
 // Bing
 casper.test.begin('Add Readability & Trustability Information in Bing search results', 5, function suite(test) {
 
-    casper.start("http://www.bing.com/", function() {
+    casper.start("https://www.bing.com/", function() {
         test.assertExists('form[action="/search"]', "main form is found");
         this.fill('form[action="/search"]', {
             q: "vidal"
@@ -133,6 +135,7 @@ casper.test.begin('Add Readability & Trustability Information in Bing search res
         },chrome);
 
         this.page.injectJs('app/bower_components/jquery/dist/jquery.min.js');
+        this.page.injectJs('app/scripts/kconnect.js');
         this.page.injectJs('app/scripts/contentscript.js');
 
         this.evaluate(function () {
@@ -148,12 +151,11 @@ casper.test.begin('Add Readability & Trustability Information in Bing search res
         test.assertUrlMatch(/q=vidal/, "search term has been submitted");
 
         test.assertEval(function() {
-            return __utils__.findAll(".hon.rdb").length == 1;
+            return __utils__.findAll(".hon.rdb").length >= 1;
         }, "readability informations found");
         test.assertEval(function() {
             return __utils__.findAll(".hon.trb").length == 1;
         }, "trustability informations found");
-
 
     });
 
