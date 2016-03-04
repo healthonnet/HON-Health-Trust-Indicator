@@ -1,8 +1,8 @@
 // Generated on 2016-02-09 using generator-chrome-extension 0.5.2
+require('babel-core/register');
+
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
-// TODO: remove util or use it
-// import util from 'gulp-util';
 import del from 'del';
 import casperJs from 'gulp-casperjs';
 import runSequence from 'run-sequence';
