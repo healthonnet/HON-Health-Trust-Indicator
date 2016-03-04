@@ -1,7 +1,7 @@
 Kconnect Chrome extension
 ===============
 
-Add kconnect informations into google/yahoo/bing 's kresults
+Add kconnect informations into google/yahoo/bing 's results
 
 
 Browser Compatibilies
@@ -49,7 +49,6 @@ TODO
  - Better Design
  - Extension options
  - PopUp for current website R&T informations (in progress)
- - Eslint to Jshint (unused jshintrc)
  
 Developers
 -----------
