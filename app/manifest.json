@@ -58,6 +58,7 @@
         "https://*.google.sk/*",
         "https://*.google.se/*",
         "https://*.bing.com/*",
+        "http://*.bing.com/*",
         "https://*.search.yahoo.com/*"
       ],
       "js": [
