@@ -2,7 +2,11 @@
   "name": "hon-kconnect-chrome-extension",
   "private": true,
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">=0.8.0",
+    "npm": ">=1.4.4"
+  },
+  "scripts": {
+    "test": "gulp test"
   },
   "devDependencies": {
     "babel": "^6.5.2",
@@ -35,6 +39,7 @@
     "jshint": "~2.9.1",
     "main-bower-files": "^2.5.0",
     "mocha": "~2.4.5",
+    "phantomjs-prebuilt": "^2.1.4",
     "run-sequence": "^1.1.4",
     "sinon-chrome": "^1.1.2",
     "wiredep": "^2.2.2"
