@@ -1,6 +1,8 @@
 Kconnect Chrome extension
 ===============
 
+[![Build Status](https://travis-ci.org/healthonnet/hon-kconnect-chrome-extension.svg?branch=master)](https://travis-ci.org/healthonnet/hon-kconnect-chrome-extension)
+
 Add kconnect informations into google/yahoo/bing 's results
 
 
@@ -49,7 +51,7 @@ TODO
  - Better Design
  - Extension options
  - PopUp for current website R&T informations (in progress)
- 
+
 Developers
 -----------
 
