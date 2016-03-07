@@ -29,6 +29,12 @@ chrome.webRequest.onCompleted.addListener(debounce(function(details) {
     );
     chrome.tabs.executeScript(
       details.tabId, {
+        file: 'scripts/tld.js',
+        allFrames: true,
+      }
+    );
+    chrome.tabs.executeScript(
+      details.tabId, {
         file: 'scripts/kconnect.js',
         allFrames: true,
       }

@@ -20,13 +20,7 @@ var kconnect = {
     ],
   },
   getDomainFromUrl: function(link) {
-    var url = document.createElement('a');
-    url.href = link;
-    var host = url.hostname;
-    host = host.split('.');
-    var domain = host.pop();
-    domain = host.pop() + '.' + domain;
-    return domain;
+    return tldjs.getDomain(link);
   },
   getIsTrustable: function(domain) {
     return $.get('http://apikconnect.honservices.org/' +

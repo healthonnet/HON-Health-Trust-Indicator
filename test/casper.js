@@ -29,6 +29,7 @@ casper.test.begin('Add Readability & Trustability Information in Google search r
         },chrome);
 
         this.page.injectJs('app/bower_components/jquery/dist/jquery.min.js');
+        this.page.injectJs('app/scripts/tld.js');
         this.page.injectJs('app/scripts/kconnect.js');
         this.page.injectJs('app/scripts/contentscript.js');
 
@@ -83,6 +84,7 @@ casper.test.begin('Add Readability & Trustability Information in Yahoo search re
         },chrome);
 
         this.page.injectJs('app/bower_components/jquery/dist/jquery.min.js');
+        this.page.injectJs('app/scripts/tld.js');
         this.page.injectJs('app/scripts/kconnect.js');
         this.page.injectJs('app/scripts/contentscript.js');
 
@@ -135,6 +137,7 @@ casper.test.begin('Add Readability & Trustability Information in Bing search res
         },chrome);
 
         this.page.injectJs('app/bower_components/jquery/dist/jquery.min.js');
+        this.page.injectJs('app/scripts/tld.js');
         this.page.injectJs('app/scripts/kconnect.js');
         this.page.injectJs('app/scripts/contentscript.js');
 
