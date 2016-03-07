@@ -21,6 +21,10 @@
     "$": true,
     "chrome": true,
     "kconnect": true,
-    "crypto": true
+    "crypto": true,
+    "casper": true,
+    "__utils__": true,
+    "readabilityCallback": true,
+    "trustabilityCallback": true
   }
 }

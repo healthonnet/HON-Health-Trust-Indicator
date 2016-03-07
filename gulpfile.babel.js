@@ -26,13 +26,13 @@ gulp.task('extras', () => {
 });
 
 gulp.task('lint', () => {
-  return gulp.src('js/*.js')
+  return gulp.src(['js/*.js', 'test/**/*.js'])
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter('fail'));
 });
 
 gulp.task('jscs', () => {
-  return gulp.src('app/scripts/**/*.js')
+  return gulp.src(['app/scripts/**/*.js', 'test/**/*.js'])
     .pipe(jscs())
     .pipe(jscs.reporter());
 });
