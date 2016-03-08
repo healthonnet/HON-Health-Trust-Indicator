@@ -71,7 +71,7 @@
         "styles/main.css"
       ],
       "run_at": "document_end",
-      "all_frames": false
+      "all_frames": true
     }
   ],
   "web_accessible_resources": [
