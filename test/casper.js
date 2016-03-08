@@ -36,8 +36,8 @@ casper.test.begin('Add Readability & Trustability Information in Google search r
         this.evaluate(function () {
             var trustabilityReq,
                 readabilityReq;
-            trustabilityReq = __utils__.sendAJAX('http://api.kconnect.honservices.org/~kconnect/cgi-bin/is-trustable.cgi?domain=vidal.fr', "GET");
-            readabilityReq  = __utils__.sendAJAX('http://api.kconnect.honservices.org/~kconnect/cgi-bin/readability.cgi?data={"url":"https://www.vidal.fr"}', "GET");
+            trustabilityReq = __utils__.sendAJAX('https://apikconnect.honservices.org/~kconnect/cgi-bin/is-trustable.cgi?domain=vidal.fr', "GET");
+            readabilityReq  = __utils__.sendAJAX('https://apikconnect.honservices.org/~kconnect/cgi-bin/readability.cgi?data={"url":"https://www.vidal.fr"}', "GET");
             trustabilityCallback(JSON.parse(trustabilityReq), $(document.querySelectorAll('h3.r a').item(0)).parent().siblings('.s'));
             readabilityCallback( JSON.parse(readabilityReq), $(document.querySelectorAll('h3.r a').item(0)).parent().siblings('.s'), "https://www.vidal.fr");
         });
@@ -91,8 +91,8 @@ casper.test.begin('Add Readability & Trustability Information in Yahoo search re
         this.evaluate(function () {
             var trustabilityReq,
                 readabilityReq;
-            trustabilityReq = __utils__.sendAJAX('http://api.kconnect.honservices.org/~kconnect/cgi-bin/is-trustable.cgi?domain=vidal.fr', "GET");
-            readabilityReq  = __utils__.sendAJAX('http://api.kconnect.honservices.org/~kconnect/cgi-bin/readability.cgi?data={"url":"https://www.vidal.fr"}', "GET");
+            trustabilityReq = __utils__.sendAJAX('https://apikconnect.honservices.org/~kconnect/cgi-bin/is-trustable.cgi?domain=vidal.fr', "GET");
+            readabilityReq  = __utils__.sendAJAX('https://apikconnect.honservices.org/~kconnect/cgi-bin/readability.cgi?data={"url":"https://www.vidal.fr"}', "GET");
             trustabilityCallback(JSON.parse(trustabilityReq), $(document.querySelectorAll('h3.title a').item(0)).parent().siblings('div:first'));
             readabilityCallback( JSON.parse(readabilityReq), $(document.querySelectorAll('h3.title a').item(0)).parent().siblings('div:first'), "https://www.vidal.fr");
         });
@@ -144,8 +144,8 @@ casper.test.begin('Add Readability & Trustability Information in Bing search res
         this.evaluate(function () {
             var trustabilityReq,
                 readabilityReq;
-            trustabilityReq = __utils__.sendAJAX('http://api.kconnect.honservices.org/~kconnect/cgi-bin/is-trustable.cgi?domain=vidal.fr', "GET");
-            readabilityReq  = __utils__.sendAJAX('http://api.kconnect.honservices.org/~kconnect/cgi-bin/readability.cgi?data={"url":"https://www.vidal.fr"}', "GET");
+            trustabilityReq = __utils__.sendAJAX('https://apikconnect.honservices.org/~kconnect/cgi-bin/is-trustable.cgi?domain=vidal.fr', "GET");
+            readabilityReq  = __utils__.sendAJAX('https://apikconnect.honservices.org/~kconnect/cgi-bin/readability.cgi?data={"url":"https://www.vidal.fr"}', "GET");
             trustabilityCallback(JSON.parse(trustabilityReq), $(document.querySelectorAll('.b_algo h2 a').item(0)).parent().siblings('div'));
             readabilityCallback( JSON.parse(readabilityReq),  $(document.querySelectorAll('.b_algo h2 a').item(0)).parent().siblings('div'), "https://www.vidal.fr");
         });

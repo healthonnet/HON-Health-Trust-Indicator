@@ -23,11 +23,11 @@ var kconnect = {
     return tldjs.getDomain(link);
   },
   getIsTrustable: function(domain) {
-    return $.get('http://apikconnect.honservices.org/' +
+    return $.get('https://apikconnect.honservices.org/' +
       '~kconnect/cgi-bin/is-trustable.cgi?domain=' + domain);
   },
   getReadability: function(link) {
-    return $.get('http://apikconnect.honservices.org/' +
+    return $.get('https://apikconnect.honservices.org/' +
       '~kconnect/cgi-bin/readability.cgi?data={"url":"' + link + '"}');
   },
   getMissingPrinciples: function(principles) {
