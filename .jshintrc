@@ -20,7 +20,10 @@
   "globals" : {
     "$": true,
     "chrome": true,
-    "kconnect": true,
-    "crypto": true
+    "crypto": true,
+    "casper": true,
+    "__utils__": true,
+    "trustabilityCallback": true,
+    "readabilityCallback": true
   }
 }
