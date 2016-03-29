@@ -47,7 +47,9 @@ chrome.tabs.query(query, function(tabs) {
 
 
       $('#users').html(
-        '<h3>Community rating : </h3>' +
+        '<h3>Community ratings (' +
+        JSON.parse(siteJabberResponse[0])
+          .numReviews[0].rating + ') : </h3>' +
         '<div id="stars"></div>' +
         '<span class="credit"><a href="http://www.sitejabber.com/about-us">' +
         'Powered by SiteJabber</a></span>'
