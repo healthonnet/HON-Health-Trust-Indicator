@@ -31,6 +31,26 @@ h3 {
 #body{
   background-color: #f9f9f9;
 
+  #users {
+    width: 90%;
+    padding: 5px;
+    padding-left: 15px;
+    margin: 0 auto 10px;
+    border: 1px solid gray;
+    border-radius: 5%;
+    background-color: #ffffff;
+
+    #stars {
+      font-size: 3em;
+      margin: 0 auto;
+    }
+    .credit {
+      margin-right: 1%;
+      a {
+        float: right;
+      }
+    }
+  }
   #results {
     width: 500px;
     display:table;
