@@ -24,7 +24,7 @@
     "crypto": true,
     "casper": true,
     "__utils__": true,
-    "trustabilityCallback": true,
-    "readabilityCallback": true
+    "readabilityCallback": true,
+    "trustabilityCallback": true
   }
 }
