@@ -35,7 +35,7 @@ casper.test.begin(googleSearch, 5, function suite(test) {
     this.page.injectJs('app/scripts/contentscript.js');
 
     this.evaluate(function() {
-      var kConnectApiUrl = 'http://api.kconnect.honservices.org/~kconnect/' +
+      var kConnectApiUrl = 'https://apikconnect.honservices.org/~kconnect/' +
         'cgi-bin/';
       var trustabilityReq = __utils__.sendAJAX(
         kConnectApiUrl + 'is-trustable.cgi?domain=vidal.fr',
@@ -104,7 +104,7 @@ casper.test.begin(yahooSearch, 6, function suite(test) {
     this.page.injectJs('app/scripts/contentscript.js');
 
     this.evaluate(function() {
-      var kConnectApiUrl = 'http://api.kconnect.honservices.org/~kconnect/' +
+      var kConnectApiUrl = 'https://apikconnect.honservices.org/~kconnect/' +
         'cgi-bin/';
       var trustabilityReq = __utils__.sendAJAX(
         kConnectApiUrl + 'is-trustable.cgi?domain=vidal.fr',
@@ -173,7 +173,7 @@ casper.test.begin(bingSearch, 5, function suite(test) {
     this.page.injectJs('app/scripts/contentscript.js');
 
     this.evaluate(function() {
-      var kConnectApiUrl = 'http://api.kconnect.honservices.org/~kconnect/' +
+      var kConnectApiUrl = 'https://apikconnect.honservices.org/~kconnect/' +
         'cgi-bin/';
       var trustabilityReq = __utils__.sendAJAX(
         kConnectApiUrl + 'is-trustable.cgi?domain=vidal.fr',
