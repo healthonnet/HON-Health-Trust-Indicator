@@ -19,65 +19,71 @@ h2{
   border-bottom: 1px solid #f2f2f2;
 }
 
-#results {
-  width: 500px;
-  display:table;
-  border-spacing:15px 0;
-  padding:10px 0;
-  min-height: 40px;
+#body{
   background-color: #f9f9f9;
-  >div {
-    border: 1px solid gray;
-    border-radius: 5%;
-    background-color: #ffffff;
-    p {
-      padding: 5px;
-      padding-left: 15px;
-      color: #888;
-    }
-    &#trustability {
-      width: 40%;
-      vertical-align: top;
-      display: table-cell;
 
-      #circle {
-        canvas {
-          margin: 0 30%;
-        }
-      }
-    }
-    &#readability {
-      #difficultyIcon {
-        position: relative;
-        background-size: cover;
-        width:60px;
-        height:60px;
-        margin: 5% 35%;
-        &.easy{
-          background-image: url('chrome-extension://__MSG_@@extension_id__/images/easy.png')
-        }
-        &.average{
-          background-image: url('chrome-extension://__MSG_@@extension_id__/images/average.png')
-        }
-        &.difficult{
-          background-image: url('chrome-extension://__MSG_@@extension_id__/images/difficult.png')
-        }
-      }
+  #results {
+    width: 500px;
+    display:table;
+    border-spacing:15px 0;
+    padding:10px 0;
+    min-height: 40px;
+    background-color: #f9f9f9;
+    >div {
+      border: 1px solid gray;
+      border-radius: 5%;
+      background-color: #ffffff;
       p {
-        &.easy {
-          color: limegreen;
-        }
-        &.average{
-          color: #ffc520;
-        }
-        &.difficult{
-          color: crimson;
+        padding: 5px;
+        padding-left: 15px;
+        color: #888;
+      }
+      &#trustability {
+        width: 40%;
+        vertical-align: top;
+        display: table-cell;
+
+        #circle {
+          canvas {
+            margin: 0 30%;
+          }
         }
       }
-      width: 40%;
-      vertical-align: top;
-      display: table-cell;
+
+      &#readability {
+        #difficultyIcon {
+          position: relative;
+          background-size: cover;
+          width:60px;
+          height:60px;
+          margin: 5% 35%;
+          &.easy{
+            background-image: url('chrome-extension://__MSG_@@extension_id__/images/easy.png')
+          }
+          &.average{
+            background-image: url('chrome-extension://__MSG_@@extension_id__/images/average.png')
+          }
+          &.difficult{
+            background-image: url('chrome-extension://__MSG_@@extension_id__/images/difficult.png')
+          }
+        }
+        p {
+          &.easy {
+            color: limegreen;
+          }
+          &.average{
+            color: #ffc520;
+          }
+          &.difficult{
+            color: crimson;
+          }
+        }
+        width: 40%;
+        vertical-align: top;
+        display: table-cell;
+      }
     }
   }
 }
+
 
