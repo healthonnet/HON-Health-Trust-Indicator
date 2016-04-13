@@ -202,11 +202,11 @@ casper.test.begin(bingSearch, 5, function suite(test) {
     test.assertUrlMatch(/q=vidal/, 'search term has been submitted');
 
     test.assertEval(function() {
-      return __utils__.findAll('.hon.rdb').length >= 1;
-    }, 'readability informations found');
-    test.assertEval(function() {
-      return __utils__.findAll('.hon.trb').length === 1;
+      return __utils__.findAll('.hon.trb').length >= 1;
     }, 'trustability informations found');
+    test.assertEval(function() {
+      return __utils__.findAll('.hon.rdb').length === 1;
+    }, 'readability informations found');
 
   });
 
