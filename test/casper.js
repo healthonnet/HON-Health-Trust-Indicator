@@ -193,8 +193,7 @@ casper.test.begin(bingSearch, 5, function suite(test) {
         JSON.parse(readabilityReq),
         $(
           document.querySelectorAll('.b_algo h2 a').item(0)
-        ).parent().siblings('div'),
-        'https://www.vidal.fr'
+        ).parent().siblings('div')
       );
     });
 
