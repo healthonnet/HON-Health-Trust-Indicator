@@ -22,7 +22,6 @@ Build
 
 ```bash
 $ npm install
-$ bower install
 ```
 
 Test
