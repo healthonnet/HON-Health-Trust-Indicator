@@ -63,7 +63,7 @@
       ],
       "js": [
         "bower_components/jquery/dist/jquery.min.js",
-        "scripts/tld.js",
+        "scripts/utils/tld.js",
         "scripts/kconnect.js",
         "scripts/contentscript.js"
       ],

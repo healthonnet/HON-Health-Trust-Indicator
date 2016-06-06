@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <title>Kconnect</title>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="scripts/tld.js"></script>
+    <script src="scripts/utils/tld.js"></script>
     <script src="bower_components/circular-progress/circular-progress.min.js"></script>
+    <script src="scripts/utils/md5.js"></script>
+    <script src="scripts/utils/hash.js"></script>
+    <script src="scripts/utils/listHON.js"></script>
     <script src="scripts/kconnect.js"></script>
     <script src="scripts/popup.js"></script>
     <link rel="stylesheet" href="styles/popup.css">
@@ -13,6 +16,9 @@
 <body>
     <div id="header">
         <img id="popupIcon" src="images/icon-48.png" alt="icon"/>
+        <a target="_blank" id="certificateLink">
+            <img id="honstatus" src="images/honcode/hon-none-large.png" alt="icon"/>
+        </a>
         <h2 id="host"></h2>
     </div>
     <div id="body">

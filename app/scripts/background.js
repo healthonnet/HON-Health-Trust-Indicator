@@ -29,7 +29,7 @@ chrome.webRequest.onCompleted.addListener(debounce(function(details) {
     );
     chrome.tabs.executeScript(
       details.tabId, {
-        file: 'scripts/tld.js',
+        file: 'scripts/utils/tld.js',
         allFrames: true,
       }
     );
