@@ -55,7 +55,7 @@ chrome.tabs.query(query, function(tabs) {
 
       trustabilityResponse[0].trustability.principles.forEach(
         function(principle) {
-        principlesHtml += '<li>' + principle + '</li>';
+        principlesHtml += '<li>- ' + principle + '</li>';
       });
 
       $('#trustability').html(
