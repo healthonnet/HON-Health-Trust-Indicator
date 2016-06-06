@@ -36,8 +36,8 @@ h3 {
     padding: 5px;
     padding-left: 15px;
     margin: 0 auto 10px;
-    border: 1px solid gray;
-    border-radius: 5%;
+    border-radius: 25px;
+    border: 2px solid #231f20;
     background-color: #ffffff;
 
     #stars {
@@ -47,6 +47,7 @@ h3 {
     .credit {
       margin-right: 1%;
       a {
+        padding-right: 15px;
         float: right;
       }
     }
@@ -59,8 +60,9 @@ h3 {
     min-height: 40px;
     background-color: #f9f9f9;
     >div {
-      border: 1px solid gray;
-      border-radius: 5%;
+      border-radius: 25px;
+      border: 2px solid #00b4f0;
+
       background-color: #ffffff;
       p {
         padding: 5px;
@@ -68,24 +70,35 @@ h3 {
         color: #888;
       }
       &#trustability {
-        width: 40%;
-        vertical-align: top;
-        display: table-cell;
+        width: 100%;
+        margin-bottom: 10px;
 
         #circle {
+          display: inline-block;
+          vertical-align: top;
+          margin-top: 25px;
+          margin-left: 50px;
           canvas {
             margin: 0 30%;
           }
         }
+        div {
+          display: inline-block;
+          margin-left: 90px;
+        }
       }
 
       &#readability {
+        width: 100%;
+
         #difficultyIcon {
           position: relative;
           background-size: cover;
-          width:60px;
+          vertical-align: top;
           height:60px;
-          margin: 5% 35%;
+          width:60px;
+          margin: 0 0 10px 50px;
+          display: inline-block;
           &.easy{
             background-image: url('chrome-extension://__MSG_@@extension_id__/images/easy.png')
           }
@@ -97,6 +110,10 @@ h3 {
           }
         }
         p {
+          display: inline-block;
+          margin-left: 50px;
+          vertical-align: top;
+
           &.easy {
             color: limegreen;
           }
@@ -107,9 +124,7 @@ h3 {
             color: crimson;
           }
         }
-        width: 40%;
-        vertical-align: top;
-        display: table-cell;
+
       }
     }
   }

@@ -34,9 +34,9 @@ chrome.tabs.query(query, function(tabs) {
       $('#trustability').html(
         '<h3>Trustability : </h3>' +
         '<div id="circle"></div>' +
-        '<p><a target="_blank" href="http://www.hon.ch/HONcode/' +
+        '<div><p><a target="_blank" href="http://www.hon.ch/HONcode/' +
         'Patients/Conduct.html">HonCode :</a></p>' +
-        '<ul>' + principlesHtml + '</ul>');
+        '<ul>' + principlesHtml + '</ul></div>');
 
       $('#readability').html(
         ' <h3>Readability :</h3>' +
