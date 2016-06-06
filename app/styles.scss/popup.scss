@@ -3,7 +3,7 @@ body {
 }
 h1, h2, h3{
   text-align: center;
-  font-family: arial, sans-serif;
+  font-weight: normal;
   margin: 0;
   padding-top: 12px;
 }
@@ -11,9 +11,18 @@ h2{
   margin-right: 8%;
 }
 
+h3 {
+  text-transform: uppercase;
+}
+
 #header {
   #popupIcon {
     float: left;
+  }
+  #honstatus {
+    float: right;
+    height: 46px;
+    padding-top: 2px;
   }
   height: 50px;
   border-bottom: 1px solid #f2f2f2;
