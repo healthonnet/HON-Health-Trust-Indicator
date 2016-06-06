@@ -41,7 +41,7 @@ chrome.tabs.query(query, function(tabs) {
       $('#readability').html(
         ' <h3>Readability :</h3>' +
         '<div id="difficultyIcon" class="' + difficulty + '"></div>' +
-        '<p class="' + difficulty + '">' +
+        '<p class="difficulty ' + difficulty + '">' +
         kconnect.config.difficultyKeyword[difficulty] +
         '</p>');
 

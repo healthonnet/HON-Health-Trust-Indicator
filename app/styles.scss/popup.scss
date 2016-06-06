@@ -40,6 +40,11 @@ h3 {
     border: 2px solid #231f20;
     background-color: #ffffff;
 
+    p {
+      padding-left: 15px;
+      color: #888;
+    }
+
     #stars {
       font-size: 3em;
       margin: 0 auto;
@@ -66,7 +71,7 @@ h3 {
       background-color: #ffffff;
       p {
         padding: 5px;
-        padding-left: 25px;
+        margin-left: 25px;
         color: #888;
       }
       &#trustability {
@@ -76,8 +81,9 @@ h3 {
         #circle {
           display: inline-block;
           vertical-align: top;
-          margin-top: 25px;
+          margin-top: 5px;
           margin-left: 35px;
+          padding-bottom: 10px;
           canvas {
             margin: 0 30%;
           }
@@ -120,9 +126,11 @@ h3 {
         }
         p {
           display: inline-block;
-          margin-left: 35px;
           vertical-align: top;
 
+          &.difficulty {
+            margin-left: 25px;
+          }
           &.easy {
             color: limegreen;
           }
