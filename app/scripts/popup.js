@@ -12,13 +12,19 @@ chrome.tabs.query(query, function(tabs) {
   kconnect.displayHONcodeStatus(domain);
   var siteJabberRequest = kconnect.getSiteJabber(domain);
 
-  function siteJabberInformations(siteJabberResponse){
+  function siteJabberInformations(siteJabberResponse) {
+    if (JSON.parse(siteJabberResponse[0])
+        .numReviews[0].rating === 0) {
+      $('#users').hide();
+      return
+    }
+
     $('#users').html(
       '<h3>Community ratings (' +
       JSON.parse(siteJabberResponse[0])
         .numReviews[0].rating + ') : </h3>' +
-      '<div id="stars"></div>' +
-      '<span class="credit"><a href="http://www.sitejabber.com/about-us">' +
+      '<div id=\'stars\'></div>' +
+      '<span class=\'credit\'><a href=\'http://www.sitejabber.com/about-us\'>' +
       'Powered by SiteJabber</a></span>'
 
     );
@@ -60,15 +66,15 @@ chrome.tabs.query(query, function(tabs) {
 
       $('#trustability').html(
         '<h3>Trustability : </h3>' +
-        '<div id="circle"></div>' +
-        '<div><p><a target="_blank" href="http://www.hon.ch/HONcode/' +
-        'Patients/Conduct.html">HonCode :</a></p>' +
+        '<div id=\'circle\'></div>' +
+        '<div><p><a target=\'_blank\' href=\'http://www.hon.ch/HONcode/' +
+        'Patients/Conduct.html\'>HonCode :</a></p>' +
         '<ul>' + principlesHtml + '</ul></div>');
 
       $('#readability').html(
         ' <h3>Readability :</h3>' +
-        '<div id="difficultyIcon" class="' + difficulty + '"></div>' +
-        '<p class="difficulty ' + difficulty + '">' +
+        '<div id=\'difficultyIcon\' class=\'' + difficulty + '\'></div>' +
+        '<p class=\'difficulty ' + difficulty + '\'>' +
         kconnect.config.difficultyKeyword[difficulty] +
         '</p>');
 
@@ -86,7 +92,7 @@ chrome.tabs.query(query, function(tabs) {
       $('#trustability').html('<p>No Trustability informations for' +
         ' this domain</p>');
       $('#readability').html('<p>No Readability  informations</p>');
-      $('#users').html('<p>No Community  informations</p>');
+      $('#users').hide();
     });
 });
 

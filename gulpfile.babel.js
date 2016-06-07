@@ -32,7 +32,7 @@ gulp.task('lint', () => {
 });
 
 gulp.task('jscs', () => {
-  return gulp.src(['app/scripts/**/*.js', 'test/**/*.js'])
+  return gulp.src(['app/scripts/**/*.js', 'test/**/*.js', '!app/scripts/utils/tld.js'])
     .pipe(jscs())
     .pipe(jscs.reporter());
 });

@@ -4,5 +4,6 @@
     "ignoreSingleValue": true,
     "ignoreSingleLine": true
   },
+  "requireCamelCaseOrUpperCaseIdentifiers": false,
   "excludeFiles": ["node_modules/**"]
 }

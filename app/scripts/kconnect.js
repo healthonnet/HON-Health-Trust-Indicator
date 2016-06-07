@@ -32,7 +32,7 @@ var kconnect = {
   },
   getReadability: function(link) {
     return $.get('https://apikconnect.honservices.org/' +
-      '~kconnect/cgi-bin/readability.cgi?data={"url":"' + link + '"}');
+      '~kconnect/cgi-bin/readability.cgi?data={\"url\":\"' + link + '\"}');
   },
   getMissingPrinciples: function(principles) {
     var missingPrinciples = [];
@@ -43,19 +43,18 @@ var kconnect = {
     });
     return missingPrinciples;
   },
-  displayHONcodeStatus: function (link){
-    // le site est certifie ?
+  displayHONcodeStatus: function(link) {
     var HONcodeCertificateLink = hon_listHON.checkURL(link);
     var icon = document.getElementById('honstatus');
     var certificate = document.getElementById('certificateLink');
     var langue = navigator.language.substring(0,2);
 
-    if (HONcodeCertificateLink == ""){
-      icon.src = "images/honcode/hon-invalid-large.png";
+    if (HONcodeCertificateLink === '') {
+      icon.src = 'images/honcode/hon-invalid-large.png';
     } else {
-      icon.src = "images/honcode/hon-valid-large.png";
-      certificate.href = "http://services.hon.ch/cgi-bin/Plugin/redirect.pl?" +
-        HONcodeCertificateLink + " +" + langue;
+      icon.src = 'images/honcode/hon-valid-large.png';
+      certificate.href = 'http://services.hon.ch/cgi-bin/Plugin/redirect.pl?' +
+        HONcodeCertificateLink + ' +' + langue;
     }
   },
 
