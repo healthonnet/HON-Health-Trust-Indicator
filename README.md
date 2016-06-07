@@ -63,6 +63,6 @@ Developers
  - Cedric FROSSARD
  - Pierre REPETTO-ANDIPATIN
 
-Licence
+License
 -------
 Apache Licence 2.0
