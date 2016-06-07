@@ -13,16 +13,16 @@ chrome.tabs.query(query, function(tabs) {
   var siteJabberRequest = kconnect.getSiteJabber(domain);
 
   function siteJabberInformations(siteJabberResponse) {
-    if (JSON.parse(siteJabberResponse[0])
-        .numReviews[0].rating === 0) {
+    var jabberResult = JSON.parse(siteJabberResponse[0]);
+
+    if (jabberResult.numReviews[0].rating === 0) {
       $('#users').hide();
       return
     }
-
     $('#users').html(
-      '<h3>Community ratings (' +
-      JSON.parse(siteJabberResponse[0])
-        .numReviews[0].rating + ') : </h3>' +
+      '<h3>Community ratings ( ' +
+      '<a href=\'' + jabberResult.urlProfilePage + '\' target=\'_blank\'>' +
+      jabberResult.numReviews[0].rating + '</a> ) : </h3>' +
       '<div id=\'stars\'></div>' +
       '<span class=\'credit\'><a href=\'http://www.sitejabber.com/about-us\'>' +
       'Powered by SiteJabber</a></span>'
@@ -32,8 +32,7 @@ chrome.tabs.query(query, function(tabs) {
     var raterOptions = {
       max_value: 5,
       step_size: 0.1,
-      initial_value: JSON.parse(siteJabberResponse[0])
-        .averageRating[0].rating,
+      initial_value: jabberResult.averageRating[0].rating,
       selected_symbol_type: 'utf8_star', // Must be a key from symbols
       readonly: true,
     };
