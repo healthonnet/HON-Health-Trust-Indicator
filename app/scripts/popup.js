@@ -26,7 +26,6 @@ chrome.tabs.query(query, function(tabs) {
       '<div id=\'stars\'></div>' +
       '<span class=\'credit\'><a href=\'http://www.sitejabber.com/about-us\'>' +
       'Powered by SiteJabber</a></span>'
-
     );
 
     var raterOptions = {
@@ -66,8 +65,8 @@ chrome.tabs.query(query, function(tabs) {
       $('#trustability').html(
         '<h3>Trustability : </h3>' +
         '<div id=\'circle\'></div>' +
-        '<div><p><a target=\'_blank\' href=\'http://www.hon.ch/HONcode/' +
-        'Patients/Conduct.html\'>HonCode :</a></p>' +
+        '<div><a target=\'_blank\' href=\'http://www.hon.ch/HONcode/' +
+        'Patients/Conduct.html\'><img src=\'images/honcode/hon-medline.png\' ></a>' +
         '<ul>' + principlesHtml + '</ul></div>');
 
       $('#readability').html(

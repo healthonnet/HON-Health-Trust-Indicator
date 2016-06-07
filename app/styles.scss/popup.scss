@@ -87,13 +87,17 @@ h3 {
             margin: 0 30%;
           }
         }
+        img {
+          width: 25%;
+          margin: 10px 0 0 115px;
+        }
         div {
           display: inline-block;
           margin-left: 40px;
 
           ul {
             width: 240px;
-
+            margin-top: 5px;
             li {
               display:inline-block;
               width: 120px;
