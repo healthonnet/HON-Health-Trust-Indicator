@@ -24,7 +24,7 @@ chrome.tabs.query(query, function(tabs) {
       '<a href=\'' + jabberResult.urlProfilePage + '\' target=\'_blank\'>' +
       jabberResult.numReviews[0].rating + '</a> ) : </h3>' +
       '<div id=\'stars\'></div>' +
-      '<span class=\'credit\'><a href=\'http://www.sitejabber.com/about-us\'>' +
+      '<span class=\'credit\'><a href=\'http://www.sitejabber.com/about-us\' target=\'_blank\'>' +
       'Powered by SiteJabber</a></span>'
     );
 
