@@ -10,6 +10,9 @@
   "default_locale": "en",
   "background": {
     "scripts": [
+      "scripts/utils/md5.js",
+      "scripts/utils/hash.js",
+      "scripts/utils/listHON.js",
       "scripts/background.js"
     ]
   },
@@ -17,6 +20,7 @@
     "tabs",
     "activeTab",
     "<all_urls>",
+    "storage",
     "webRequest"
   ],
   "options_ui": {

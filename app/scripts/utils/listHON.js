@@ -86,6 +86,7 @@ var hon_listHON =
         hon_hash.setItem(tab[i],
           tab[i + 1]);
       }
+      hon_hash.saveHash(hon_hash.items);
     }
 
     // La HashMap est initialisee
@@ -98,33 +99,43 @@ var hon_listHON =
    * @return {} result
    */
   checkURL: function(myURL) {
-    var result = '';
-    // Decoupe l'url sur '/'
-    var myURLSplit = myURL.split('/');
-    var count = myURLSplit.length;
-    if (count > 1) {
-      count--;
-    }
-    // Supprime la partie apres le dernier /
-    while ((result == '' || typeof (result) == 'undefined') &&
-    (count > 0)) {
+    var promise = new Promise(function (resolve) {
 
-      var myURLTemp = '';
-
-      for (var j = 0; j < count; j++) {
-        myURLTemp += myURLSplit[j] + '/';
+      var result = '';
+      // Decoupe l'url sur '/'
+      var myURLSplit = myURL.split('/');
+      var count = myURLSplit.length;
+      if (count > 1) {
+        count--;
       }
 
-      result = hon_hash.getItem(hon_md5.hex_md5(myURLTemp));
-      count--;
-    }
+      function recursiveUrlSplit (i) {
+        var myURLTemp = '';
 
-    // Si le noeud n'a pas ete trouve, retourner ''
-    if (typeof (result) == 'undefined') {
-      result = '';
-    }
+        for (var j = 0; j < i; j++) {
+          myURLTemp += myURLSplit[j] + '/';
+        }
 
-    return result;
+        hon_hash.getItem(hon_md5.hex_md5(myURLTemp)).then(function(res){
+          if (res == '' || typeof (res) === 'undefined' &&
+            (i > 0)) {
+            recursiveUrlSplit(i-1);
+          } else {
+            result = res;
+
+            // Si le noeud n'a pas ete trouve, retourner ''
+            if (typeof (result) == 'undefined') {
+              result = '';
+            }
+            resolve(result);
+          }
+        });
+      }
+
+      recursiveUrlSplit(count);
+    });
+
+    return promise;
   },
 
   /**
@@ -151,6 +162,3 @@ var hon_listHON =
     return href;
   },
 };
-
-// Initialise la listHON
-hon_listHON.init();

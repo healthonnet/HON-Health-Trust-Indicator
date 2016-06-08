@@ -1,5 +1,11 @@
 'use strict';
 
+²²function init() {
+// Initialise la listHON
+  hon_listHON.init();
+}
+init();
+
 function debounce(func, wait, immediate) {
   var timeout;
   return function() {

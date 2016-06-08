@@ -33,7 +33,19 @@ var hon_hash =
    * @param {} inKey
    */
   getItem: function(inKey) {
-    return this.items[inKey];
+    var that = this;
+    var promise = new Promise( function (resolve) {
+      if(that.items !== null) {
+        resolve(that.items[inKey]);
+      } else {
+        // Check LocalStorage
+        chrome.storage.local.get("hash",function(hash){
+          resolve(hash.hash[inKey]);
+        });
+      }
+    });
+
+    return promise;
   },
 
   /**
@@ -51,5 +63,19 @@ var hon_hash =
         'in_value is type \'undefined\'');
     }
     return inValue;
+  },
+
+  /**
+   * Inscrit l'entree in_key in_value dans la Hash et
+   * @param {} tab
+   */
+  saveHash: function(tab) {
+    if (typeof (tab) != 'undefined') {
+      chrome.storage.local.set({'hash': tab});
+    } else {
+      dump('HON Error in Hash.saveHash() : tab is type \'undefined\'');
+      Components.utils.reportError('HON Error in Hash.saveHash() : ' +
+        'tab is type \'undefined\'');
+    }
   },
 };
