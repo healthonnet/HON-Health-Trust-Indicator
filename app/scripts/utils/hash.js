@@ -25,7 +25,7 @@ var hon_hash =
    * Initialisation de la HashMap
    */
   init: function() {
-    this.items = new Array()
+    this.items = {};
   },
 
   /**

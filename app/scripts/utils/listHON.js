@@ -81,7 +81,7 @@ var hon_listHON =
       hon_hash.init();
 
       // Affecte la liste dans la HashMap
-      var len = tab.length - 1;
+      var len = Object.keys(tab).length - 1;
       for (var i = 1; i < len; i += 2) {
         hon_hash.setItem(tab[i],
           tab[i + 1]);
