@@ -1,6 +1,6 @@
 'use strict';
 
-²²function init() {
+function init() {
 // Initialise la listHON
   hon_listHON.init();
 }
