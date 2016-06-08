@@ -5,7 +5,6 @@
   "esnext": true,
   "module": true,
   "bitwise": true,
-  "camelcase": true,
   "curly": true,
   "eqeqeq": true,
   "immed": true,
@@ -23,6 +22,9 @@
     "kconnect": true,
     "crypto": true,
     "casper": true,
+    "tldjs": true,
+    "hon_listHON": true,
+    "CircularProgress": true,
     "__utils__": true,
     "readabilityCallback": true,
     "trustabilityCallback": true

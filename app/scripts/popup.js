@@ -17,14 +17,15 @@ chrome.tabs.query(query, function(tabs) {
 
     if (jabberResult.numReviews[0].rating === 0) {
       $('#users').hide();
-      return
+      return;
     }
     $('#users').html(
       '<h3>Community ratings ( ' +
       '<a href=\'' + jabberResult.urlProfilePage + '\' target=\'_blank\'>' +
       jabberResult.numReviews[0].rating + '</a> ) : </h3>' +
       '<div id=\'stars\'></div>' +
-      '<span class=\'credit\'><a href=\'http://www.sitejabber.com/about-us\' target=\'_blank\'>' +
+      '<span class=\'credit\'>' +
+      '<a href=\'http://www.sitejabber.com/about-us\' target=\'_blank\'>' +
       'Powered by SiteJabber</a></span>'
     );
 
@@ -40,8 +41,8 @@ chrome.tabs.query(query, function(tabs) {
   }
 
   $.when(trustabilityRequest, readabilityRequest, siteJabberRequest)
-    .then(function(trustabilityResponse, readabilityResponse
-      , siteJabberResponse) {
+    .then(function(trustabilityResponse, readabilityResponse,
+      siteJabberResponse) {
 
       // SiteJabber informations
       siteJabberInformations(siteJabberResponse);
@@ -66,7 +67,8 @@ chrome.tabs.query(query, function(tabs) {
         '<h3>Trustability : </h3>' +
         '<div id=\'circle\'></div>' +
         '<div><a target=\'_blank\' href=\'http://www.hon.ch/HONcode/' +
-        'Patients/Conduct.html\'><img src=\'images/honcode/hon-medline.png\' ></a>' +
+        'Patients/Conduct.html\'>' +
+        '<img src=\'images/honcode/hon-medline.png\' ></a>' +
         '<ul>' + principlesHtml + '</ul></div>');
 
       $('#readability').html(
@@ -93,4 +95,3 @@ chrome.tabs.query(query, function(tabs) {
       $('#users').hide();
     });
 });
-
