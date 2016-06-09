@@ -10,7 +10,7 @@ Browser Compatibilies
 -----
  - Chrome (18+)
  - chromium based Opera versions (15.0+).
- - Firefox - (46.0+) checkout [WebExtensions-API](https://developer.mozilla.org/en-US/Add-ons/WebExtensions). Rename and use manifest.json.firefox file.
+ - Firefox - (46.0+) checkout [WebExtensions-API](https://developer.mozilla.org/en-US/Add-ons/WebExtensions). Rename and use manifest.firefox.json file.
 
 Development Prerequisites
 -----
