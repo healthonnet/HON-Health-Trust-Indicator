@@ -41,6 +41,24 @@ chrome.webRequest.onCompleted.addListener(debounce(function(details) {
     );
     chrome.tabs.executeScript(
       details.tabId, {
+        file: 'scripts/utils/md5.js',
+        allFrames: true,
+      }
+    );
+    chrome.tabs.executeScript(
+      details.tabId, {
+        file: 'scripts/utils/hash.js',
+        allFrames: true,
+      }
+    );
+    chrome.tabs.executeScript(
+      details.tabId, {
+        file: 'scripts/utils/listHON.js',
+        allFrames: true,
+      }
+    );
+    chrome.tabs.executeScript(
+      details.tabId, {
         file: 'scripts/kconnect.js',
         allFrames: true,
       }

@@ -50,13 +50,33 @@ var kconnect = {
       var certificate = document.getElementById('certificateLink');
       var langue = navigator.language.substring(0,2);
 
-      if (HONcodeCertificateLink === '' || HONcodeCertificateLink === undefined) {
+      if (HONcodeCertificateLink === ''
+        || HONcodeCertificateLink === undefined) {
         certificate.title = 'No HonCode certification';
         icon.src = 'images/honcode/hon-invalid-large.png';
       } else {
         icon.src = 'images/honcode/hon-valid-large.png';
         certificate.title = 'HonCode certified';
         certificate.href =
+          'http://services.hon.ch/cgi-bin/Plugin/redirect.pl?' +
+          HONcodeCertificateLink + ' +' + langue;
+      }
+    });
+  },
+  contentHONcodeStatus: function(target, link) {
+    hon_listHON.checkURL(kconnect.getDomainFromUrl(link)).then(function(code) {
+      var HONcodeCertificateLink = code;
+      var langue = navigator.language.substring(0,2);
+      console.log(code);
+
+      if (HONcodeCertificateLink === ''
+        || HONcodeCertificateLink === undefined) {
+        target.title = 'No HonCode certification';
+        target.addClass('invalid');
+      } else {
+        target.title = 'HonCode certified';
+        target.addClass('valid');
+        target.href =
           'http://services.hon.ch/cgi-bin/Plugin/redirect.pl?' +
           HONcodeCertificateLink + ' +' + langue;
       }

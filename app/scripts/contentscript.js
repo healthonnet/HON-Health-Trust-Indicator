@@ -12,8 +12,12 @@ var readabilityCallback = function(dataRdb, target, link) {
     kconnect.config.difficultyKeyword[dataRdb.readability.difficulty] +
     '</span>' +
     '</a>';
+
+  var honCodeLogo = '<a target=\'_blank\' class="hon certificateLink"></a>';
+
   if (target.children('.rdb').length === 0) {
-    target.prepend(htmlRdb);
+    target.prepend(htmlRdb + honCodeLogo);
+    kconnect.contentHONcodeStatus(target.children('.certificateLink'),link);
   }
 };
 
@@ -44,7 +48,7 @@ var trustabilityCallback = function(data, target) {
     '<span class="tooltip">' +
     tooltip +
     '</span>' +
-    '<span class="meter" style=" width: ' + trustabilityLevel + '%"> </span>' +
+    '<span class="meter" style=" width: ' + trustabilityLevel + '%"></span>' +
     '</div>';
   if (target.children('.trb').length === 0) {
     target.prepend(html);
@@ -93,7 +97,7 @@ var updateLinks = function() {
         readabilityCallback(readabilityResponse[0], target, link);
       })
       .always(function() {
-        if (target.children('.hon').length !== 2) {
+        if (target.children('.hon').length !== 3) {
           target.children('.hon').hide();
         }
 
