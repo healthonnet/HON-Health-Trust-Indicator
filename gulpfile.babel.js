@@ -26,14 +26,22 @@ gulp.task('extras', () => {
 });
 
 gulp.task('lint', () => {
-  return gulp.src(['js/*.js', 'test/**/*.js'])
+  return gulp.src([
+    'app/scripts/**/*.js',
+    'test/**/*.js',
+    '!app/scripts/utils/*.js',
+  ])
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter('fail'));
 });
 
 gulp.task('jscs', () => {
-  return gulp.src(['app/scripts/**/*.js', 'test/**/*.js', '!app/scripts/utils/tld.js'])
-    .pipe(jscs())
+  return gulp.src([
+    'app/scripts/**/*.js',
+    'test/**/*.js',
+    '!app/scripts/utils/tld.js',
+  ])
+    .pipe(jscs('.jscsrc'))
     .pipe(jscs.reporter());
 });
 
@@ -131,6 +139,7 @@ gulp.task('package', function() {
 });
 
 gulp.task('test', function() {
+  runSequence(['lint', 'jscs']);
   gulp.src('test/casper.js')
     .pipe(casperJs({command: 'test --web-security=no'}));
   // Run casperjs test
