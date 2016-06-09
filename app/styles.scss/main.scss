@@ -55,7 +55,7 @@
     display: inline-block;
     width: 30px;
     height: 32px;
-    margin: 0 5px 0 0;
+    margin: 0 5px 5px 0;
     background-image: url("chrome-extension://__MSG_@@extension_id__/images/honcode/hon-none-large.png");
     &.valid {
       background-image: url('chrome-extension://__MSG_@@extension_id__/images/honcode/hon-valid-large.png')
