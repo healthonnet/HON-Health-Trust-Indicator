@@ -25,7 +25,7 @@ chrome.tabs.query(query, function(tabs) {
       jabberResult.numReviews[0].rating + '</a> ) : </h3>' +
       '<div id=\'stars\'></div>' +
       '<span class=\'credit\'>' +
-      '<a href=\'http://www.sitejabber.com/about-us\' target=\'_blank\'>' +
+      '<a href=\'http://www.sitejabber.com/about-us\' title=\'About - SiteJabber\' target=\'_blank\'>' +
       'Powered by SiteJabber</a></span>'
     );
 
@@ -66,7 +66,7 @@ chrome.tabs.query(query, function(tabs) {
       $('#trustability').html(
         '<h3>Trustability : </h3>' +
         '<div id=\'circle\'></div>' +
-        '<div><a target=\'_blank\' href=\'http://www.hon.ch/HONcode/' +
+        '<div><a target=\'_blank\' title=\'HONcode Principles\' href=\'http://www.hon.ch/HONcode/' +
         'Patients/Conduct.html\'>' +
         '<img src=\'images/honcode/hon-medline.png\' ></a>' +
         '<ul>' + principlesHtml + '</ul></div>');
