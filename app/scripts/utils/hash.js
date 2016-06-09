@@ -1,6 +1,6 @@
 ﻿/*
  Hash.js
- Copyright © 2009-2011 Health On Net <honservices@healthonnet.org>
+ Copyright © 2009-2016 Health On Net <honservices@healthonnet.org>
 
  This file is part of HON.
 
@@ -10,6 +10,7 @@
  Developer:
  - Jeremy Blatter
  - William Belle
+ - Cédric Frossard
  */
 
 /**

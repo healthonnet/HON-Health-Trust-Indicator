@@ -5,7 +5,8 @@
   "dependencies": {
     "jquery": "^2.2.0",
     "circular-progress": "^0.2.2",
-    "rater": "*"
+    "rater": "*",
+    "normalize-css": "normalize.css#^4.1.1"
   },
   "devDependencies": {}
 }
