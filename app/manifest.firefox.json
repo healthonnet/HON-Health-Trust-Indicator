@@ -13,12 +13,17 @@
   "applications": {
     "gecko": {
       "id": "kconnect_extension@healthonnet.org",
-      "strict_min_version": "45.0.0"
+      "strict_min_version": "46.0.0"
     }
   },
 
   "background": {
-    "scripts": ["scripts/background.js"]
+    "scripts": [
+      "scripts/utils/md5.js",
+      "scripts/utils/hash.js",
+      "scripts/utils/listHON.js",
+      "scripts/background.js"
+    ]
   },
 
   "content_scripts": [
@@ -77,11 +82,13 @@
     "activeTab",
     "http://*/*",
     "https://*/*",
+    "storage",
     "webRequest"
   ],
 
   "web_accessible_resources": [
     "styles/main.css",
+    "styles/popup.css",
     "images/difficult.png",
     "images/average.png",
     "images/easy.png"
