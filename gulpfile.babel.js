@@ -32,7 +32,7 @@ gulp.task('lint', () => {
     '!app/scripts/utils/*.js',
   ])
     .pipe(jshint('.jshintrc'))
-    .pipe(jshint.reporter('fail'));
+    .pipe(jshint.reporter('default'));
 });
 
 gulp.task('jscs', () => {

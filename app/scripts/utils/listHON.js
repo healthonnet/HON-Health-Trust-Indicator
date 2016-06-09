@@ -99,7 +99,7 @@ var hon_listHON =
    * @return {} result
    */
   checkURL: function(myURL) {
-    var promise = new Promise(function (resolve) {
+    var promise = new Promise(function(resolve) {
 
       var result = '';
       // Decoupe l'url sur '/'
@@ -109,17 +109,17 @@ var hon_listHON =
         count--;
       }
 
-      function recursiveUrlSplit (i) {
+      function recursiveUrlSplit(i) {
         var myURLTemp = '';
 
         for (var j = 0; j < i; j++) {
           myURLTemp += myURLSplit[j] + '/';
         }
 
-        hon_hash.getItem(hon_md5.hex_md5(myURLTemp)).then(function(res){
+        hon_hash.getItem(hon_md5.hex_md5(myURLTemp)).then(function(res) {
           if (res == '' || typeof (res) === 'undefined' &&
             (i > 0)) {
-            recursiveUrlSplit(i-1);
+            recursiveUrlSplit(i - 1);
           } else {
             result = res;
 

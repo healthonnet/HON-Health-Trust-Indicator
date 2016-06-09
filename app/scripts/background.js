@@ -1,7 +1,7 @@
 'use strict';
 
 function init() {
-// Initialise la listHON
+  // Initialise la listHON
   hon_listHON.init();
 }
 init();

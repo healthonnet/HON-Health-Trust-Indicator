@@ -35,12 +35,12 @@ var hon_hash =
    */
   getItem: function(inKey) {
     var that = this;
-    var promise = new Promise( function (resolve) {
-      if(that.items !== null) {
+    var promise = new Promise(function(resolve) {
+      if (that.items !== null) {
         resolve(that.items[inKey]);
       } else {
         // Check LocalStorage
-        chrome.storage.local.get("hash",function(hash){
+        chrome.storage.local.get('hash', function(hash) {
           resolve(hash.hash[inKey]);
         });
       }
@@ -72,7 +72,7 @@ var hon_hash =
    */
   saveHash: function(tab) {
     if (typeof (tab) != 'undefined') {
-      chrome.storage.local.set({'hash': tab});
+      chrome.storage.local.set({hash: tab});
     } else {
       dump('HON Error in Hash.saveHash() : tab is type \'undefined\'');
       Components.utils.reportError('HON Error in Hash.saveHash() : ' +
