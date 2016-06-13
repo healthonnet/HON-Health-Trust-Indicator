@@ -89,8 +89,10 @@ var updateLinks = function() {
     var readabilityRequest = kconnect.getReadability(link);
 
     var honCodeLogo = '<a target=\'_blank\' class="hon certificateLink"></a>';
-    honLogo.prepend(honCodeLogo);
-    kconnect.contentHONcodeStatus(honLogo.children('.certificateLink'),link);
+    if (honLogo.children('.certificateLink').length === 0) {
+      honLogo.prepend(honCodeLogo);
+      kconnect.contentHONcodeStatus(honLogo.children('.certificateLink'),link);
+    }
 
     $.when(trustabilityRequest, readabilityRequest)
       .then(function(trustabilityResponse, readabilityResponse) {
