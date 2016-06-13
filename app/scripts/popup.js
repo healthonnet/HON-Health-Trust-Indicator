@@ -9,7 +9,7 @@ chrome.tabs.query(query, function(tabs) {
   $('#host').html(domain);
   var trustabilityRequest = kconnect.getIsTrustable(domain);
   var readabilityRequest = kconnect.getReadability(currentTab.url);
-  kconnect.displayHONcodeStatus(domain);
+  kconnect.displayHONcodeStatus(currentTab.url);
   var siteJabberRequest = kconnect.getSiteJabber(domain);
 
   function siteJabberInformations(siteJabberResponse) {

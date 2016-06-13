@@ -20,7 +20,13 @@ var kconnect = {
     ],
   },
   getDomainFromUrl: function(link) {
-    return tldjs.getDomain(link);
+    var domain = tldjs.getDomain(link);
+    var subdomain = tldjs.getSubdomain(link);
+    if (subdomain === 'www') {
+      subdomain = '';
+    }
+
+    return subdomain !== '' ? subdomain + '.' + domain : domain;
   },
   getIsTrustable: function(domain) {
     return $.get('https://apikconnect.honservices.org/' +
@@ -44,7 +50,7 @@ var kconnect = {
     return missingPrinciples;
   },
   displayHONcodeStatus: function(link) {
-    hon_listHON.checkURL(link).then(function(code) {
+    hon_listHON.checkURL(hon_listHON.formatHREF(link)).then(function(code) {
       var HONcodeCertificateLink = code;
       var icon = document.getElementById('honstatus');
       var certificate = document.getElementById('certificateLink');
@@ -64,7 +70,7 @@ var kconnect = {
     });
   },
   contentHONcodeStatus: function(target, link) {
-    hon_listHON.checkURL(kconnect.getDomainFromUrl(link)).then(function(code) {
+    hon_listHON.checkURL(hon_listHON.formatHREF(link)).then(function(code) {
       var HONcodeCertificateLink = code;
       var langue = navigator.language.substring(0,2);
       console.log(code);
