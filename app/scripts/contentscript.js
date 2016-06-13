@@ -13,11 +13,8 @@ var readabilityCallback = function(dataRdb, target, link) {
     '</span>' +
     '</a>';
 
-  var honCodeLogo = '<a target=\'_blank\' class="hon certificateLink"></a>';
-
   if (target.children('.rdb').length === 0) {
-    target.prepend(htmlRdb + honCodeLogo);
-    kconnect.contentHONcodeStatus(target.children('.certificateLink'),link);
+    target.prepend(htmlRdb);
   }
 };
 
@@ -85,11 +82,15 @@ var updateLinks = function() {
   }
   links.forEach(function(link, index) {
     var target = $(nodeList.item(index)).parent().siblings(targetSelector);
-
+    var honLogo = $(nodeList.item(index)).parent();
     var domain = kconnect.getDomainFromUrl(link);
 
     var trustabilityRequest = kconnect.getIsTrustable(domain);
     var readabilityRequest = kconnect.getReadability(link);
+
+    var honCodeLogo = '<a target=\'_blank\' class="hon certificateLink"></a>';
+    honLogo.prepend(honCodeLogo);
+    kconnect.contentHONcodeStatus(honLogo.children('.certificateLink'),link);
 
     $.when(trustabilityRequest, readabilityRequest)
       .then(function(trustabilityResponse, readabilityResponse) {
@@ -97,7 +98,7 @@ var updateLinks = function() {
         readabilityCallback(readabilityResponse[0], target, link);
       })
       .always(function() {
-        if (target.children('.hon').length !== 3) {
+        if (target.children('.hon').length !== 2) {
           target.children('.hon').hide();
         }
 
@@ -107,6 +108,7 @@ var updateLinks = function() {
         }
       });
   });
+
   return deferred.promise();
 };
 

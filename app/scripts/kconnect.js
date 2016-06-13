@@ -56,8 +56,8 @@ var kconnect = {
       var certificate = document.getElementById('certificateLink');
       var langue = navigator.language.substring(0,2);
 
-      if (HONcodeCertificateLink === ''
-        || HONcodeCertificateLink === undefined) {
+      if (HONcodeCertificateLink === '' ||
+        HONcodeCertificateLink === undefined) {
         certificate.title = 'No HonCode certification';
         icon.src = 'images/honcode/hon-invalid-large.png';
       } else {
@@ -75,8 +75,8 @@ var kconnect = {
       var langue = navigator.language.substring(0,2);
       console.log(code);
 
-      if (HONcodeCertificateLink === ''
-        || HONcodeCertificateLink === undefined) {
+      if (HONcodeCertificateLink === '' ||
+        HONcodeCertificateLink === undefined) {
         target.title = 'No HonCode certification';
         target.addClass('invalid');
       } else {
