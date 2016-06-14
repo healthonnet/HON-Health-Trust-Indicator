@@ -1,6 +1,6 @@
 'use strict';
 
-var readabilityCallback = function(dataRdb, target, link) {
+var readabilityCallback = function(dataRdb, target) {
   if (dataRdb.readability === undefined) {
     return;
   }
@@ -13,7 +13,7 @@ var readabilityCallback = function(dataRdb, target, link) {
     kconnect.config.difficultyKeyword[dataRdb.readability.difficulty] +
     '</p></div>';
 
-  if (target.children('.readability').length === 0) {
+  if (target.find('.readability').length === 0) {
     target.append(htmlRdb);
   }
 };
@@ -27,15 +27,15 @@ var trustabilityCallback = function(data, target) {
     Math.round((data.trustability.principles.length / 9) * 100);
 
   var html =
-    '<div class="k-infos trustabilty">' +
-    '<h4>Trustabilty</h4>' +
+    '<div class="k-infos trustability">' +
+    '<h4>Trustability</h4>' +
     '<div class="hon trb">' +
     '<div class="circle">' +
     '</div>' +
     '</div>' +
     '</div>';
 
-  if (target.children('.trustabilty').length === 0) {
+  if (target.find('.trustability').length === 0) {
     var progress = new CircularProgress({
       radius: 25,
       strokeStyle: 'limegreen',
@@ -80,7 +80,6 @@ var updateLinks = function() {
     var $layerId;
     var $logoId;
 
-    var target = $(nodeList.item(index)).parent().siblings(targetSelector);
     var honLogo = $(nodeList.item(index)).parent();
     var domain = kconnect.getDomainFromUrl(link);
 
