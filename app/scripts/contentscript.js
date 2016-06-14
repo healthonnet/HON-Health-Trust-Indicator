@@ -26,9 +26,11 @@ var trustabilityCallback = function(data, target, link) {
   var trustabilityLevel =
     Math.round((data.trustability.principles.length / 9) * 100);
 
-  target.siblings('.certificateLink').hasClass('valid') ?
-    trustClass = 'honTrust' : trustClass =  'circle';
-
+  if (target.siblings('.certificateLink').hasClass('valid')) {
+    trustClass = 'honTrust';
+  } else {
+    trustClass =  'circle';
+  }
 
   var html =
     '<div class="k-infos trustability">' +

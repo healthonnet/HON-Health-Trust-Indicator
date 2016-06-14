@@ -56,13 +56,13 @@
       display: inline-block;
       margin: 10px 5px 5px 10px;
 
-      &.easy{
+      &.easy {
         background-image: url('chrome-extension://__MSG_@@extension_id__/images/easy.png');
       }
-      &.average{
+      &.average {
         background-image: url('chrome-extension://__MSG_@@extension_id__/images/average.png');
       }
-      &.difficult{
+      &.difficult {
         background-image: url('chrome-extension://__MSG_@@extension_id__/images/difficult.png');
       }
     }

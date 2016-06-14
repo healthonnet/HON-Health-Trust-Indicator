@@ -47,12 +47,12 @@ casper.test.begin(googleSearch, 5, function suite(test) {
         kConnectApiUrl + 'readability.cgi?data={"url":"https://www.vidal.fr"}',
         'GET'
       );
-      trustabilityCallback(
-        JSON.parse(trustabilityReq),
-        $(document.querySelectorAll('h3.r a').item(0)).parent().siblings('.s')
-      );
       readabilityCallback(
         JSON.parse(readabilityReq),
+        $(document.querySelectorAll('h3.r a').item(0)).parent().siblings('.s')
+      );
+      trustabilityCallback(
+        JSON.parse(trustabilityReq),
         $(document.querySelectorAll('h3.r a').item(0)).parent().siblings('.s'),
         'https://www.vidal.fr'
       );
@@ -65,7 +65,7 @@ casper.test.begin(googleSearch, 5, function suite(test) {
       return __utils__.findAll('.trustability').length === 1;
     }, 'trustability informations found');
     test.assertEval(function() {
-      return __utils__.findAll('.hon.rdb').length === 1;
+      return __utils__.findAll('.readability').length === 1;
     }, 'readability informations found');
 
   });
@@ -118,14 +118,14 @@ casper.test.begin(yahooSearch, 6, function suite(test) {
         kConnectApiUrl + 'readability.cgi?data={"url":"https://www.vidal.fr"}',
         'GET'
       );
-      trustabilityCallback(
-        JSON.parse(trustabilityReq),
+      readabilityCallback(
+        JSON.parse(readabilityReq),
         $(
           document.querySelectorAll('h3.title a').item(0)
         ).parent().siblings('div:first')
       );
-      readabilityCallback(
-        JSON.parse(readabilityReq),
+      trustabilityCallback(
+        JSON.parse(trustabilityReq),
         $(
           document.querySelectorAll('h3.title a').item(0)
         ).parent().siblings('div:first'),
@@ -137,10 +137,10 @@ casper.test.begin(yahooSearch, 6, function suite(test) {
     test.assertUrlMatch(/p=vidal/, 'search term has been submitted');
 
     test.assertEval(function() {
-      return __utils__.findAll('.hon.trb').length >= 1;
+      return __utils__.findAll('.trustability').length === 1;
     }, 'trustability informations found');
     test.assertEval(function() {
-      return __utils__.findAll('.hon.rdb').length === 1;
+      return __utils__.findAll('.readability').length === 1;
     }, 'readability informations found');
 
   });
@@ -189,14 +189,14 @@ casper.test.begin(bingSearch, 5, function suite(test) {
         kConnectApiUrl + 'readability.cgi?data={"url":"https://www.vidal.fr"}',
         'GET'
       );
-      trustabilityCallback(
-        JSON.parse(trustabilityReq),
+      readabilityCallback(
+        JSON.parse(readabilityReq),
         $(
           document.querySelectorAll('.b_algo h2 a').item(0)
         ).parent().siblings('div')
       );
-      readabilityCallback(
-        JSON.parse(readabilityReq),
+      trustabilityCallback(
+        JSON.parse(trustabilityReq),
         $(
           document.querySelectorAll('.b_algo h2 a').item(0)
         ).parent().siblings('div')
@@ -207,10 +207,10 @@ casper.test.begin(bingSearch, 5, function suite(test) {
     test.assertUrlMatch(/q=vidal/, 'search term has been submitted');
 
     test.assertEval(function() {
-      return __utils__.findAll('.hon.trb').length >= 1;
+      return __utils__.findAll('.trustability').length === 1;
     }, 'trustability informations found');
     test.assertEval(function() {
-      return __utils__.findAll('.hon.rdb').length === 1;
+      return __utils__.findAll('.readability').length === 1;
     }, 'readability informations found');
 
   });
