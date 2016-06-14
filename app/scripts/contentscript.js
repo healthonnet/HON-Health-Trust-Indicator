@@ -18,20 +18,25 @@ var readabilityCallback = function(dataRdb, target) {
   }
 };
 
-var trustabilityCallback = function(data, target) {
+var trustabilityCallback = function(data, target, link) {
   if (data.trustability === undefined) {
     return;
   }
-
+  var trustClass;
   var trustabilityLevel =
     Math.round((data.trustability.principles.length / 9) * 100);
+
+  target.siblings('.certificateLink').hasClass('valid') ?
+    trustClass = 'honTrust' : trustClass =  'circle';
+
 
   var html =
     '<div class="k-infos trustability">' +
     '<h4>Trustability</h4>' +
     '<div class="hon trb">' +
-    '<div class="circle">' +
-    '</div>' +
+    '<a target="_blank" ' +
+    'class="' + trustClass + '">' +
+    '</a>' +
     '</div>' +
     '</div>';
 
@@ -43,6 +48,8 @@ var trustabilityCallback = function(data, target) {
       lineWidth: 3,
     });
     target.append(html);
+    kconnect.contentHONcodeStatus(target.find('.honTrust'), link);
+
     target.find('.circle').html(progress.el);
     progress.update(trustabilityLevel);
   }
@@ -89,8 +96,8 @@ var updateLinks = function() {
     var layerId = 'honLayer_' + index;
     var logoId = 'honLogo_' + index;
 
-    var honCodeLogo = '<a target=\'_blank\' id="' + logoId +
-      '" class="hon certificateLink"></a>';
+    var honCodeLogo = '<div target=\'_blank\' id="' + logoId +
+      '" class="hon certificateLink"></div>';
     var popUp = '<div class="honPopup" style="display: none" ' +
       'id="' + layerId + '">' +
       '<div class="honPopup-header">' + domain + '</div>' +
@@ -109,8 +116,8 @@ var updateLinks = function() {
 
     $.when(trustabilityRequest, readabilityRequest)
       .then(function(trustabilityResponse, readabilityResponse) {
-        readabilityCallback(readabilityResponse[0], $layerId, link);
-        trustabilityCallback(trustabilityResponse[0], $layerId);
+        readabilityCallback(readabilityResponse[0], $layerId);
+        trustabilityCallback(trustabilityResponse[0], $layerId, link);
 
         var timeoutId;
         var hideTimeoutId;

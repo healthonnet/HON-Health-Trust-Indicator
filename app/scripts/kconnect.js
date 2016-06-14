@@ -73,18 +73,17 @@ var kconnect = {
     hon_listHON.checkURL(hon_listHON.formatHREF(link)).then(function(code) {
       var HONcodeCertificateLink = code;
       var langue = navigator.language.substring(0,2);
-      console.log(code);
 
       if (HONcodeCertificateLink === '' ||
         HONcodeCertificateLink === undefined) {
         target.title = 'No HonCode certification';
         target.addClass('invalid');
       } else {
-        target.title = 'HonCode certified';
+        target.attr('title', 'HonCode certified');
         target.addClass('valid');
-        target.href =
+        target.attr('href',
           'http://services.hon.ch/cgi-bin/Plugin/redirect.pl?' +
-          HONcodeCertificateLink + ' +' + langue;
+          HONcodeCertificateLink + ' +' + langue);
       }
     });
   },

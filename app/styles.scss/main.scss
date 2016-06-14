@@ -39,7 +39,6 @@
     margin-top: 35px;
     text-transform: uppercase;
     font-weight: normal;
-    font-family: 'Open Sans', sans-serif;
   }
 
   .k-infos {
@@ -79,6 +78,18 @@
 
   .trustability {
     width: 120px;
+
+    .honTrust {
+      background-image: url('chrome-extension://__MSG_@@extension_id__/images/honcode/hon-valid-large.png');
+      position: relative;
+      background-size: cover;
+      display: inline-block;
+      width: 36px;
+      height: 45px;
+      margin-left: 40px;
+      margin-top: 5px;
+    }
+
     .circle {
       display: inline-block;
       vertical-align: top;
