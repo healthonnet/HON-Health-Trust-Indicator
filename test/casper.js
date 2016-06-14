@@ -31,6 +31,7 @@ casper.test.begin(googleSearch, 5, function suite(test) {
     }, chrome);
 
     this.page.injectJs('app/bower_components/jquery/dist/jquery.min.js');
+    this.page.injectJs('app/bower_components/circular-progress/circular-progress.min.js');
     this.page.injectJs('app/scripts/kconnect.js');
     this.page.injectJs('app/scripts/contentscript.js');
 
@@ -60,10 +61,10 @@ casper.test.begin(googleSearch, 5, function suite(test) {
     test.assertUrlMatch(/q=vidal/, 'search term has been submitted');
 
     test.assertEval(function() {
-      return __utils__.findAll('.hon.trb').length === 1;
+      return __utils__.findAll('.trustabilty').length === 1;
     }, 'trustability informations found');
     test.assertEval(function() {
-      return __utils__.findAll('.hon.rdb').length === 1;
+      return __utils__.findAll('.readabilty').length === 1;
     }, 'readability informations found');
 
   });
@@ -100,6 +101,7 @@ casper.test.begin(yahooSearch, 6, function suite(test) {
     }, chrome);
 
     this.page.injectJs('app/bower_components/jquery/dist/jquery.min.js');
+    this.page.injectJs('app/bower_components/circular-progress/circular-progress.min.js');
     this.page.injectJs('app/scripts/kconnect.js');
     this.page.injectJs('app/scripts/contentscript.js');
 
@@ -169,6 +171,7 @@ casper.test.begin(bingSearch, 5, function suite(test) {
     }, chrome);
 
     this.page.injectJs('app/bower_components/jquery/dist/jquery.min.js');
+    this.page.injectJs('app/bower_components/circular-progress/circular-progress.min.js');
     this.page.injectJs('app/scripts/kconnect.js');
     this.page.injectJs('app/scripts/contentscript.js');
 
