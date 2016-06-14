@@ -62,7 +62,7 @@ casper.test.begin(googleSearch, 5, function suite(test) {
     test.assertUrlMatch(/q=vidal/, 'search term has been submitted');
 
     test.assertEval(function() {
-      return __utils__.findAll('.trustabilty').length === 1;
+      return __utils__.findAll('.trustability').length === 1;
     }, 'trustability informations found');
     test.assertEval(function() {
       return __utils__.findAll('.hon.rdb').length === 1;
