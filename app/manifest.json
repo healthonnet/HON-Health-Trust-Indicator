@@ -39,6 +39,7 @@
       "matches": ["<all_urls>"],
       "js": [
         "bower_components/jquery/dist/jquery.min.js",
+        "bower_components/circular-progress/circular-progress.min.js",
         "scripts/utils/md5.js",
         "scripts/utils/tld.js",
         "scripts/utils/hash.js",

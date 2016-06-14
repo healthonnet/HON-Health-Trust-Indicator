@@ -28,10 +28,16 @@ function debounce(func, wait, immediate) {
 
 chrome.webRequest.onCompleted.addListener(debounce(function(details) {
     chrome.tabs.executeScript(
-        details.tabId, {
-          file: 'bower_components/jquery/dist/jquery.min.js',
-          allFrames: true,
-        }
+      details.tabId, {
+        file: 'bower_components/circular-progress/circular-progress.min.js',
+        allFrames: true,
+      }
+    );
+    chrome.tabs.executeScript(
+      details.tabId, {
+        file: 'bower_components/jquery/dist/jquery.min.js',
+        allFrames: true,
+      }
     );
     chrome.tabs.executeScript(
       details.tabId, {

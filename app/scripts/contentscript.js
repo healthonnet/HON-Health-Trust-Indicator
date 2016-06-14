@@ -6,15 +6,15 @@ var readabilityCallback = function(dataRdb, target, link) {
   }
 
   var htmlRdb =
-    '<a class="hon rdb ' + dataRdb.readability.difficulty +
-    ' " href="' + link + '">' +
-    '<span class="tooltip"> Readability: ' +
+    '<div class="k-infos readability">' +
+    '<h4>Readability</h4>' +
+    '<p class="hon rdb ' + dataRdb.readability.difficulty + '"></p>' +
+    '<p class="desc">' +
     kconnect.config.difficultyKeyword[dataRdb.readability.difficulty] +
-    '</span>' +
-    '</a>';
+    '</p></div>';
 
-  if (target.children('.rdb').length === 0) {
-    target.prepend(htmlRdb);
+  if (target.children('.readability').length === 0) {
+    target.append(htmlRdb);
   }
 };
 
@@ -23,32 +23,28 @@ var trustabilityCallback = function(data, target) {
     return;
   }
 
-  var tooltip = chrome.i18n.getMessage('tooltipTrustabilityLevel');
   var trustabilityLevel =
     Math.round((data.trustability.principles.length / 9) * 100);
 
-  tooltip = tooltip.replace(/%VALUE%/g, trustabilityLevel);
-  var principles = data.trustability.principles;
-  // If some HONCode are missing we found them.
-  if (trustabilityLevel !== 100) {
-    tooltip += '</br>' +
-      chrome.i18n.getMessage('tooltipTrustabilityMissingPrinciples');
-
-    var missingPrinciples =
-      kconnect.getMissingPrinciples(principles).join(', ');
-
-    tooltip = tooltip.replace(/%PRINCIPLES%/g, missingPrinciples);
-  }
-
   var html =
+    '<div class="k-infos trustabilty">' +
+    '<h4>Trustabilty</h4>' +
     '<div class="hon trb">' +
-    '<span class="tooltip">' +
-    tooltip +
-    '</span>' +
-    '<span class="meter" style=" width: ' + trustabilityLevel + '%"></span>' +
+    '<div class="circle">' +
+    '</div>' +
+    '</div>' +
     '</div>';
-  if (target.children('.trb').length === 0) {
-    target.prepend(html);
+
+  if (target.children('.trustabilty').length === 0) {
+    var progress = new CircularProgress({
+      radius: 25,
+      strokeStyle: 'limegreen',
+      lineCap: 'round',
+      lineWidth: 3,
+    });
+    target.append(html);
+    target.find('.circle').html(progress.el);
+    progress.update(trustabilityLevel);
   }
 };
 
@@ -81,6 +77,9 @@ var updateLinks = function() {
     links[i] = nodeList[i].href;
   }
   links.forEach(function(link, index) {
+    var $layerId;
+    var $logoId;
+
     var target = $(nodeList.item(index)).parent().siblings(targetSelector);
     var honLogo = $(nodeList.item(index)).parent();
     var domain = kconnect.getDomainFromUrl(link);
@@ -88,22 +87,62 @@ var updateLinks = function() {
     var trustabilityRequest = kconnect.getIsTrustable(domain);
     var readabilityRequest = kconnect.getReadability(link);
 
-    var honCodeLogo = '<a target=\'_blank\' class="hon certificateLink"></a>';
+    var layerId = 'honLayer_' + index;
+    var logoId = 'honLogo_' + index;
+
+    var honCodeLogo = '<a target=\'_blank\' id="' + logoId +
+      '" class="hon certificateLink"></a>';
+    var popUp = '<div class="honPopup" style="display: none" ' +
+      'id="' + layerId + '">' +
+      '<div class="honPopup-header">' + domain + '</div>' +
+      '</div>';
+
     if (honLogo.children('.certificateLink').length === 0) {
-      honLogo.prepend(honCodeLogo);
-      kconnect.contentHONcodeStatus(honLogo.children('.certificateLink'),link);
+      honLogo.prepend(honCodeLogo + popUp);
+      kconnect.contentHONcodeStatus(honLogo.children('.certificateLink'), link);
     }
+
+    $layerId =  $('#' + layerId);
+    $logoId =  $('#' + logoId);
 
     $.when(trustabilityRequest, readabilityRequest)
       .then(function(trustabilityResponse, readabilityResponse) {
-        trustabilityCallback(trustabilityResponse[0], target);
-        readabilityCallback(readabilityResponse[0], target, link);
+        readabilityCallback(readabilityResponse[0], $layerId, link);
+        trustabilityCallback(trustabilityResponse[0], $layerId);
+
+        var timeoutId;
+        var hideTimeoutId;
+
+        // Add honLogo eventListener
+        $logoId.hover(function() {
+          if (!timeoutId) {
+            timeoutId = window.setTimeout(function() {
+              timeoutId = null;
+              $layerId.show();
+            }, 200);
+          }
+        }, function() {
+          if (timeoutId) {
+            window.clearTimeout(timeoutId);
+            timeoutId = null;
+          }
+        });
+
+        $layerId.hover(function() {
+          if (hideTimeoutId) {
+            window.clearTimeout(hideTimeoutId);
+            hideTimeoutId = null;
+          }
+        }, function() {
+          if (!hideTimeoutId) {
+            hideTimeoutId = window.setTimeout(function() {
+              hideTimeoutId = null;
+              $layerId.hide();
+            }, 200);
+          }
+        });
       })
       .always(function() {
-        if (target.children('.hon').length !== 2) {
-          target.children('.hon').hide();
-        }
-
         trustabilityRequested++;
         if (trustabilityRequested === links.length) {
           deferred.resolve();
@@ -114,6 +153,4 @@ var updateLinks = function() {
   return deferred.promise();
 };
 
-updateLinks().done(function() {
-  console.log('hon-kconnect-chrome-extension');
-});
+updateLinks().done(function() {});

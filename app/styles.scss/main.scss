@@ -1,52 +1,16 @@
 .hon {
-  text-align: center;
-  vertical-align: middle;
-
-  &.rdb {
-    position: relative;
-    background-size: cover;
-    width:30px;
-    height:30px;
-    display: inline-block;
-    margin: 0.5% 2% 2% 0;
-
-    &.easy{
-      background-image: url('chrome-extension://__MSG_@@extension_id__/images/easy.png')
-    }
-    &.average{
-      background-image: url('chrome-extension://__MSG_@@extension_id__/images/average.png')
-    }
-    &.difficult{
-      background-image: url('chrome-extension://__MSG_@@extension_id__/images/difficult.png')
-    }
-  }
   &.trb {
-    height: 5px;  /* Can be anything */
-    width: 50%;  /* Can be anything */
-    margin-right: 25%;
-    display: inline-block;
-    position: relative;
-    background: #555;
-    -moz-border-radius: 25px;
-    -webkit-border-radius: 25px;
-    border-radius: 25px;
-    padding: 5px;
-    box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
-
-    .meter {
-      display: block;
-      height: 100%;
-      border-top-right-radius: 8px;
-      border-bottom-right-radius: 8px;
-      border-top-left-radius: 20px;
-      border-bottom-left-radius: 20px;
-      background-color: rgb(43,194,83);
-      box-shadow:
-        inset 0 2px 9px  rgba(255,255,255,0.3),
-        inset 0 -2px 6px rgba(0,0,0,0.4);
-      position: relative;
-      overflow: hidden;
+    .circle {
+      display: inline-block;
+      vertical-align: top;
+      margin-top: 5px;
+      margin-left: 35px;
+      padding-bottom: 10px;
+      canvas {
+        margin: 0 30%;
+      }
     }
+
   }
 
   &.certificateLink {
@@ -55,7 +19,7 @@
     display: inline-block;
     width: 20px;
     height: 25px;
-    margin: 0 5px 5px 5px;
+    margin: 0 5px 0 5px;
     background-image: url("chrome-extension://__MSG_@@extension_id__/images/honcode/hon-none-large.png");
     &.valid {
       background-image: url('chrome-extension://__MSG_@@extension_id__/images/honcode/hon-valid-large.png')
@@ -96,6 +60,84 @@
       z-index: 999;
     }
   }
+}
 
-  display: none;
+.honPopup {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  margin: 0;
+  padding: 0;
+  z-index: 9999;
+  vertical-align: middle;
+  width: 300px;
+
+  background-color: white;
+  box-shadow: 4px 4px 4px rgba(160, 160, 160, 0.7);
+  border: 1px solid #e4e4e4 !important;
+
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  -webkit-user-select: none;
+
+  h4 {
+    text-align: center;
+    margin-bottom: 0;
+    margin-top: 30px;
+  }
+
+  .k-infos {
+    width: 150px;
+    display: table-cell;
+    vertical-align: top;
+  }
+
+  .readability {
+    .rdb {
+      position: relative;
+      background-size: cover;
+      width:30px;
+      height:30px;
+      display: inline-block;
+      margin: 10px 5px 5px 10px;
+
+      &.easy{
+        background-image: url('chrome-extension://__MSG_@@extension_id__/images/easy.png')
+      }
+      &.average{
+        background-image: url('chrome-extension://__MSG_@@extension_id__/images/average.png')
+      }
+      &.difficult{
+        background-image: url('chrome-extension://__MSG_@@extension_id__/images/difficult.png')
+      }
+    }
+
+    p.desc {
+      width: 100px;
+      display: inline-block;
+      vertical-align: top;
+    }
+  }
+
+  .honPopup-header {
+    position: absolute;
+    top: 0;
+    width: 280px;
+    background: url("chrome-extension://__MSG_@@extension_id__/images/icon-16.png") top left no-repeat;
+    margin: 0;
+    text-align: right;
+    color: #A5A4A4;
+    border-bottom: 1px solid #e4e4e4;
+    font-size: 11px;
+    padding: 5px;
+    padding-right: 15px;
+    background-position: 6px 6px;
+    background-size: 5%;
+  }
+  p {
+    white-space: normal;
+    font-size: 0.8em;
+    margin-left: 5px;
+  }
 }
