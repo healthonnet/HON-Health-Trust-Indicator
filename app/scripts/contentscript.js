@@ -36,9 +36,7 @@ var trustabilityCallback = function(data, target, link) {
     '<div class="hon trb">' +
     '<a target="_blank" ' +
     'class="' + trustClass + '">' +
-    '</a>' +
-    '</div>' +
-    '</div>';
+    '</a></div></div>';
 
   if (target.find('.trustability').length === 0) {
     var progress = new CircularProgress({
@@ -62,22 +60,18 @@ var updateLinks = function() {
   // Get links
   var links = [];
   var hrefSelector = '';
-  var targetSelector = '';
   var trustabilityRequested = 0;
   // Match Google
   if (window.location.host.indexOf('google') > -1) {
     hrefSelector = 'h3.r a';
-    targetSelector = '.s';
   }
   // Match Yahoo
   else if (window.location.host.indexOf('yahoo') > -1) {
     hrefSelector = 'div.compTitle h3.title a';
-    targetSelector = 'div:first';
   }
   // Match Bing
   else if (window.location.host.indexOf('bing') > -1) {
     hrefSelector = 'li.b_algo h2 a';
-    targetSelector = 'div.b_caption';
   }
   var nodeList = document.querySelectorAll(hrefSelector);
   for (var i = 0; i < nodeList.length; ++i) {
