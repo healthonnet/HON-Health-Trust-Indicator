@@ -97,6 +97,9 @@ var updateLinks = function() {
       '</div>';
 
     if (honLogo.children('.certificateLink').length === 0) {
+      // Normalize Search Engine parents' behaviors
+      honLogo.parent().css('overflow','visible');
+      honLogo.parent().css('position','relative');
       honLogo.prepend(honCodeLogo + popUp);
       kconnect.contentHONcodeStatus(honLogo.children('.certificateLink'), link);
     }
