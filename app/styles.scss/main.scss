@@ -22,7 +22,7 @@
   padding: 0;
   z-index: 9999;
   vertical-align: middle;
-  width: 300px;
+  width: 270px;
 
   background-color: white;
   box-shadow: 4px 4px 4px rgba(160, 160, 160, 0.7);
@@ -66,18 +66,21 @@
     }
 
     p.desc {
+      line-height: 1.308em;
       width: 100px;
+      margin-top: 10px;
       display: inline-block;
       vertical-align: top;
     }
   }
 
   .trustability {
+    width: 120px;
     .circle {
       display: inline-block;
       vertical-align: top;
       margin-top: 5px;
-      margin-left: 35px;
+      margin-left: 20px;
       padding-bottom: 10px;
       canvas {
         margin: 0 30%;
@@ -88,7 +91,7 @@
   .honPopup-header {
     position: absolute;
     top: 0;
-    width: 280px;
+    width: 250px;
     background: url("chrome-extension://__MSG_@@extension_id__/images/icon-16.png") top left no-repeat;
     margin: 0;
     text-align: right;
@@ -97,8 +100,8 @@
     font-size: 11px;
     padding: 5px;
     padding-right: 15px;
-    background-position: 6px 6px;
-    background-size: 5%;
+    background-position: 4px 4px;
+    background-size: 7%;
   }
   p {
     white-space: normal;
