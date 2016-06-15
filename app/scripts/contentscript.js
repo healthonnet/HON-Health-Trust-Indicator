@@ -65,15 +65,15 @@ var updateLinks = function() {
   var trustabilityRequested = 0;
   // Match Google
   if (window.location.host.indexOf('google') > -1) {
-    hrefSelector = 'h3.r a';
+    hrefSelector = 'h3.r>a';
   }
   // Match Yahoo
   else if (window.location.host.indexOf('yahoo') > -1) {
-    hrefSelector = 'div.compTitle h3.title a';
+    hrefSelector = 'div.compTitle h3.title>a';
   }
   // Match Bing
   else if (window.location.host.indexOf('bing') > -1) {
-    hrefSelector = 'li.b_algo h2 a';
+    hrefSelector = 'li.b_algo h2>a';
   }
   var nodeList = document.querySelectorAll(hrefSelector);
   for (var i = 0; i < nodeList.length; ++i) {
