@@ -20,15 +20,17 @@ chrome.tabs.query(query, function(tabs) {
       return;
     }
     $('#users').html(
-      '<h3>Community ratings ( ' +
-      '<a href=\'' + jabberResult.urlProfilePage + '\' target=\'_blank\'>' +
-      jabberResult.numReviews[0].rating + '</a> ) : </h3>' +
-      '<div id=\'stars\'></div>' +
-      '<span class=\'credit\'>' +
+      '<h3>Community ratings</h3>' +
+      '<div id=\'stars\' class="left"></div>' +
+      '<div class="right"><a href=\'' +
+      jabberResult.urlProfilePage + '\' target=\'_blank\'>' +
+      jabberResult.numReviews[0].rating + '</a> ratings</div>' +
+      '<div class=\'credit\'>' +
       '<a href=\'http://www.sitejabber.com/about-us\' ' +
       'title=\'About - SiteJabber\' target=\'_blank\'>' +
-      'Powered by SiteJabber</a></span>'
+      'Powered by SiteJabber</a></div>'
     );
+    $('#users').addClass('box');
 
     var raterOptions = {
       max_value: 5,
@@ -52,7 +54,10 @@ chrome.tabs.query(query, function(tabs) {
       if (trustabilityResponse[0].trustability === undefined) {
         $('#trustability').html('<p>No Trustability informations ' +
           'for this domain</p>');
-        $('#readability').html('<p>No Readability  informations</p>');
+        $('#readability-content').html('<p>No Readability  informations</p>');
+        $('#readability-image').html(
+          '<img src="images/unknown.png" />'
+        );
         return;
       }
       var principlesHtml = '';
@@ -61,24 +66,21 @@ chrome.tabs.query(query, function(tabs) {
 
       trustabilityResponse[0].trustability.principles.forEach(
         function(principle) {
-        principlesHtml += '<li>- ' + principle + '</li>';
+        principlesHtml += '<li><span>✓</span> ' + principle + '</li>';
       });
 
       $('#trustability').html(
-        '<h3>Trustability : </h3>' +
-        '<div id=\'circle\'></div>' +
-        '<div><a target=\'_blank\' title=\'HONcode Principles\'' +
-        ' href=\'http://www.hon.ch/HONcode/' +
-        'Patients/Conduct.html\'>' +
-        '<img src=\'images/honcode/hon-medline.png\' ></a>' +
-        '<ul>' + principlesHtml + '</ul></div>');
+        '<ul>' + principlesHtml + '</ul>'
+      );
 
-      $('#readability').html(
-        ' <h3>Readability :</h3>' +
-        '<div id=\'difficultyIcon\' class=\'' + difficulty + '\'></div>' +
-        '<p class=\'difficulty ' + difficulty + '\'>' +
-        kconnect.config.difficultyKeyword[difficulty] +
-        '</p>');
+      $('#readability-image').html(
+        '<img src="images/' + difficulty + '.png" />'
+      );
+
+      $('#readability-content').html(
+        '<span class="color-' + difficulty +
+        '">' + kconnect.config.difficultyKeyword[difficulty] + '</span>'
+      );
 
       var progress = new CircularProgress({
         radius: 40,
@@ -87,13 +89,14 @@ chrome.tabs.query(query, function(tabs) {
         lineWidth: 5,
       });
 
-      $('#circle').html(progress.el);
-
       progress.update(score);
     }, function() {
       $('#trustability').html('<p>No Trustability informations for' +
         ' this domain</p>');
-      $('#readability').html('<p>No Readability  informations</p>');
+      $('#readability-content').html('<p>No Readability  informations</p>');
+      $('#readability-image').html(
+        '<img src="images/unknown.png" />'
+      );
       $('#users').hide();
     });
 });
