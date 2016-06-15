@@ -21,16 +21,16 @@ chrome.tabs.query(query, function(tabs) {
     }
     $('#users').html(
       '<h3>Community ratings</h3>' +
-      '<div id=\'stars\' class="left"></div>' +
-      '<div class="right"><a href=\'' +
+      '<div class="community"><div id=\'stars\'></div>' +
+      '<div><a href=\'' +
       jabberResult.urlProfilePage + '\' target=\'_blank\'>' +
       jabberResult.numReviews[0].rating + '</a> ratings</div>' +
-      '<div class=\'credit\'>' +
-      '<a href=\'http://www.sitejabber.com/about-us\' ' +
-      'title=\'About - SiteJabber\' target=\'_blank\'>' +
-      'Powered by SiteJabber</a></div>'
+      '<a href="http://www.sitejabber.com/about-us" class="credit">' +
+      '<img src="https://d1gzz21cah5pzn.cloudfront.net/' +
+      'img/glb/sitejabber_logo_165x66.1465572590.png" ' +
+      'alt="community ratings powered by SiteJabber" ' +
+      'title="community ratings powered by SiteJabber"></a></div>'
     );
-    $('#users').addClass('box');
 
     var raterOptions = {
       max_value: 5,

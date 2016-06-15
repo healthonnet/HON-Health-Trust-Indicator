@@ -16,39 +16,48 @@
     <link rel="stylesheet" href="styles/popup.css">
 </head>
 <body>
-    <div id="header" class="header">
-        <img id="popupIcon" src="images/icon-48.png" alt="icon"/>
-        <div>
-          <h2 id="host"></h2>
-        </div>
+  <div class="header">
+    <img id="popupIcon" src="images/icon-48.png" alt="icon"/>
+    <h1>Kconnect extension</h1>
+  </div>
+
+  <div class="search box">
+    <h2>Khresmoi search engine</h2>
+    <form>
+      <input type="text" placeholder="Search through Khresmoi">
+      <input type="submit">
+    </form>
+  </div>
+
+  <div class="kconnect box">
+    <h2 id="host"></h2>
+    <div class="left">
+      <h3>Trustability</h3>
+      <a target="_blank" id="certificateLink" class="img-container">
+        <img id="honstatus" src="images/honcode/hon-none-large.png" alt="icon"/>
+      </a>
+      <p id="trustability">Loading ...</p>
     </div>
-    <div id="body">
-        <div id="results">
-            <div class="box trustability">
-                <h3>Trustability</h3>
-                <div class="icons">
-                  <a target="_blank" id="certificateLink" class="honcode">
-                    <img id="honstatus" src="images/honcode/hon-none-large.png" alt="icon"/>
-                  </a>
-                </div>
-                <p id="trustability">Loading...</p>
-            </div>
-            <div id="readability" class="box">
-                <h3>Readability</h3>
-                <div id="readability-image" class="left">
-                  <img src="images/unknown.png" />
-                </div>
-                <div id="readability-content" class="right">
-                  <p>Loading...</p>
-                </div>
-            </div>
-        </div>
-        <div id="users"></div>
-        <div class="footer">
-          © 2016 -
-          <a href="https://hon.ch/20-years" target="_blank">Health On the Net</a> -
-          <a href="">Legal notice</a>
-        </div>
+    <div class="right">
+      <h3>Readability</h3>
+      <div id="readability-image" class="img-container">
+        <img src="images/unknown.png" />
+      </div>
+      <p id="readability-content">Loading ...</p>
     </div>
+    <div class="site-jabber" id="users">
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>
+      © 2016 -
+      <a href="https://hon.ch/20-years" target="_blank">Health On the Net</a> -
+      <a href="#" target="_blank">Privacy policy</a>
+    </p>
+  </div>
+
+  <div class="hrv"></div>
+
 </body>
 </html>
