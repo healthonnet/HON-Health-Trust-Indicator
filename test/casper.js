@@ -61,6 +61,8 @@ casper.test.begin(googleSearch, 5, function suite(test) {
     test.assertTitle('vidal - Recherche Google', 'google title is ok');
     test.assertUrlMatch(/q=vidal/, 'search term has been submitted');
 
+    this.waitForSelector('.trustability');
+
     test.assertEval(function() {
       return __utils__.findAll('.trustability').length === 1;
     }, 'trustability informations found');
@@ -136,6 +138,8 @@ casper.test.begin(yahooSearch, 6, function suite(test) {
     test.assertTitle('vidal - Yahoo Search - Actualités', 'yahoo title is ok');
     test.assertUrlMatch(/p=vidal/, 'search term has been submitted');
 
+    this.waitForSelector('.trustability');
+
     test.assertEval(function() {
       return __utils__.findAll('.trustability').length === 1;
     }, 'trustability informations found');
@@ -205,6 +209,8 @@ casper.test.begin(bingSearch, 5, function suite(test) {
 
     test.assertTitle('vidal - Bing', 'bing title is ok');
     test.assertUrlMatch(/q=vidal/, 'search term has been submitted');
+
+    this.waitForSelector('.trustability');
 
     test.assertEval(function() {
       return __utils__.findAll('.trustability').length === 1;
