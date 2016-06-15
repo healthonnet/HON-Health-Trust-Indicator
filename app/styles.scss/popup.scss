@@ -20,6 +20,15 @@ h3 {
   margin: 0 0 20px 0;
 }
 
+a:link, a:visited {
+  color: rgb(21,127,173);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 .header, .box {
   background-color: rgb(255, 255, 255);
   border-bottom: rgb(219,220,219) solid 1px;
