@@ -5,6 +5,10 @@ var readabilityCallback = function(dataRdb, target) {
     return;
   }
 
+  if(!target instanceof jQuery) {
+    target = $(target.selector);
+  }
+
   var htmlRdb =
     '<div class="k-infos readability">' +
     '<h4>Readability</h4>' +
@@ -22,6 +26,11 @@ var trustabilityCallback = function(data, target, link) {
   if (data.trustability === undefined) {
     return;
   }
+
+  if(!target instanceof jQuery) {
+    target = $(target.selector);
+  }
+
   var trustClass;
   var trustabilityLevel =
     Math.round((data.trustability.principles.length / 9) * 100);
@@ -55,6 +64,62 @@ var trustabilityCallback = function(data, target, link) {
   }
 };
 
+var requestKconnect = function(event, link) {
+  var domain = kconnect.getDomainFromUrl(link);
+  var trustabilityRequest = kconnect.getIsTrustable(domain);
+  var readabilityRequest = kconnect.getReadability(link);
+
+  var layerId = 'layer' + event.target.id;
+  var $logoId =  $(event.target);
+
+  var popUp = '<div class="honPopup" style="display: none" ' +
+    'id="' + layerId + '">' +
+    '<div class="honPopup-header">' + domain + '</div>' +
+    '</div>';
+  $logoId.parent().append(popUp);
+
+  var $layerId =  $('#' + layerId);
+
+  $.when(trustabilityRequest, readabilityRequest)
+    .then(function(trustabilityResponse, readabilityResponse) {
+      readabilityCallback(readabilityResponse[0], $layerId);
+      trustabilityCallback(trustabilityResponse[0], $layerId, link);
+
+      var timeoutId;
+      var hideTimeoutId;
+
+      $layerId.show();
+
+      // Add honLogo eventListener
+      $logoId.hover(function() {
+        if (!timeoutId) {
+          timeoutId = window.setTimeout(function() {
+            timeoutId = null;
+            $layerId.show();
+          }, 200);
+        }
+      }, function() {
+        if (timeoutId) {
+          window.clearTimeout(timeoutId);
+          timeoutId = null;
+        }
+      });
+
+      $layerId.hover(function() {
+        if (hideTimeoutId) {
+          window.clearTimeout(hideTimeoutId);
+          hideTimeoutId = null;
+        }
+      }, function() {
+        if (!hideTimeoutId) {
+          hideTimeoutId = window.setTimeout(function() {
+            hideTimeoutId = null;
+            $layerId.hide();
+          }, 200);
+        }
+      });
+    })
+};
 
 var updateLinks = function() {
   var deferred = new $.Deferred();
@@ -80,79 +145,30 @@ var updateLinks = function() {
     links[i] = nodeList[i].href;
   }
   links.forEach(function(link, index) {
-    var $layerId;
-    var $logoId;
-
     var honLogo = $(nodeList.item(index)).parent();
-    var domain = kconnect.getDomainFromUrl(link);
 
-    var trustabilityRequest = kconnect.getIsTrustable(domain);
-    var readabilityRequest = kconnect.getReadability(link);
-
-    var layerId = 'honLayer_' + index;
     var logoId = 'honLogo_' + index;
 
     var honCodeLogo = '<div target=\'_blank\' id="' + logoId +
       '" class="hon certificateLink"></div>';
-    var popUp = '<div class="honPopup" style="display: none" ' +
-      'id="' + layerId + '">' +
-      '<div class="honPopup-header">' + domain + '</div>' +
-      '</div>';
 
     if (honLogo.children('.certificateLink').length === 0) {
       // Normalize Search Engine parents' behaviors
       honLogo.parent().css('overflow','visible');
       honLogo.parent().css('position','relative');
-      honLogo.prepend(honCodeLogo + popUp);
+      honLogo.prepend(honCodeLogo);
       kconnect.contentHONcodeStatus(honLogo.children('.certificateLink'), link);
+
+      // Add onClick listener
+      $('#' + logoId).one( "click", function(e) {
+        requestKconnect(e, link);
+      });
     }
 
-    $layerId =  $('#' + layerId);
-    $logoId =  $('#' + logoId);
-
-    $.when(trustabilityRequest, readabilityRequest)
-      .then(function(trustabilityResponse, readabilityResponse) {
-        readabilityCallback(readabilityResponse[0], $layerId);
-        trustabilityCallback(trustabilityResponse[0], $layerId, link);
-
-        var timeoutId;
-        var hideTimeoutId;
-
-        // Add honLogo eventListener
-        $logoId.hover(function() {
-          if (!timeoutId) {
-            timeoutId = window.setTimeout(function() {
-              timeoutId = null;
-              $layerId.show();
-            }, 200);
-          }
-        }, function() {
-          if (timeoutId) {
-            window.clearTimeout(timeoutId);
-            timeoutId = null;
-          }
-        });
-
-        $layerId.hover(function() {
-          if (hideTimeoutId) {
-            window.clearTimeout(hideTimeoutId);
-            hideTimeoutId = null;
-          }
-        }, function() {
-          if (!hideTimeoutId) {
-            hideTimeoutId = window.setTimeout(function() {
-              hideTimeoutId = null;
-              $layerId.hide();
-            }, 200);
-          }
-        });
-      })
-      .always(function() {
-        trustabilityRequested++;
-        if (trustabilityRequested === links.length) {
-          deferred.resolve();
-        }
-      });
+    trustabilityRequested++;
+    if (trustabilityRequested === links.length) {
+      deferred.resolve();
+    }
   });
 
   return deferred.promise();
