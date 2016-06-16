@@ -55,7 +55,6 @@ TODO
 -----------
  - Better Design
  - Extension options
- - PopUp for current website R&T informations (in progress)
 
 Developers
 -----------
