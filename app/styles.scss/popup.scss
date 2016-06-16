@@ -8,7 +8,7 @@ body {
 
 h1, h2, h3 {
   margin: 0;
-  padding: 0 0 20px 0;
+  padding: 0 0 15px 0;
   font-weight: 300;
   text-align: center;
 }
@@ -75,7 +75,7 @@ a:hover {
 }
 
 .left img, .right img {
-  padding-top: 10px;
+  /*padding-top: 10px;*/
   width: 60px;
 }
 
@@ -88,7 +88,7 @@ a:hover {
   height: 160px;
   position: absolute;
   top: 220px;
-  left: 249px;
+  left: 251px;
   border-right: #dbdcdb solid 1px;
 }
 
@@ -182,7 +182,8 @@ li span {
   width: 15%;
   border: rgb(215,215,215) solid 1px;
   margin: 0;
-  height: 28px;
+  height: 35px;
   border-radius: 5px;
-  background-color: green;
+  background: linear-gradient(#49708f, #293f50);
+  color: white;
 }
