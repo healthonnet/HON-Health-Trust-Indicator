@@ -116,7 +116,7 @@ var requestKconnect = function(event, link) {
   });
   $layerId.show();
 
-  if($layerId.siblings('.certificateLink').hasClass('valid')) {
+  if ($layerId.siblings('.certificateLink').hasClass('valid')) {
     trustabilityCallback({trustability: 'hon'}, $layerId, link);
   } else {
     $.when(trustabilityRequest)
