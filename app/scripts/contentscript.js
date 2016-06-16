@@ -33,12 +33,12 @@ var trustabilityCallback = function(data, target, link) {
   }
 
   var trustClass;
-  var trustabilityLevel =
-    Math.round((data.trustability.principles.length / 9) * 100);
 
-  if (target.siblings('.certificateLink').hasClass('valid')) {
+  if (data.trustability === 'hon') {
     trustClass = 'honTrust';
   } else {
+    var trustabilityLevel =
+      Math.round((data.trustability.principles.length / 9) * 100);
     trustClass =  'circle';
   }
 
@@ -116,13 +116,18 @@ var requestKconnect = function(event, link) {
   });
   $layerId.show();
 
+  if($layerId.siblings('.certificateLink').hasClass('valid')) {
+    trustabilityCallback({trustability: 'hon'}, $layerId, link);
+  } else {
+    $.when(trustabilityRequest)
+      .then(function(trustabilityResponse) {
+        trustabilityCallback(trustabilityResponse, $layerId, link);
+      });
+  }
+
   $.when(readabilityRequest)
     .then(function(readabilityResponse) {
       readabilityCallback(readabilityResponse, $layerId);
-    });
-  $.when(trustabilityRequest)
-    .then(function(trustabilityResponse) {
-      trustabilityCallback(trustabilityResponse, $layerId, link);
     });
 };
 
