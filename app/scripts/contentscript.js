@@ -5,7 +5,7 @@ var readabilityCallback = function(dataRdb, target) {
     return;
   }
 
-  if(!target instanceof jQuery) {
+  if (!target instanceof jQuery) {
     target = $(target.selector);
   }
 
@@ -27,7 +27,7 @@ var trustabilityCallback = function(data, target, link) {
     return;
   }
 
-  if(!target instanceof jQuery) {
+  if (!target instanceof jQuery) {
     target = $(target.selector);
   }
 
@@ -160,7 +160,7 @@ var updateLinks = function() {
       kconnect.contentHONcodeStatus(honLogo.children('.certificateLink'), link);
 
       // Add onClick listener
-      $('#' + logoId).one( "click", function(e) {
+      $('#' + logoId).one("click", function(e) {
         requestKconnect(e, link);
       });
     }
