@@ -160,7 +160,7 @@ var updateLinks = function() {
       kconnect.contentHONcodeStatus(honLogo.children('.certificateLink'), link);
 
       // Add onClick listener
-      $('#' + logoId).one("click", function(e) {
+      $('#' + logoId).one('click', function(e) {
         requestKconnect(e, link);
       });
     }
