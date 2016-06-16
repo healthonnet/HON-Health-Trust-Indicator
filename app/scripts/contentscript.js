@@ -10,15 +10,14 @@ var readabilityCallback = function(dataRdb, target) {
   }
 
   var htmlRdb =
-    '<div class="k-infos readability">' +
-    '<h4>Readability</h4>' +
     '<p class="hon rdb ' + dataRdb.readability.difficulty + '"></p>' +
     '<p class="desc">' +
     kconnect.config.difficultyKeyword[dataRdb.readability.difficulty] +
-    '</p></div>';
+    '</p>';
 
-  if (target.find('.readability').length === 0) {
-    target.append(htmlRdb);
+  if (target.find('.rdb').length === 0) {
+    target.children('.readability').find('.loader').hide();
+    target.children('.readability').append(htmlRdb);
   }
 };
 
@@ -42,21 +41,20 @@ var trustabilityCallback = function(data, target, link) {
   }
 
   var html =
-    '<div class="k-infos trustability">' +
-    '<h4>Trustability</h4>' +
     '<div class="hon trb">' +
     '<a target="_blank" ' +
     'class="' + trustClass + '">' +
-    '</a></div></div>';
+    '</a></div>';
 
-  if (target.find('.trustability').length === 0) {
+  if (target.find('.trb').length === 0) {
     var progress = new CircularProgress({
       radius: 25,
       strokeStyle: 'limegreen',
       lineCap: 'round',
       lineWidth: 3,
     });
-    target.append(html);
+    target.children('.trustability').find('.loader').hide();
+    target.children('.trustability').append(html);
     kconnect.contentHONcodeStatus(target.find('.honTrust'), link);
 
     target.find('.circle').html(progress.el);
@@ -75,50 +73,55 @@ var requestKconnect = function(event, link) {
   var popUp = '<div class="honPopup" style="display: none" ' +
     'id="' + layerId + '">' +
     '<div class="honPopup-header">' + domain + '</div>' +
+    '<div class="k-infos readability">' +
+    '<h4>Readability</h4><div class="loader"></div></div>' +
+    '<div class="k-infos trustability">' +
+    '<h4>Trustability</h4><div class="loader"></div></div>' +
     '</div>';
   $logoId.parent().append(popUp);
 
   var $layerId =  $('#' + layerId);
 
-  $.when(trustabilityRequest, readabilityRequest)
-    .then(function(trustabilityResponse, readabilityResponse) {
-      readabilityCallback(readabilityResponse[0], $layerId);
-      trustabilityCallback(trustabilityResponse[0], $layerId, link);
+  var timeoutId;
+  var hideTimeoutId;
+  // Add honLogo eventListener
+  $logoId.hover(function() {
+    if (!timeoutId) {
+      timeoutId = window.setTimeout(function() {
+        timeoutId = null;
+        $layerId.show();
+      }, 200);
+    }
+  }, function() {
+    if (timeoutId) {
+      window.clearTimeout(timeoutId);
+      timeoutId = null;
+    }
+  });
 
-      var timeoutId;
-      var hideTimeoutId;
+  $layerId.hover(function() {
+    if (hideTimeoutId) {
+      window.clearTimeout(hideTimeoutId);
+      hideTimeoutId = null;
+    }
+  }, function() {
+    if (!hideTimeoutId) {
+      hideTimeoutId = window.setTimeout(function() {
+        hideTimeoutId = null;
+        $layerId.hide();
+      }, 200);
+    }
+  });
+  $layerId.show();
 
-      $layerId.show();
-
-      // Add honLogo eventListener
-      $logoId.hover(function() {
-        if (!timeoutId) {
-          timeoutId = window.setTimeout(function() {
-            timeoutId = null;
-            $layerId.show();
-          }, 200);
-        }
-      }, function() {
-        if (timeoutId) {
-          window.clearTimeout(timeoutId);
-          timeoutId = null;
-        }
-      });
-
-      $layerId.hover(function() {
-        if (hideTimeoutId) {
-          window.clearTimeout(hideTimeoutId);
-          hideTimeoutId = null;
-        }
-      }, function() {
-        if (!hideTimeoutId) {
-          hideTimeoutId = window.setTimeout(function() {
-            hideTimeoutId = null;
-            $layerId.hide();
-          }, 200);
-        }
-      });
-    })
+  $.when(readabilityRequest)
+    .then(function(readabilityResponse) {
+      readabilityCallback(readabilityResponse, $layerId);
+    });
+  $.when(trustabilityRequest)
+    .then(function(trustabilityResponse) {
+      trustabilityCallback(trustabilityResponse, $layerId, link);
+    });
 };
 
 var updateLinks = function() {
