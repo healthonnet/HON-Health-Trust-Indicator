@@ -5,7 +5,8 @@ var readabilityCallback = function(dataRdb, target) {
     return;
   }
 
-  if (!target instanceof jQuery) {
+  var bIsJquery = target instanceof jQuery;
+  if (!bIsJquery) {
     target = $(target.selector);
   }
 
@@ -26,7 +27,8 @@ var trustabilityCallback = function(data, target, link) {
     return;
   }
 
-  if (!target instanceof jQuery) {
+  var bIsJquery = target instanceof jQuery;
+  if (!bIsJquery) {
     target = $(target.selector);
   }
 
