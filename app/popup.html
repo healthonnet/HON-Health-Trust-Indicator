@@ -23,9 +23,14 @@
 
   <div class="search box">
     <h2>Khresmoi search engine</h2>
-    <form>
-      <input type="text" placeholder="Search through Khresmoi">
-      <input type="submit">
+    <form action="http://everyone.khresmoi.eu/hon-search" method="get" target="_blank">
+      <input type="text" name="q" placeholder="Search through Khresmoi">
+      <input type="hidden" name="start" value="0">
+      <input type="hidden" name="fq" value="docType:html">
+      <input type="hidden" name="group.field" value="domain">
+      <input type="hidden" name="overrideQ">
+      <input type="hidden" name="searchLanguage" value="en">
+      <input type="submit" value="search">
     </form>
   </div>
 
