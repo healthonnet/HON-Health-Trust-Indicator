@@ -33,11 +33,12 @@ var trustabilityCallback = function(data, target, link) {
   }
 
   var trustClass;
+  var trustabilityLevel = 0;
 
   if (data.trustability === 'hon') {
     trustClass = 'honTrust';
   } else {
-    var trustabilityLevel =
+    trustabilityLevel =
       Math.round((data.trustability.principles.length / 9) * 100);
     trustClass =  'circle';
   }
@@ -59,8 +60,10 @@ var trustabilityCallback = function(data, target, link) {
     target.children('.trustability').append(html);
     kconnect.contentHONcodeStatus(target.find('.honTrust'), link);
 
-    target.find('.circle').html(progress.el);
-    progress.update(trustabilityLevel);
+    if (data.trustability !== 'hon') {
+      target.find('.circle').html(progress.el);
+      progress.update(trustabilityLevel);
+    }
   }
 };
 
