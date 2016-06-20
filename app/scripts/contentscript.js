@@ -5,16 +5,20 @@ var readabilityCallback = function(dataRdb, target) {
     return;
   }
 
+  var bIsJquery = target instanceof jQuery;
+  if (!bIsJquery) {
+    target = $(target.selector);
+  }
+
   var htmlRdb =
-    '<div class="k-infos readability">' +
-    '<h4>Readability</h4>' +
     '<p class="hon rdb ' + dataRdb.readability.difficulty + '"></p>' +
     '<p class="desc">' +
     kconnect.config.difficultyKeyword[dataRdb.readability.difficulty] +
-    '</p></div>';
+    '</p>';
 
-  if (target.find('.readability').length === 0) {
-    target.append(htmlRdb);
+  if (target.find('.rdb').length === 0) {
+    target.children('.readability').find('.loader').hide();
+    target.children('.readability').append(htmlRdb);
   }
 };
 
@@ -22,39 +26,113 @@ var trustabilityCallback = function(data, target, link) {
   if (data.trustability === undefined) {
     return;
   }
-  var trustClass;
-  var trustabilityLevel =
-    Math.round((data.trustability.principles.length / 9) * 100);
 
-  if (target.siblings('.certificateLink').hasClass('valid')) {
+  var bIsJquery = target instanceof jQuery;
+  if (!bIsJquery) {
+    target = $(target.selector);
+  }
+
+  var trustClass;
+  var trustabilityLevel = 0;
+
+  if (data.trustability === 'hon') {
     trustClass = 'honTrust';
   } else {
+    trustabilityLevel =
+      Math.round((data.trustability.principles.length / 9) * 100);
     trustClass =  'circle';
   }
 
   var html =
-    '<div class="k-infos trustability">' +
-    '<h4>Trustability</h4>' +
     '<div class="hon trb">' +
     '<a target="_blank" ' +
     'class="' + trustClass + '">' +
-    '</a></div></div>';
+    '</a></div>';
 
-  if (target.find('.trustability').length === 0) {
+  if (target.find('.trb').length === 0) {
     var progress = new CircularProgress({
       radius: 25,
       strokeStyle: 'limegreen',
       lineCap: 'round',
       lineWidth: 3,
     });
-    target.append(html);
+    target.children('.trustability').find('.loader').hide();
+    target.children('.trustability').append(html);
     kconnect.contentHONcodeStatus(target.find('.honTrust'), link);
 
-    target.find('.circle').html(progress.el);
-    progress.update(trustabilityLevel);
+    if (data.trustability !== 'hon') {
+      target.find('.circle').html(progress.el);
+      progress.update(trustabilityLevel);
+    }
   }
 };
 
+var requestKconnect = function(event, link) {
+  var domain = kconnect.getDomainFromUrl(link);
+  var trustabilityRequest = kconnect.getIsTrustable(domain);
+  var readabilityRequest = kconnect.getReadability(link);
+
+  var layerId = 'layer' + event.target.id;
+  var $logoId =  $(event.target);
+
+  var popUp = '<div class="honPopup" style="display: none" ' +
+    'id="' + layerId + '">' +
+    '<div class="honPopup-header">' + domain + '</div>' +
+    '<div class="k-infos readability">' +
+    '<h4>Readability</h4><div class="loader"></div></div>' +
+    '<div class="k-infos trustability">' +
+    '<h4>Trustability</h4><div class="loader"></div></div>' +
+    '</div>';
+  $logoId.parent().append(popUp);
+
+  var $layerId =  $('#' + layerId);
+
+  var timeoutId;
+  var hideTimeoutId;
+  // Add honLogo eventListener
+  $logoId.hover(function() {
+    if (!timeoutId) {
+      timeoutId = window.setTimeout(function() {
+        timeoutId = null;
+        $layerId.show();
+      }, 200);
+    }
+  }, function() {
+    if (timeoutId) {
+      window.clearTimeout(timeoutId);
+      timeoutId = null;
+    }
+  });
+
+  $layerId.hover(function() {
+    if (hideTimeoutId) {
+      window.clearTimeout(hideTimeoutId);
+      hideTimeoutId = null;
+    }
+  }, function() {
+    if (!hideTimeoutId) {
+      hideTimeoutId = window.setTimeout(function() {
+        hideTimeoutId = null;
+        $layerId.hide();
+      }, 200);
+    }
+  });
+  $layerId.show();
+
+  if ($layerId.siblings('.certificateLink').hasClass('valid')) {
+    trustabilityCallback({trustability: 'hon'}, $layerId, link);
+  } else {
+    $.when(trustabilityRequest)
+      .then(function(trustabilityResponse) {
+        trustabilityCallback(trustabilityResponse, $layerId, link);
+      });
+  }
+
+  $.when(readabilityRequest)
+    .then(function(readabilityResponse) {
+      readabilityCallback(readabilityResponse, $layerId);
+    });
+};
 
 var updateLinks = function() {
   var deferred = new $.Deferred();
@@ -80,79 +158,30 @@ var updateLinks = function() {
     links[i] = nodeList[i].href;
   }
   links.forEach(function(link, index) {
-    var $layerId;
-    var $logoId;
-
     var honLogo = $(nodeList.item(index)).parent();
-    var domain = kconnect.getDomainFromUrl(link);
 
-    var trustabilityRequest = kconnect.getIsTrustable(domain);
-    var readabilityRequest = kconnect.getReadability(link);
-
-    var layerId = 'honLayer_' + index;
     var logoId = 'honLogo_' + index;
 
     var honCodeLogo = '<div target=\'_blank\' id="' + logoId +
       '" class="hon certificateLink"></div>';
-    var popUp = '<div class="honPopup" style="display: none" ' +
-      'id="' + layerId + '">' +
-      '<div class="honPopup-header">' + domain + '</div>' +
-      '</div>';
 
     if (honLogo.children('.certificateLink').length === 0) {
       // Normalize Search Engine parents' behaviors
       honLogo.parent().css('overflow','visible');
       honLogo.parent().css('position','relative');
-      honLogo.prepend(honCodeLogo + popUp);
+      honLogo.prepend(honCodeLogo);
       kconnect.contentHONcodeStatus(honLogo.children('.certificateLink'), link);
+
+      // Add onClick listener
+      $('#' + logoId).one('click', function(e) {
+        requestKconnect(e, link);
+      });
     }
 
-    $layerId =  $('#' + layerId);
-    $logoId =  $('#' + logoId);
-
-    $.when(trustabilityRequest, readabilityRequest)
-      .then(function(trustabilityResponse, readabilityResponse) {
-        readabilityCallback(readabilityResponse[0], $layerId);
-        trustabilityCallback(trustabilityResponse[0], $layerId, link);
-
-        var timeoutId;
-        var hideTimeoutId;
-
-        // Add honLogo eventListener
-        $logoId.hover(function() {
-          if (!timeoutId) {
-            timeoutId = window.setTimeout(function() {
-              timeoutId = null;
-              $layerId.show();
-            }, 200);
-          }
-        }, function() {
-          if (timeoutId) {
-            window.clearTimeout(timeoutId);
-            timeoutId = null;
-          }
-        });
-
-        $layerId.hover(function() {
-          if (hideTimeoutId) {
-            window.clearTimeout(hideTimeoutId);
-            hideTimeoutId = null;
-          }
-        }, function() {
-          if (!hideTimeoutId) {
-            hideTimeoutId = window.setTimeout(function() {
-              hideTimeoutId = null;
-              $layerId.hide();
-            }, 200);
-          }
-        });
-      })
-      .always(function() {
-        trustabilityRequested++;
-        if (trustabilityRequested === links.length) {
-          deferred.resolve();
-        }
-      });
+    trustabilityRequested++;
+    if (trustabilityRequested === links.length) {
+      deferred.resolve();
+    }
   });
 
   return deferred.promise();

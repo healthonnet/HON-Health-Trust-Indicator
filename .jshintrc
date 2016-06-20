@@ -18,6 +18,7 @@
   "strict": true,
   "globals" : {
     "$": true,
+    "jQuery": true,
     "chrome": true,
     "kconnect": true,
     "crypto": true,
