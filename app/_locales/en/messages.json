@@ -16,6 +16,9 @@
   "khresmoiTitle": {
     "message": "Khresmoi search engine"
   },
+  "loading": {
+    "message": "Loading ..."
+  },
   "popupCommunityPowered": {
     "message": "Community ratings powered by SiteJabber",
     "description": "Alt and title for community ratings by SiteJabber"

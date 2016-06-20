@@ -15,6 +15,8 @@ chrome.tabs.query(query, function(tabs) {
   $('#host').html(domain);
   $('#readability').html(chrome.i18n.getMessage('readabilityTitle'));
   $('#trustability').html(chrome.i18n.getMessage('trustabilityTitle'));
+  $('#readability-content').html(chrome.i18n.getMessage('loading'));
+  $('#trustability-content').html(chrome.i18n.getMessage('loading'));
   var trustabilityRequest = kconnect.getIsTrustable(domain);
   var readabilityRequest = kconnect.getReadability(currentTab.url);
   kconnect.displayHONcodeStatus(currentTab.url);
