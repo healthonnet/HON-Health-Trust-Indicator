@@ -7,6 +7,15 @@
     "message": "Kconnect Extension",
     "description": "The description of the application"
   },
+  "khresmoiPlaceholder": {
+    "message": "Search information with Khresmoi"
+  },
+  "khresmoiSearch": {
+    "message": "Search"
+  },
+  "khresmoiTitle": {
+    "message": "Khresmoi search engine"
+  },
   "popupCommunityPowered": {
     "message": "Community ratings powered by SiteJabber",
     "description": "Alt and title for community ratings by SiteJabber"
@@ -54,6 +63,9 @@
   "principleTransparency": {
     "message": "Transparency"
   },
+  "readabilityTitle": {
+    "message": "Readability"
+  },
   "tooltipReadabilityDifficult": {
     "message": "Advanced knowledge of health terminology required",
     "description": "The tooltip description of content difficult readability"
@@ -73,5 +85,8 @@
   "tooltipTrustabilityMissingPrinciples": {
     "message": "Missing Principles: %PRINCIPLES%",
     "description": "The tooltip description of Trustability missing content"
+  },
+  "trustabilityTitle": {
+    "message": "Trustability"
   }
 }

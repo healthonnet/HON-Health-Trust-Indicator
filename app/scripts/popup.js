@@ -6,7 +6,15 @@ var query = {active: true, currentWindow: true};
 chrome.tabs.query(query, function(tabs) {
   currentTab = tabs[0];
   var domain = kconnect.getDomainFromUrl(currentTab.url);
+  $('h1').html(chrome.i18n.getMessage('appName'));
+  $('#khresmoi').html(chrome.i18n.getMessage('khresmoiTitle'));
+  $('#q').attr('placeholder',
+    chrome.i18n.getMessage('khresmoiPlaceholder'));
+  $('#searchSubmit').val(chrome.i18n.getMessage('khresmoiSearch'));
+  $('#searchLanguage').val(kconnect.config.khresmoiLanguage);
   $('#host').html(domain);
+  $('#readability').html(chrome.i18n.getMessage('readabilityTitle'));
+  $('#trustability').html(chrome.i18n.getMessage('trustabilityTitle'));
   var trustabilityRequest = kconnect.getIsTrustable(domain);
   var readabilityRequest = kconnect.getReadability(currentTab.url);
   kconnect.displayHONcodeStatus(currentTab.url);
@@ -54,7 +62,7 @@ chrome.tabs.query(query, function(tabs) {
 
       // Trustability Informations
       if (trustabilityResponse[0].trustability === undefined) {
-        $('#trustability').html('<p>' +
+        $('#trustability-content').html('<p>' +
           chrome.i18n.getMessage('popupTrustabilityNoInformation') + '</p>');
         $('#readability-content').html('<p>' +
           chrome.i18n.getMessage('popupReadabilityNoInformation') + '</p>');
@@ -72,7 +80,7 @@ chrome.tabs.query(query, function(tabs) {
         principlesHtml += '<li><span>✓</span> ' + principle + '</li>';
       });
 
-      $('#trustability').html(
+      $('#trustability-content').html(
         '<ul>' + principlesHtml + '</ul>'
       );
 
@@ -94,7 +102,7 @@ chrome.tabs.query(query, function(tabs) {
 
       progress.update(score);
     }, function() {
-      $('#trustability').html('<p>' +
+      $('#trustability-content').html('<p>' +
         chrome.i18n.getMessage('popupTrustabilityNoInformation') + '</p>');
       $('#readability-content').html('<p>' +
         chrome.i18n.getMessage('popupReadabilityNoInformation') + '</p>');

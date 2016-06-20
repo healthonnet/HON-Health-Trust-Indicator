@@ -7,6 +7,7 @@ var kconnect = {
       average: chrome.i18n.getMessage('tooltipReadabilityAverage'),
       difficult: chrome.i18n.getMessage('tooltipReadabilityDifficult'),
     },
+    khresmoiLanguage: 'en',
     honCodeCompliance: [
       'Advertising policy',
       'Attribution',

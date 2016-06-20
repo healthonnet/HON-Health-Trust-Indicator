@@ -18,33 +18,33 @@
 <body>
   <div class="header">
     <img id="popupIcon" src="images/icon-48.png" alt="icon"/>
-    <h1>Kconnect extension</h1>
+    <h1></h1>
   </div>
 
   <div class="search box">
-    <h2>Khresmoi search engine</h2>
+    <h2 id="khresmoi"></h2>
     <form action="http://everyone.khresmoi.eu/hon-search" method="get" target="_blank">
-      <input type="text" name="q" placeholder="Search through Khresmoi">
+      <input type="text" name="q" id="q">
       <input type="hidden" name="start" value="0">
       <input type="hidden" name="fq" value="docType:html">
       <input type="hidden" name="group.field" value="domain">
       <input type="hidden" name="overrideQ">
-      <input type="hidden" name="searchLanguage" value="en">
-      <input type="submit" value="search">
+      <input type="hidden" name="searchLanguage" id="searchLanguage">
+      <input type="submit" id="searchSubmit">
     </form>
   </div>
 
   <div class="kconnect box">
     <h2 id="host"></h2>
     <div class="left">
-      <h3>Trustability</h3>
+      <h3 id="trustability"></h3>
       <a target="_blank" id="certificateLink" class="img-container">
         <img id="honstatus" src="images/honcode/hon-none-large.png" alt="icon"/>
       </a>
-      <p id="trustability">Loading ...</p>
+      <p id="trustability-content">Loading ...</p>
     </div>
     <div class="right">
-      <h3>Readability</h3>
+      <h3 id="readability"></h3>
       <div id="readability-image" class="img-container">
         <img src="images/unknown.png" />
       </div>
@@ -57,8 +57,8 @@
   <div class="footer">
     <p>
       © 2016 -
-      <a href="https://hon.ch/20-years" target="_blank">Health On the Net</a> -
-      <a href="#" target="_blank">Privacy policy</a>
+      <a href="https://hon.ch/20-years" target="_blank">Health On the Net</a>
+      <!-- - <a href="#" target="_blank">Privacy policy</a> -->
     </p>
   </div>
 
