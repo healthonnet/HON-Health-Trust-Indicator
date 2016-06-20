@@ -7,6 +7,53 @@
     "message": "Kconnect Extension",
     "description": "The description of the application"
   },
+  "popupCommunityPowered": {
+    "message": "Community ratings powered by SiteJabber",
+    "description": "Alt and title for community ratings by SiteJabber"
+  },
+  "popupCommunityRatings": {
+    "message": "ratings",
+    "description": "ratings by SiteJabber"
+  },
+  "popupCommunityTitle": {
+    "message": "Community ratings",
+    "description": "Title for community ratings by SiteJabber"
+  },
+  "popupReadabilityNoInformation": {
+    "message": "No Readability information",
+    "description": "Description when no information is found."
+  },
+  "popupTrustabilityNoInformation": {
+    "message": "No Trustability information",
+    "description": "Description when no information is found."
+  },
+  "principleAdvertising": {
+    "message": "Advertising policy"
+  },
+  "principleAttribution": {
+    "message": "Attribution"
+  },
+  "principleAuthoritative": {
+    "message": "Authoritative"
+  },
+  "principleComplementarity": {
+    "message": "Complementarity"
+  },
+  "principleDate": {
+    "message": "Date"
+  },
+  "principleFinancial": {
+    "message": "Financial disclosure"
+  },
+  "principleJustificability": {
+    "message": "Justificability"
+  },
+  "principlePrivacy": {
+    "message": "Privacy"
+  },
+  "principleTransparency": {
+    "message": "Transparency"
+  },
   "tooltipReadabilityDifficult": {
     "message": "Advanced knowledge of health terminology required",
     "description": "The tooltip description of content difficult readability"
@@ -24,7 +71,7 @@
     "description": "The tooltip description of content trustability level"
   },
   "tooltipTrustabilityMissingPrinciples": {
-  "message": "Missing Principles: %PRINCIPLES%",
-  "description": "The tooltip description of Trustability missing content"
-}
+    "message": "Missing Principles: %PRINCIPLES%",
+    "description": "The tooltip description of Trustability missing content"
+  }
 }

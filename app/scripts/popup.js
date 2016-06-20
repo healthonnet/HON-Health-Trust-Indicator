@@ -20,16 +20,18 @@ chrome.tabs.query(query, function(tabs) {
       return;
     }
     $('#users').html(
-      '<h3>Community ratings</h3>' +
+      '<h3>' + chrome.i18n.getMessage('popupCommunityTitle') + '</h3>' +
       '<div class="community"><div id=\'stars\'></div>' +
       '<div><a href=\'' +
       jabberResult.urlProfilePage + '\' target=\'_blank\'>' +
-      jabberResult.numReviews[0].rating + '</a> ratings</div>' +
+      jabberResult.numReviews[0].rating + '</a> ' +
+      chrome.i18n.getMessage('popupCommunityRatings') + '</div>' +
       '<a href="http://www.sitejabber.com/about-us" class="credit">' +
       '<img src="https://d1gzz21cah5pzn.cloudfront.net/' +
       'img/glb/sitejabber_logo_165x66.1465572590.png" ' +
-      'alt="community ratings powered by SiteJabber" ' +
-      'title="community ratings powered by SiteJabber"></a></div>'
+      'alt="' + chrome.i18n.getMessage('popupCommunityPowered') + '" ' +
+      'title="' + chrome.i18n.getMessage('popupCommunityPowered') +
+      '"></a></div>'
     );
 
     var raterOptions = {
@@ -52,9 +54,10 @@ chrome.tabs.query(query, function(tabs) {
 
       // Trustability Informations
       if (trustabilityResponse[0].trustability === undefined) {
-        $('#trustability').html('<p>No Trustability informations ' +
-          'for this domain</p>');
-        $('#readability-content').html('<p>No Readability  informations</p>');
+        $('#trustability').html('<p>' +
+          chrome.i18n.getMessage('popupTrustabilityNoInformation') + '</p>');
+        $('#readability-content').html('<p>' +
+          chrome.i18n.getMessage('popupReadabilityNoInformation') + '</p>');
         $('#readability-image').html(
           '<img src="images/unknown.png" />'
         );
@@ -91,9 +94,10 @@ chrome.tabs.query(query, function(tabs) {
 
       progress.update(score);
     }, function() {
-      $('#trustability').html('<p>No Trustability informations for' +
-        ' this domain</p>');
-      $('#readability-content').html('<p>No Readability  informations</p>');
+      $('#trustability').html('<p>' +
+        chrome.i18n.getMessage('popupTrustabilityNoInformation') + '</p>');
+      $('#readability-content').html('<p>' +
+        chrome.i18n.getMessage('popupReadabilityNoInformation') + '</p>');
       $('#readability-image').html(
         '<img src="images/unknown.png" />'
       );
