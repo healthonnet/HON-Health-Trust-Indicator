@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Kconnect</title>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/circular-progress/circular-progress.min.js"></script>
+    <script src="bower_components/jquery-circle-progress/dist/circle-progress.js"></script>
     <script src="bower_components/rater/rater.min.js"></script>
     <script src="scripts/utils/tld.js"></script>
     <script src="scripts/utils/md5.js"></script>
@@ -13,6 +13,7 @@
     <script src="scripts/kconnect.js"></script>
     <script src="scripts/popup.js"></script>
     <link rel="stylesheet" href="bower_components/normalize-css/normalize.css">
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="styles/popup.css">
 </head>
 <body>
@@ -38,15 +39,15 @@
     <h2 id="host"></h2>
     <div class="left">
       <h3 id="trustability"></h3>
-      <a target="_blank" id="certificateLink" class="img-container">
-        <img id="honstatus" src="images/honcode/hon-none-large.png" alt="icon"/>
-      </a>
+      <div class="trustability-circle">
+        <span></span>
+      </div>
       <p id="trustability-content"></p>
     </div>
     <div class="right">
       <h3 id="readability"></h3>
-      <div id="readability-image" class="img-container">
-        <img src="images/unknown.png" />
+      <div class="readability-circle">
+        <span></span>
       </div>
       <p id="readability-content"></p>
     </div>

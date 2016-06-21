@@ -106,8 +106,8 @@ li {
   list-style: none;
 }
 
-li span {
-  color: green;
+li i {
+  color: rgb(215,215,215);
 }
 
 .bottom {
@@ -151,18 +151,6 @@ li span {
   text-align: center;
 }
 
-.color-easy {
-  color: green;
-}
-
-.color-average {
-  color: orange;
-}
-
-.color-difficult {
-  color: red;
-}
-
 .easy, .average, .difficult {
   background-size: cover;
   height: 60px;
@@ -187,4 +175,19 @@ li span {
   border-radius: 5px;
   background: linear-gradient(#49708f, #293f50);
   color: white;
+}
+
+.readability-circle, .trustability-circle {
+  position: relative;
+}
+
+.readability-circle span,
+.trustability-circle span {
+  position: absolute;
+  width: 100%;
+  display: block;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 26pt;
+  color: rgb(125, 125, 125);
 }

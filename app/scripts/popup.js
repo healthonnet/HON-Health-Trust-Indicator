@@ -17,9 +17,22 @@ chrome.tabs.query(query, function(tabs) {
   $('#trustability').html(chrome.i18n.getMessage('trustabilityTitle'));
   $('#readability-content').html(chrome.i18n.getMessage('loading'));
   $('#trustability-content').html(chrome.i18n.getMessage('loading'));
+  $('.readability-circle').circleProgress({
+    value: 0,
+    animation: false,
+  });
+  $('.readability-circle')
+    .find('span')
+    .html('<i class="fa fa-book" aria-hidden="true"></i>');
+  $('.trustability-circle').circleProgress({
+    value: 0,
+    animation: false,
+  });
+  $('.trustability-circle')
+    .find('span')
+    .html('<i class="fa fa-stethoscope" aria-hidden="true"></i>');
   var trustabilityRequest = kconnect.getIsTrustable(domain);
   var readabilityRequest = kconnect.getReadability(currentTab.url);
-  kconnect.displayHONcodeStatus(currentTab.url);
   var siteJabberRequest = kconnect.getSiteJabber(domain);
 
   function siteJabberInformations(siteJabberResponse) {
@@ -68,9 +81,6 @@ chrome.tabs.query(query, function(tabs) {
           chrome.i18n.getMessage('popupTrustabilityNoInformation') + '</p>');
         $('#readability-content').html('<p>' +
           chrome.i18n.getMessage('popupReadabilityNoInformation') + '</p>');
-        $('#readability-image').html(
-          '<img src="images/unknown.png" />'
-        );
         return;
       }
       var principlesHtml = '';
@@ -79,30 +89,50 @@ chrome.tabs.query(query, function(tabs) {
 
       trustabilityResponse[0].trustability.principles.forEach(
         function(principle) {
-        principlesHtml += '<li><span>✓</span> ' + principle + '</li>';
+        principlesHtml += '<li><i class="fa fa-cog" aria-hidden="true"></i> ' +
+        principle + '</li>';
       });
 
+      var readabilityColor = 'red';
+      var readabilityScore = 0.33;
+      if (difficulty === 'average') {
+        readabilityColor = 'orange';
+        readabilityScore = 0.66;
+      } else if (difficulty === 'easy') {
+        readabilityColor = 'lime';
+        readabilityScore = 1;
+      }
+      $('.readability-circle').circleProgress({
+        value: readabilityScore,
+        animation: true,
+        fill: {
+          color: readabilityColor,
+        },
+      });
+      $('.readability-circle')
+        .find('span')
+        .html('<i class="fa fa-book" aria-hidden="true"></i>');
+      $('#readability-content').html(
+        '<span>' + kconnect.config.difficultyKeyword[difficulty] + '</span>'
+      );
+
+      var trustabilityColor = 'red';
+      if (score > 33 && score <= 66) {
+        trustabilityColor = 'orange';
+      } else if (score > 66) {
+        trustabilityColor = 'lime';
+      }
+      $('.trustability-circle').circleProgress({
+        value: (score / 100),
+        animation: true,
+        fill: {
+          color: trustabilityColor,
+        },
+      });
+      $('.trustability-circle').find('span').html(score);
       $('#trustability-content').html(
         '<ul>' + principlesHtml + '</ul>'
       );
-
-      $('#readability-image').html(
-        '<img src="images/' + difficulty + '.png" />'
-      );
-
-      $('#readability-content').html(
-        '<span class="color-' + difficulty +
-        '">' + kconnect.config.difficultyKeyword[difficulty] + '</span>'
-      );
-
-      var progress = new CircularProgress({
-        radius: 40,
-        strokeStyle: 'limegreen',
-        lineCap: 'round',
-        lineWidth: 5,
-      });
-
-      progress.update(score);
     }, function() {
       $('#trustability-content').html('<p>' +
         chrome.i18n.getMessage('popupTrustabilityNoInformation') + '</p>');
