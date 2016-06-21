@@ -38,9 +38,6 @@
     {
       "matches": ["<all_urls>"],
       "js": [
-        "bower_components/jquery/dist/jquery.min.js",
-        "bower_components/jquery-circle-progress/dist/circle-progress.js",
-        "bower_components/rater/rater.min.js",
         "scripts/utils/md5.js",
         "scripts/utils/tld.js",
         "scripts/utils/hash.js",
@@ -49,10 +46,7 @@
         "scripts/contentscript.js"
       ],
       "css":[
-        "styles/main.css",
-        "styles/popup.css",
-        "bower_components/normalize-css/normalize.css",
-        "bower_components/font-awesome/css/font-awesome.min.css"
+        "styles/main.css"
       ],
       "run_at": "document_end",
       "all_frames": true
