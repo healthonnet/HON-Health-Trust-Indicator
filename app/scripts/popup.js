@@ -17,6 +17,10 @@ chrome.tabs.query(query, function(tabs) {
   $('#trustability').html(chrome.i18n.getMessage('trustabilityTitle'));
   $('#readability-content').html(chrome.i18n.getMessage('loading'));
   $('#trustability-content').html(chrome.i18n.getMessage('loading'));
+  $('.auto').html(
+    '<i class="fa fa-warning" aria-hidden="true"></i> ' +
+    chrome.i18n.getMessage('automatedResults')
+  );
   $('.readability-circle').circleProgress({
     value: 0,
     animation: false,
@@ -44,17 +48,23 @@ chrome.tabs.query(query, function(tabs) {
     }
     $('#users').html(
       '<h3>' + chrome.i18n.getMessage('popupCommunityTitle') + '</h3>' +
-      '<div class="community"><div id=\'stars\'></div>' +
-      '<div><a href=\'' +
+      '<div class="community">' +
+      '<div class="half">' +
+      '<div id=\'stars\'></div>' +
+      '<div class="ratings"><a href=\'' +
       jabberResult.urlProfilePage + '\' target=\'_blank\'>' +
       jabberResult.numReviews[0].rating + '</a> ' +
       chrome.i18n.getMessage('popupCommunityRatings') + '</div>' +
+      '</div>' +
+      '<div class="half">' +
       '<a href="http://www.sitejabber.com/about-us" class="credit">' +
       '<img src="https://d1gzz21cah5pzn.cloudfront.net/' +
       'img/glb/sitejabber_logo_165x66.1465572590.png" ' +
       'alt="' + chrome.i18n.getMessage('popupCommunityPowered') + '" ' +
       'title="' + chrome.i18n.getMessage('popupCommunityPowered') +
-      '"></a></div>'
+      '"></a>' +
+      '</div>' +
+      '</div>'
     );
 
     var raterOptions = {

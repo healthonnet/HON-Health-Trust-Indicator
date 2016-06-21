@@ -8,17 +8,6 @@ var kconnect = {
       difficult: chrome.i18n.getMessage('tooltipReadabilityDifficult'),
     },
     khresmoiLanguage: 'en',
-    honCodeCompliance: [
-      'Advertising policy',
-      'Attribution',
-      'Authoritative',
-      'Complementarity',
-      'Date',
-      'Financial disclosure',
-      'Justificability',
-      'Privacy',
-      'Transparency',
-    ],
   },
   getDomainFromUrl: function(link) {
     var domain = tldjs.getDomain(link);

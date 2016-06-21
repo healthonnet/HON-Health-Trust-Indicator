@@ -7,8 +7,11 @@
     "message": "Kconnect Extension",
     "description": "The description of the application"
   },
+  "automatedResults": {
+    "message": "This is the result from an automated calculation."
+  },
   "khresmoiPlaceholder": {
-    "message": "Search information with Khresmoi"
+    "message": "Search information using Khresmoi"
   },
   "khresmoiSearch": {
     "message": "Search"

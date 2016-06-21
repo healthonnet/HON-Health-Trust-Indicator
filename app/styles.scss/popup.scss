@@ -116,20 +116,33 @@ li i {
 
 .community {
   margin: 0 auto;
-  text-align: center;
+}
+
+.half {
+  width: 50%;
+  float: left;
+  position: relative;
+}
+
+.ratings {
+  position: absolute;
+  right: 0;
+  top: 20px;
+  margin-right: 10px;
+}
+
+#stars {
+  float: right;
+  margin-right: 10px;
 }
 
 .credit {
-  text-align: center;
+  margin-left: 10px;
 }
 
 .credit img {
   padding-top: 3px;
   height: 30px;
-}
-
-#stars {
-  margin: 0 auto;
 }
 
 .footer {
@@ -188,6 +201,11 @@ li i {
   display: block;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 26pt;
+  font-size: 32pt;
   color: rgb(125, 125, 125);
+}
+
+.auto {
+  text-align: center;
+  color: rgb(125,125,125);
 }
