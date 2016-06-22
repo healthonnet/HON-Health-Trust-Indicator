@@ -13,8 +13,12 @@ chrome.tabs.query(query, function(tabs) {
   $('#searchSubmit').val(chrome.i18n.getMessage('khresmoiSearch'));
   $('#searchLanguage').val(kconnect.config.khresmoiLanguage);
   $('#host').html(domain);
-  $('#readability').html(chrome.i18n.getMessage('readabilityTitle'));
-  $('#trustability').html(chrome.i18n.getMessage('trustabilityTitle'));
+  $('#readability').html(
+    chrome.i18n.getMessage('readabilityTitle').toLowerCase()
+  );
+  $('#trustability').html(
+    chrome.i18n.getMessage('trustabilityTitle').toLowerCase()
+  );
   $('#readability-content').html(chrome.i18n.getMessage('loading'));
   $('#trustability-content').html(chrome.i18n.getMessage('loading'));
   $('.auto').html(
