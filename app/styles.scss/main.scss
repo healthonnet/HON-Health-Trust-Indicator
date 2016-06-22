@@ -2,11 +2,11 @@
   position: relative;
   background-size: cover;
   cursor: pointer;
-  width: 20px;
-  height: 25px;
-  margin: 0 5px 0 5px;
-  display: none;
-  background-image: url("chrome-extension://__MSG_@@extension_id__/images/honcode/hon-none-large.png");
+  width: 18px;
+  height: 16px;
+  margin: 0;
+  display: inline-block;
+  background-image: url("chrome-extension://__MSG_@@extension_id__/images/icon-16.png");
   &.valid {
     background-image: url('chrome-extension://__MSG_@@extension_id__/images/honcode/hon-valid-large.png');
     display: inline-block;
