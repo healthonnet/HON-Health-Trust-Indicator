@@ -2,9 +2,8 @@
 
   "description": "Add kconnect informations into google search results",
   "manifest_version": 2,
-  "name": "hon-kconnect-firefox-extension",
-  "version": "1.0",
-  "homepage_url": "https://github.com/mdn/webextensions-examples/tree/master/borderify",
+  "name": "hon kconnect firefox extension",
+  "version": "0.0.2",
   "default_locale":"en",
   "icons": {
     "48": "images/icons/icon-48.png"
@@ -58,11 +57,13 @@
       ],
       "js": [
         "bower_components/jquery/dist/jquery.min.js",
-        "scripts/tld.js",
+        "bower_components/jquery-circle-progress/dist/circle-progress.js",
+        "scripts/utils/tld.js",
         "scripts/kconnect.js",
         "scripts/contentscript.js"
       ],
-      "css": [
+      "css":[
+        "bower_components/font-awesome/css/font-awesome.css",
         "styles/main.css"
       ],
       "run_at": "document_idle",
@@ -88,10 +89,8 @@
 
   "web_accessible_resources": [
     "styles/main.css",
-    "styles/popup.css",
-    "images/difficult.png",
-    "images/average.png",
-    "images/easy.png"
+    "fonts/*",
+    "images/**"
   ]
 
 }
