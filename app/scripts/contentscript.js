@@ -5,20 +5,36 @@ var readabilityCallback = function(dataRdb, target) {
     return;
   }
 
+  var difficulty = dataRdb.readability.difficulty;
+
   var bIsJquery = target instanceof jQuery;
   if (!bIsJquery) {
     target = $(target.selector);
   }
 
   var htmlRdb =
-    '<p class="hon rdb ' + dataRdb.readability.difficulty + '"></p>' +
+    '<p class="hon rdb ' + difficulty + '"></p>' +
     '<p class="desc">' +
-    kconnect.config.difficultyKeyword[dataRdb.readability.difficulty] +
+    kconnect.config.difficultyKeyword[difficulty] +
     '</p>';
 
   if (target.find('.rdb').length === 0) {
-    target.children('.readability').find('.loader').hide();
-    target.children('.readability').append(htmlRdb);
+    var readabilityColor = 'red';
+    var readabilityScore = 0.33;
+    if (difficulty === 'average') {
+      readabilityColor = 'orange';
+      readabilityScore = 0.66;
+    } else if (difficulty === 'easy') {
+      readabilityColor = 'lime';
+      readabilityScore = 1;
+    }
+    target.find('.readability-circle').circleProgress({
+      value: readabilityScore,
+      animation: true,
+      fill: {
+        color: readabilityColor,
+      },
+    });
   }
 };
 
@@ -32,26 +48,23 @@ var trustabilityCallback = function(data, target, link) {
     target = $(target.selector);
   }
 
-  var trustabilityLevel =
-    Math.round((data.trustability.principles.length / 9) * 100);
-
-  var html =
-    '<div class="hon trb">' +
-    '<a target="_blank" ' +
-    'class="circle">' +
-    '</a></div>';
+  var score = data.trustability.score;
 
   if (target.find('.trb').length === 0) {
-    var progress = new CircularProgress({
-      radius: 25,
-      strokeStyle: 'limegreen',
-      lineCap: 'round',
-      lineWidth: 3,
+
+    var trustabilityColor = 'red';
+    if (score > 33 && score <= 66) {
+      trustabilityColor = 'orange';
+    } else if (score > 66) {
+      trustabilityColor = 'lime';
+    }
+    target.find('.trustability-circle').circleProgress({
+      value: (score / 100),
+      animation: true,
+      fill: {
+        color: trustabilityColor,
+      },
     });
-    target.children('.trustability').find('.loader').hide();
-    target.children('.trustability').append(html);
-    target.find('.circle').html(progress.el);
-    progress.update(trustabilityLevel);
   }
 };
 
@@ -64,13 +77,15 @@ var requestKconnect = function(event, link) {
 
   var popUp = '<div class="honPopup" style="display: none" ' +
     'id="' + layerId + '">' +
-    '<div class="honPopup-header">' + domain + '</div>' +
+    '<div class="honPopup-header"><i class="fa fa-stethoscope" aria-hidden="true"></i>' + domain + '</div>' +
     '<div class="k-infos readability">' +
-    '<h4>Readability</h4><div class="loader"></div></div>' +
+    '<h4>Readability</h4><div class="readability-circle">' +
+    '<span></span></div></div>' +
     '<div class="k-infos trustability">' +
-    '<h4>Trustability</h4><div class="loader"></div></div>' +
-    '</div>';
+    '<h4>Trustability</h4><div class="trustability-circle">' +
+    '<span></span></div></div>';
   $logoId.parent().append(popUp);
+
 
   var $layerId =  $('#' + layerId);
   $layerId.css('left', event.target.offsetLeft -10);
@@ -105,6 +120,25 @@ var requestKconnect = function(event, link) {
       }, 200);
     }
   });
+
+  $layerId.find('.readability-circle').circleProgress({
+    value: 0,
+    size: 70,
+    animation: false,
+  });
+  $layerId.find('.readability-circle')
+    .find('span')
+    .html('<i class="fa fa-book" aria-hidden="true"></i>');
+
+  $layerId.find('.trustability-circle').circleProgress({
+    value: 0,
+    size: 70,
+    animation: false,
+  });
+  $layerId.find('.trustability-circle')
+    .find('span')
+    .html('<i class="fa fa-stethoscope" aria-hidden="true"></i>');
+
   $layerId.show();
 
   $.when(trustabilityRequest)
