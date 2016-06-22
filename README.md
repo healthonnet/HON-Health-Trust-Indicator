@@ -54,12 +54,10 @@ Enable extension on Chrome
 TODO
 -----------
  - Support more languages
- - Better Design
  - Extension options
 
 Known Issues
 ------------
- - Yahoo : slow font-awesome loading
  - Yahoo : overflow hidden on results impacts popup
 
 Developers
