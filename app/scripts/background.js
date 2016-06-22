@@ -38,53 +38,35 @@ chrome.omnibox.onInputEntered.addListener(function(text) {
 });
 
 chrome.webRequest.onCompleted.addListener(debounce(function(details) {
-    chrome.tabs.executeScript(
-      details.tabId, {
-        file: 'bower_components/circular-progress/circular-progress.min.js',
-        allFrames: true,
-      }
-    );
-    chrome.tabs.executeScript(
-      details.tabId, {
-        file: 'bower_components/jquery/dist/jquery.min.js',
-        allFrames: true,
-      }
-    );
-    chrome.tabs.executeScript(
-      details.tabId, {
-        file: 'scripts/utils/tld.js',
-        allFrames: true,
-      }
-    );
-    chrome.tabs.executeScript(
-      details.tabId, {
-        file: 'scripts/utils/md5.js',
-        allFrames: true,
-      }
-    );
-    chrome.tabs.executeScript(
-      details.tabId, {
-        file: 'scripts/utils/hash.js',
-        allFrames: true,
-      }
-    );
-    chrome.tabs.executeScript(
-      details.tabId, {
-        file: 'scripts/utils/listHON.js',
-        allFrames: true,
-      }
-    );
-    chrome.tabs.executeScript(
-      details.tabId, {
-        file: 'scripts/kconnect.js',
-        allFrames: true,
-      }
-    );
-    chrome.tabs.executeScript(details.tabId, {
-      file: 'scripts/contentscript.js',
+  chrome.tabs.executeScript(
+    details.tabId, {
+      file: 'bower_components/jquery/dist/jquery.min.js',
       allFrames: true,
-    });
-  }, 1000), {
+    }
+  );
+  chrome.tabs.executeScript(
+    details.tabId, {
+      file: 'bower_components/jquery-circle-progress/dist/circle-progress.js',
+      allFrames: true,
+    }
+  );
+  chrome.tabs.executeScript(
+    details.tabId, {
+      file: 'scripts/utils/tld.js',
+      allFrames: true,
+    }
+  );
+  chrome.tabs.executeScript(
+    details.tabId, {
+      file: 'scripts/kconnect.js',
+      allFrames: true,
+    }
+  );
+  chrome.tabs.executeScript(details.tabId, {
+    file: 'scripts/contentscript.js',
+    allFrames: true,
+  });
+}, 1000), {
   urls: [
     '*://*.google.com/*',
     '*://*.google.ch/*',

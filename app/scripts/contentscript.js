@@ -5,24 +5,34 @@ var readabilityCallback = function(dataRdb, target) {
     return;
   }
 
+  var difficulty = dataRdb.readability.difficulty;
+
   var bIsJquery = target instanceof jQuery;
   if (!bIsJquery) {
     target = $(target.selector);
   }
 
-  var htmlRdb =
-    '<p class="hon rdb ' + dataRdb.readability.difficulty + '"></p>' +
-    '<p class="desc">' +
-    kconnect.config.difficultyKeyword[dataRdb.readability.difficulty] +
-    '</p>';
-
   if (target.find('.rdb').length === 0) {
-    target.children('.readability').find('.loader').hide();
-    target.children('.readability').append(htmlRdb);
+    var readabilityColor = 'red';
+    var readabilityScore = 0.33;
+    if (difficulty === 'average') {
+      readabilityColor = 'orange';
+      readabilityScore = 0.66;
+    } else if (difficulty === 'easy') {
+      readabilityColor = 'lime';
+      readabilityScore = 1;
+    }
+    target.find('.readability-circle').circleProgress({
+      value: readabilityScore,
+      animation: true,
+      fill: {
+        color: readabilityColor,
+      },
+    });
   }
 };
 
-var trustabilityCallback = function(data, target, link) {
+var trustabilityCallback = function(data, target) {
   if (data.trustability === undefined) {
     return;
   }
@@ -32,38 +42,23 @@ var trustabilityCallback = function(data, target, link) {
     target = $(target.selector);
   }
 
-  var trustClass;
-  var trustabilityLevel = 0;
-
-  if (data.trustability === 'hon') {
-    trustClass = 'honTrust';
-  } else {
-    trustabilityLevel =
-      Math.round((data.trustability.principles.length / 9) * 100);
-    trustClass =  'circle';
-  }
-
-  var html =
-    '<div class="hon trb">' +
-    '<a target="_blank" ' +
-    'class="' + trustClass + '">' +
-    '</a></div>';
+  var score = data.trustability.score;
 
   if (target.find('.trb').length === 0) {
-    var progress = new CircularProgress({
-      radius: 25,
-      strokeStyle: 'limegreen',
-      lineCap: 'round',
-      lineWidth: 3,
-    });
-    target.children('.trustability').find('.loader').hide();
-    target.children('.trustability').append(html);
-    kconnect.contentHONcodeStatus(target.find('.honTrust'), link);
 
-    if (data.trustability !== 'hon') {
-      target.find('.circle').html(progress.el);
-      progress.update(trustabilityLevel);
+    var trustabilityColor = 'red';
+    if (score > 33 && score <= 66) {
+      trustabilityColor = 'orange';
+    } else if (score > 66) {
+      trustabilityColor = 'lime';
     }
+    target.find('.trustability-circle').circleProgress({
+      value: (score / 100),
+      animation: true,
+      fill: {
+        color: trustabilityColor,
+      },
+    });
   }
 };
 
@@ -71,21 +66,32 @@ var requestKconnect = function(event, link) {
   var domain = kconnect.getDomainFromUrl(link);
   var trustabilityRequest = kconnect.getIsTrustable(domain);
   var readabilityRequest = kconnect.getReadability(link);
-
   var layerId = 'layer' + event.target.id;
   var $logoId =  $(event.target);
+
+  var fa = document.createElement('style');
+  fa.type = 'text/css';
+  fa.textContent = '@font-face { font-family: FontAwesome; src: url("' +
+    chrome.extension.getURL('fonts/fontawesome-webfont.woff') +
+  '"); }';
+  document.head.appendChild(fa);
 
   var popUp = '<div class="honPopup" style="display: none" ' +
     'id="' + layerId + '">' +
     '<div class="honPopup-header">' + domain + '</div>' +
-    '<div class="k-infos readability">' +
-    '<h4>Readability</h4><div class="loader"></div></div>' +
     '<div class="k-infos trustability">' +
-    '<h4>Trustability</h4><div class="loader"></div></div>' +
-    '</div>';
+    '<h4>' + chrome.i18n.getMessage('trustabilityTitle') +
+    '</h4><div class="trustability-circle">' +
+    '<span></span></div></div>' +
+    '<div class="k-infos readability">' +
+    '<h4>' + chrome.i18n.getMessage('readabilityTitle') +
+    '</h4><div class="readability-circle">' +
+    '<span></span></div></div>';
   $logoId.parent().append(popUp);
 
+
   var $layerId =  $('#' + layerId);
+  $layerId.css('left', event.target.offsetLeft - 10);
 
   var timeoutId;
   var hideTimeoutId;
@@ -117,16 +123,31 @@ var requestKconnect = function(event, link) {
       }, 200);
     }
   });
+
+  $layerId.find('.readability-circle').circleProgress({
+    value: 0,
+    size: 70,
+    animation: false,
+  });
+  $layerId.find('.readability-circle')
+    .find('span')
+    .html('<i class="fa fa-book" aria-hidden="true"></i>');
+
+  $layerId.find('.trustability-circle').circleProgress({
+    value: 0,
+    size: 70,
+    animation: false,
+  });
+  $layerId.find('.trustability-circle')
+    .find('span')
+    .html('<i class="fa fa-stethoscope" aria-hidden="true"></i>');
+
   $layerId.show();
 
-  if ($layerId.siblings('.certificateLink').hasClass('valid')) {
-    trustabilityCallback({trustability: 'hon'}, $layerId, link);
-  } else {
-    $.when(trustabilityRequest)
-      .then(function(trustabilityResponse) {
-        trustabilityCallback(trustabilityResponse, $layerId, link);
-      });
-  }
+  $.when(trustabilityRequest)
+    .then(function(trustabilityResponse) {
+      trustabilityCallback(trustabilityResponse, $layerId, link);
+    });
 
   $.when(readabilityRequest)
     .then(function(readabilityResponse) {
@@ -169,8 +190,7 @@ var updateLinks = function() {
       // Normalize Search Engine parents' behaviors
       honLogo.parent().css('overflow','visible');
       honLogo.parent().css('position','relative');
-      honLogo.prepend(honCodeLogo);
-      kconnect.contentHONcodeStatus(honLogo.children('.certificateLink'), link);
+      honLogo.append(honCodeLogo);
 
       // Add onClick listener
       $('#' + logoId).one('click', function(e) {

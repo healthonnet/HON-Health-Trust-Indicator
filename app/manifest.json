@@ -39,16 +39,43 @@
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
+      "matches": [
+        "*://*.google.com/*",
+        "*://*.google.ch/*",
+        "*://*.google.fr/*",
+        "*://*.google.co.uk/*",
+        "*://*.google.it/*",
+        "*://*.google.bg/*",
+        "*://*.google.cz/*",
+        "*://*.google.dk/*",
+        "*://*.google.gr/*",
+        "*://*.google.ee/*",
+        "*://*.google.es/*",
+        "*://*.google.hr/*",
+        "*://*.google.lv/*",
+        "*://*.google.lt/*",
+        "*://*.google.hu/*",
+        "*://*.google.com.mt/*",
+        "*://*.google.nl/*",
+        "*://*.google.pl/*",
+        "*://*.google.pt/*",
+        "*://*.google.ro/*",
+        "*://*.google.si/*",
+        "*://*.google.sk/*",
+        "*://*.google.se/*",
+        "*://*.bing.com/*",
+        "*://*.bing.com/*",
+        "*://*.search.yahoo.com/*"
+      ],
       "js": [
-        "scripts/utils/md5.js",
+        "bower_components/jquery/dist/jquery.min.js",
+        "bower_components/jquery-circle-progress/dist/circle-progress.js",
         "scripts/utils/tld.js",
-        "scripts/utils/hash.js",
-        "scripts/utils/listHON.js",
         "scripts/kconnect.js",
         "scripts/contentscript.js"
       ],
       "css":[
+        "bower_components/font-awesome/css/font-awesome.css",
         "styles/main.css"
       ],
       "run_at": "document_end",
@@ -57,6 +84,7 @@
   ],
   "web_accessible_resources": [
     "styles/main.css",
+    "fonts/*",
     "images/**"
   ]
 }
