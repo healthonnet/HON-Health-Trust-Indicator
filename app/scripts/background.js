@@ -26,6 +26,17 @@ function debounce(func, wait, immediate) {
   };
 }
 
+chrome.omnibox.onInputEntered.addListener(function(text) {
+  var url = 'http://everyone.khresmoi.eu/hon-search';
+  if (text) {
+    url += '?start=0&fq=docType:html&group.field=domain' +
+      '&overrideQ=&searchLanguage=en&q=' + encodeURIComponent(text);
+  }
+  chrome.tabs.getSelected(null, function(tab) {
+    chrome.tabs.update(tab.id, {url: url});
+  });
+});
+
 chrome.webRequest.onCompleted.addListener(debounce(function(details) {
     chrome.tabs.executeScript(
       details.tabId, {
@@ -104,4 +115,3 @@ chrome.webRequest.onCompleted.addListener(debounce(function(details) {
   ],
   types: ['xmlhttprequest'],
 });
-
