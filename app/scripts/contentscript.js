@@ -77,7 +77,7 @@ var requestKconnect = function(event, link) {
 
   var popUp = '<div class="honPopup" style="display: none" ' +
     'id="' + layerId + '">' +
-    '<div class="honPopup-header"><i class="fa fa-stethoscope" aria-hidden="true"></i>' + domain + '</div>' +
+    '<div class="honPopup-header">' + domain + '</div>' +
     '<div class="k-infos readability">' +
     '<h4>Readability</h4><div class="readability-circle">' +
     '<span></span></div></div>' +
