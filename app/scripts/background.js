@@ -66,7 +66,7 @@ chrome.webRequest.onCompleted.addListener(debounce(function(details) {
     file: 'scripts/contentscript.js',
     allFrames: true,
   });
-  }, 1000), {
+}, 1000), {
   urls: [
     '*://*.google.com/*',
     '*://*.google.ch/*',

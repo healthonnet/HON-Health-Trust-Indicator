@@ -84,7 +84,7 @@
   ],
   "web_accessible_resources": [
     "styles/main.css",
-    "bower_components/font-awesome/css/font-awesome.css",
+    "fonts/*",
     "images/**"
   ]
 }

@@ -12,12 +12,6 @@ var readabilityCallback = function(dataRdb, target) {
     target = $(target.selector);
   }
 
-  var htmlRdb =
-    '<p class="hon rdb ' + difficulty + '"></p>' +
-    '<p class="desc">' +
-    kconnect.config.difficultyKeyword[difficulty] +
-    '</p>';
-
   if (target.find('.rdb').length === 0) {
     var readabilityColor = 'red';
     var readabilityScore = 0.33;
@@ -38,7 +32,7 @@ var readabilityCallback = function(dataRdb, target) {
   }
 };
 
-var trustabilityCallback = function(data, target, link) {
+var trustabilityCallback = function(data, target) {
   if (data.trustability === undefined) {
     return;
   }
@@ -75,20 +69,29 @@ var requestKconnect = function(event, link) {
   var layerId = 'layer' + event.target.id;
   var $logoId =  $(event.target);
 
+  var fa = document.createElement('style');
+  fa.type = 'text/css';
+  fa.textContent = '@font-face { font-family: FontAwesome; src: url("' +
+    chrome.extension.getURL('fonts/fontawesome-webfont.woff') +
+  '"); }';
+  document.head.appendChild(fa);
+
   var popUp = '<div class="honPopup" style="display: none" ' +
     'id="' + layerId + '">' +
     '<div class="honPopup-header">' + domain + '</div>' +
-    '<div class="k-infos readability">' +
-    '<h4>Readability</h4><div class="readability-circle">' +
-    '<span></span></div></div>' +
     '<div class="k-infos trustability">' +
-    '<h4>Trustability</h4><div class="trustability-circle">' +
+    '<h4>' + chrome.i18n.getMessage('trustabilityTitle') +
+    '</h4><div class="trustability-circle">' +
+    '<span></span></div></div>' +
+    '<div class="k-infos readability">' +
+    '<h4>' + chrome.i18n.getMessage('readabilityTitle') +
+    '</h4><div class="readability-circle">' +
     '<span></span></div></div>';
   $logoId.parent().append(popUp);
 
 
   var $layerId =  $('#' + layerId);
-  $layerId.css('left', event.target.offsetLeft -10);
+  $layerId.css('left', event.target.offsetLeft - 10);
 
   var timeoutId;
   var hideTimeoutId;
