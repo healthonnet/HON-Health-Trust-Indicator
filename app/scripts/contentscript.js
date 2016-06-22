@@ -76,7 +76,7 @@ var requestKconnect = function(event, link) {
   '"); }';
   document.head.appendChild(fa);
 
-  var popUp = '<div class="honPopup" style="display: none" ' +
+  var popUp = '<div class="kconnectPopup" style="display: none" ' +
     'id="' + layerId + '">' +
     '<div class="honPopup-header">' + domain + '</div>' +
     '<div class="k-infos trustability">' +
@@ -181,12 +181,12 @@ var updateLinks = function() {
   links.forEach(function(link, index) {
     var honLogo = $(nodeList.item(index)).parent();
 
-    var logoId = 'honLogo_' + index;
+    var logoId = 'kconnectLogo_' + index;
 
     var honCodeLogo = '<div target=\'_blank\' id="' + logoId +
-      '" class="hon certificateLink"></div>';
+      '" class="hon kconnectLogo"></div>';
 
-    if (honLogo.children('.certificateLink').length === 0) {
+    if (honLogo.children('.kconnectLogo').length === 0) {
       // Normalize Search Engine parents' behaviors
       honLogo.parent().css('overflow','visible');
       honLogo.parent().css('position','relative');
