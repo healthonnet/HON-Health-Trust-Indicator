@@ -86,6 +86,11 @@ gulp.task('html', ['styles'], () => {
     .pipe(gulp.dest('dist'));
 });
 
+gulp.task('fonts', () => {
+  return gulp.src('app/bower_components/font-awesome/fonts/**')
+    .pipe(gulp.dest('dist/fonts'));
+});
+
 gulp.task('chromeManifest', () => {
   return gulp.src('app/manifest.json')
     .pipe($.chromeManifest({
@@ -146,7 +151,7 @@ gulp.task('test', function() {
 
 gulp.task('build', (cb) => {
   runSequence(
-    ['html', 'images', 'extras'],
+    ['fonts', 'html', 'images', 'extras'],
     'jscs', 'lint', 'test', 'chromeManifest',
     'size', cb);
 });
