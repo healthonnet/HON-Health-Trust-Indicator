@@ -29,6 +29,9 @@ var readabilityCallback = function(dataRdb, target) {
         color: readabilityColor,
       },
     });
+    target.find('.readability-circle')
+      .find('span')
+      .html('<i class="fa fa-book" aria-hidden="true"></i>');
   }
 };
 
@@ -59,6 +62,9 @@ var trustabilityCallback = function(data, target) {
         color: trustabilityColor,
       },
     });
+    target.find('.trustability-circle')
+      .find('span')
+      .html('<i class="fa fa-stethoscope" aria-hidden="true"></i>');
   }
 };
 
@@ -131,7 +137,7 @@ var requestKconnect = function(event, link) {
   });
   $layerId.find('.readability-circle')
     .find('span')
-    .html('<i class="fa fa-book" aria-hidden="true"></i>');
+    .html('<i class="fa fa-question" aria-hidden="true"></i>');
 
   $layerId.find('.trustability-circle').circleProgress({
     value: 0,
@@ -140,7 +146,7 @@ var requestKconnect = function(event, link) {
   });
   $layerId.find('.trustability-circle')
     .find('span')
-    .html('<i class="fa fa-stethoscope" aria-hidden="true"></i>');
+    .html('<i class="fa fa-question" aria-hidden="true"></i>');
 
   $layerId.show();
 
