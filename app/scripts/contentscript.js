@@ -32,21 +32,13 @@ var trustabilityCallback = function(data, target, link) {
     target = $(target.selector);
   }
 
-  var trustClass;
-  var trustabilityLevel = 0;
-
-  if (data.trustability === 'hon') {
-    trustClass = 'honTrust';
-  } else {
-    trustabilityLevel =
-      Math.round((data.trustability.principles.length / 9) * 100);
-    trustClass =  'circle';
-  }
+  var trustabilityLevel =
+    Math.round((data.trustability.principles.length / 9) * 100);
 
   var html =
     '<div class="hon trb">' +
     '<a target="_blank" ' +
-    'class="' + trustClass + '">' +
+    'class="circle">' +
     '</a></div>';
 
   if (target.find('.trb').length === 0) {
@@ -58,12 +50,8 @@ var trustabilityCallback = function(data, target, link) {
     });
     target.children('.trustability').find('.loader').hide();
     target.children('.trustability').append(html);
-    kconnect.contentHONcodeStatus(target.find('.honTrust'), link);
-
-    if (data.trustability !== 'hon') {
-      target.find('.circle').html(progress.el);
-      progress.update(trustabilityLevel);
-    }
+    target.find('.circle').html(progress.el);
+    progress.update(trustabilityLevel);
   }
 };
 
@@ -71,7 +59,6 @@ var requestKconnect = function(event, link) {
   var domain = kconnect.getDomainFromUrl(link);
   var trustabilityRequest = kconnect.getIsTrustable(domain);
   var readabilityRequest = kconnect.getReadability(link);
-
   var layerId = 'layer' + event.target.id;
   var $logoId =  $(event.target);
 
@@ -86,6 +73,7 @@ var requestKconnect = function(event, link) {
   $logoId.parent().append(popUp);
 
   var $layerId =  $('#' + layerId);
+  $layerId.css('left', event.target.offsetLeft -10);
 
   var timeoutId;
   var hideTimeoutId;
@@ -119,14 +107,10 @@ var requestKconnect = function(event, link) {
   });
   $layerId.show();
 
-  if ($layerId.siblings('.certificateLink').hasClass('valid')) {
-    trustabilityCallback({trustability: 'hon'}, $layerId, link);
-  } else {
-    $.when(trustabilityRequest)
-      .then(function(trustabilityResponse) {
-        trustabilityCallback(trustabilityResponse, $layerId, link);
-      });
-  }
+  $.when(trustabilityRequest)
+    .then(function(trustabilityResponse) {
+      trustabilityCallback(trustabilityResponse, $layerId, link);
+    });
 
   $.when(readabilityRequest)
     .then(function(readabilityResponse) {
@@ -169,8 +153,7 @@ var updateLinks = function() {
       // Normalize Search Engine parents' behaviors
       honLogo.parent().css('overflow','visible');
       honLogo.parent().css('position','relative');
-      honLogo.prepend(honCodeLogo);
-      kconnect.contentHONcodeStatus(honLogo.children('.certificateLink'), link);
+      honLogo.append(honCodeLogo);
 
       // Add onClick listener
       $('#' + logoId).one('click', function(e) {
