@@ -97,7 +97,13 @@ var requestKconnect = function(event, link) {
 
 
   var $layerId =  $('#' + layerId);
-  $layerId.css('left', event.pageX - 10);
+
+  var borderX = 10;
+  if(event.pageX + 290 > document.body.getBoundingClientRect().right){
+    borderX = event.pageX + 300 - document.body.getBoundingClientRect().right;
+  }
+
+  $layerId.css('left', event.pageX - borderX);
   $layerId.css('top', event.pageY - 10);
 
   var timeoutId;
