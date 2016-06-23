@@ -46,12 +46,6 @@ chrome.webRequest.onCompleted.addListener(debounce(function(details) {
   );
   chrome.tabs.executeScript(
     details.tabId, {
-      file: 'bower_components/jquery-circle-progress/dist/circle-progress.js',
-      allFrames: true,
-    }
-  );
-  chrome.tabs.executeScript(
-    details.tabId, {
       file: 'scripts/utils/tld.js',
       allFrames: true,
     }

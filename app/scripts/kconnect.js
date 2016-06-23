@@ -28,7 +28,7 @@ var kconnect = {
   },
   getReadability: function(link) {
     return $.get('https://apikconnect.honservices.org/' +
-      '~kconnect/cgi-bin/readability.cgi?data={\"url\":\"' + link + '\"}');
+      '~kconnect/cgi-bin/get-readability.cgi?url=' + link);
   },
   getMissingPrinciples: function(principles) {
     var missingPrinciples = [];
