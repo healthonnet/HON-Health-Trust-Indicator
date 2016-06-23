@@ -1,6 +1,6 @@
 'use strict';
 
-var readabilityCallback = function(dataRdb, target) {
+var readabilityCallback = function(dataRdb, target, id, progress) {
   if (dataRdb.readability === undefined) {
     return;
   }
@@ -22,20 +22,25 @@ var readabilityCallback = function(dataRdb, target) {
       readabilityColor = 'lime';
       readabilityScore = 1;
     }
-    target.find('.readability-circle').circleProgress({
-      value: readabilityScore,
-      animation: true,
-      fill: {
-        color: readabilityColor,
-      },
+    progress.destroy();
+    progress =
+    new ProgressBar.Circle(
+    document.getElementById(id).querySelector('.readability-circle'), {
+      strokeWidth: 7,
+      trailWidth: 7,
+      trailColor: '#ddd',
+      color: readabilityColor,
+      easing: 'easeInOut',
+      duration: 800,
     });
     target.find('.readability-circle')
       .find('span')
       .html('<i class="fa fa-book" aria-hidden="true"></i>');
+    progress.animate(readabilityScore);
   }
 };
 
-var trustabilityCallback = function(data, target) {
+var trustabilityCallback = function(data, target, id, progress) {
   if (data.trustability === undefined) {
     return;
   }
@@ -55,16 +60,21 @@ var trustabilityCallback = function(data, target) {
     } else if (score > 66) {
       trustabilityColor = 'lime';
     }
-    target.find('.trustability-circle').circleProgress({
-      value: (score / 100),
-      animation: true,
-      fill: {
-        color: trustabilityColor,
-      },
+    progress.destroy();
+    progress =
+    new ProgressBar.Circle(
+    document.getElementById(id).querySelector('.trustability-circle'), {
+      strokeWidth: 7,
+      trailWidth: 7,
+      trailColor: '#ddd',
+      color: trustabilityColor,
+      easing: 'easeInOut',
+      duration: 800,
     });
     target.find('.trustability-circle')
       .find('span')
       .html('<i class="fa fa-stethoscope" aria-hidden="true"></i>');
+    progress.animate(score / 100);
   }
 };
 
@@ -99,7 +109,7 @@ var requestKconnect = function(event, link) {
   var $layerId =  $('#' + layerId);
 
   var borderX = 10;
-  if(event.pageX + 290 > document.body.getBoundingClientRect().right){
+  if (event.pageX + 290 > document.body.getBoundingClientRect().right) {
     borderX = event.pageX + 300 - document.body.getBoundingClientRect().right;
   }
 
@@ -137,19 +147,21 @@ var requestKconnect = function(event, link) {
     }
   });
 
-  $layerId.find('.readability-circle').circleProgress({
-    value: 0,
-    size: 70,
-    animation: false,
+  var rProgress = new ProgressBar.Circle(
+    document.getElementById(layerId).querySelector('.readability-circle'), {
+    strokeWidth: 7,
+    trailWidth: 7,
+    trailColor: '#ddd',
   });
   $layerId.find('.readability-circle')
     .find('span')
     .html('<i class="fa fa-question" aria-hidden="true"></i>');
 
-  $layerId.find('.trustability-circle').circleProgress({
-    value: 0,
-    size: 70,
-    animation: false,
+  var tProgress = new ProgressBar.Circle(
+    document.getElementById(layerId).querySelector('.trustability-circle'), {
+    strokeWidth: 7,
+    trailWidth: 7,
+    trailColor: '#ddd',
   });
   $layerId.find('.trustability-circle')
     .find('span')
@@ -159,12 +171,12 @@ var requestKconnect = function(event, link) {
 
   $.when(trustabilityRequest)
     .then(function(trustabilityResponse) {
-      trustabilityCallback(trustabilityResponse, $layerId, link);
+      trustabilityCallback(trustabilityResponse, $layerId, layerId, tProgress);
     });
 
   $.when(readabilityRequest)
     .then(function(readabilityResponse) {
-      readabilityCallback(readabilityResponse, $layerId);
+      readabilityCallback(readabilityResponse, $layerId, layerId, rProgress);
     });
 };
 

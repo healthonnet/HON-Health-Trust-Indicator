@@ -70,7 +70,7 @@
       ],
       "js": [
         "bower_components/jquery/dist/jquery.min.js",
-        "bower_components/jquery-circle-progress/dist/circle-progress.js",
+        "bower_components/progressbar.js/dist/progressbar.min.js",
         "scripts/utils/tld.js",
         "scripts/kconnect.js",
         "scripts/contentscript.js"

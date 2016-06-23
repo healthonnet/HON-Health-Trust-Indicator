@@ -25,7 +25,7 @@
     "casper": true,
     "tldjs": true,
     "hon_listHON": true,
-    "CircularProgress": true,
+    "ProgressBar": true,
     "__utils__": true,
     "readabilityCallback": true,
     "trustabilityCallback": true
