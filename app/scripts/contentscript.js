@@ -93,11 +93,12 @@ var requestKconnect = function(event, link) {
     '<h4>' + chrome.i18n.getMessage('readabilityTitle') +
     '</h4><div class="readability-circle">' +
     '<span></span></div></div>';
-  $logoId.parent().append(popUp);
+  $('body').append(popUp);
 
 
   var $layerId =  $('#' + layerId);
-  $layerId.css('left', event.target.offsetLeft - 10);
+  $layerId.css('left', event.pageX - 10);
+  $layerId.css('top', event.pageY - 10);
 
   var timeoutId;
   var hideTimeoutId;
