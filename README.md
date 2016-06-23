@@ -56,9 +56,6 @@ TODO
  - Support more languages
  - Extension options
 
-Known Issues
-------------
- - Yahoo : overflow hidden on results impacts popup
 
 Developers
 -----------
