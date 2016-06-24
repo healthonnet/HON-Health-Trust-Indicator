@@ -39,6 +39,7 @@ $ gulp
 ```
 
 Or you can use watch task to update source continuously
+
 ```bash
 $ gulp watch
 ```
@@ -49,12 +50,13 @@ Enable extension on Chrome
  - Go to Settings ==> Extensions
  - Enable Developer mode
  - load unpacked extension...
- - select /path/to/extension/app
+ - select /path/to/extension/dist
 
 TODO
 -----------
- - Support more languages
- - Extension options
+ [ ] Support more languages
+ [ ] Enable user specified language for search engine
+ [ ] Extension options
 
 
 Developers
