@@ -88,7 +88,6 @@ chrome.tabs.query(query, function(tabs) {
   $.when(trustabilityRequest, readabilityRequest, siteJabberRequest)
     .then(function(trustabilityResponse, readabilityResponse,
       siteJabberResponse) {
-
       // SiteJabber informations
       siteJabberInformations(siteJabberResponse);
 
