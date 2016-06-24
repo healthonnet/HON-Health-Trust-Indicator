@@ -54,9 +54,9 @@ Enable extension on Chrome
 
 TODO
 -----------
- [ ] Support more languages
- [ ] Enable user specified language for search engine
- [ ] Extension options
+ - [ ] Support more languages
+ - [ ] Enable user specified language for search engine
+ - [ ] Extension options
 
 
 Developers
