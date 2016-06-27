@@ -52,6 +52,14 @@ Enable extension on Chrome
  - load unpacked extension...
  - select /path/to/extension/dist
 
+Usage
+-----
+
+There are 3 features:
+ - Get readability and trustability in search engines;
+ - Get readability and trustability from the webpage you are watching;
+ - Type ```kconnect``` in the omnibox bar in Google Chrome and search information with khresmoi search engine.
+
 TODO
 -----------
  - [ ] Support more languages
