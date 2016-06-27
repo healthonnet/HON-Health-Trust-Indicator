@@ -1,6 +1,10 @@
 HON-Kconnect Chrome extension Changelog
 =======================================
 
+### v0.0.4 / 2016-06-27
+
+- Fix: SiteJabber link has been fixed.
+
 ### v0.0.3 / 2016-06-23
 
 - Fix: circular progressBar in search engine popup has been fixed.
