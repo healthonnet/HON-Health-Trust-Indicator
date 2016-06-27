@@ -64,7 +64,8 @@ chrome.tabs.query(query, function(tabs) {
       chrome.i18n.getMessage('popupCommunityRatings') + '</div>' +
       '</div>' +
       '<div class="half">' +
-      '<a href="http://www.sitejabber.com/about-us" target="_blank" class="credit">' +
+      '<a href="http://www.sitejabber.com/about-us" target="_blank" ' +
+      'class="credit">' +
       '<img src="https://d1gzz21cah5pzn.cloudfront.net/' +
       'img/glb/sitejabber_logo_165x66.1465572590.png" ' +
       'alt="' + chrome.i18n.getMessage('popupCommunityPowered') + '" ' +
