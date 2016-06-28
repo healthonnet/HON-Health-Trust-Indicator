@@ -64,7 +64,6 @@ TODO
 -----------
  - [ ] Support more languages
  - [ ] Enable user specified language for search engine
- - [ ] Extension options
 
 
 Developers
