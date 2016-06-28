@@ -1,7 +1,7 @@
 {
   "name": "hon-kconnect-chrome-extension",
   "private": true,
-  "version": "0.0.2",
+  "version": "0.0.5",
   "dependencies": {
     "jquery": "^2.2.0",
     "progressbar.js": "^1.0.1",

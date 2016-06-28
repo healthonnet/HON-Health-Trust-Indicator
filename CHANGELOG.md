@@ -1,6 +1,10 @@
 HON-Kconnect Chrome extension Changelog
 =======================================
 
+### v0.0.5 / 2016-06-28
+
+- Enhancement: Exhaustive google domain list.
+
 ### v0.0.4 / 2016-06-27
 
 - Fix: SiteJabber link has been fixed.
