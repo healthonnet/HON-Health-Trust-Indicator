@@ -137,6 +137,7 @@ gulp.task('wiredep', () => {
 
 gulp.task('package', function() {
   var manifest = require('./dist/manifest.json');
+  del.sync(['dist/README.txt', 'dist/**/*.map']);
   return gulp.src('dist/**')
       .pipe($.zip('hon kconnect chrome extension-' + manifest.version + '.zip'))
       .pipe(gulp.dest('package'));
@@ -152,10 +153,13 @@ gulp.task('test', function() {
 gulp.task('build', (cb) => {
   runSequence(
     ['fonts', 'html', 'images', 'extras'],
-    'jscs', 'lint', 'test', 'chromeManifest',
-    'size', cb);
+    'chromeManifest', 'size', cb);
+});
+
+gulp.task('chrome-prod', ['clean'], (cb) => {
+  runSequence('build', 'package', cb);
 });
 
 gulp.task('default', ['clean'], cb => {
-  runSequence('build', cb);
+  runSequence('test', 'build', cb);
 });
