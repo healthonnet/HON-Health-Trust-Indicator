@@ -63,7 +63,7 @@ There are 3 features:
 TODO
 -----------
  - [ ] Support more languages
- - [ ] Enable user specified language for search engine
+ - [x] Enable user specified language for search engine
 
 
 Developers
