@@ -30,7 +30,7 @@ chrome.omnibox.onInputEntered.addListener(function(text) {
   var url = 'http://everyone.khresmoi.eu/hon-search';
   if (text) {
     url += '?start=0&fq=docType:html&group.field=domain' +
-      '&overrideQ=&searchLanguage=en&q=' + encodeURIComponent(text);
+      '&overrideQ=&q=' + encodeURIComponent(text);
   }
   chrome.tabs.getSelected(null, function(tab) {
     chrome.tabs.update(tab.id, {url: url});
