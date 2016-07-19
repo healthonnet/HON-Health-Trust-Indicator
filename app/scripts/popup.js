@@ -112,7 +112,7 @@ chrome.tabs.query(query, function(tabs) {
 
       var readabilityColor = 'red';
       var readabilityScore = 0.33;
-      if (difficulty === 'orange') {
+      if (difficulty === 'average') {
         readabilityColor = '#ffdd00';
         readabilityScore = 0.66;
       } else if (difficulty === 'easy') {
