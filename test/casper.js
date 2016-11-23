@@ -22,7 +22,7 @@ casper.test.begin(kconnectTest, 2, function suite(test) {
       kConnectApiUrl + 'is-trustable.cgi?domain=vidal.fr',
       'GET'
     );
-    return JSON.parse(trustabilityReq).trustability.score === 55;
+    return JSON.parse(trustabilityReq).trustability.score === 77;
   }, 'trustability informations found');
 
   test.assertEval(function() {
