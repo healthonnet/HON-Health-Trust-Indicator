@@ -17,6 +17,7 @@ chrome.tabs.query(query, function(tabs) {
     chrome.i18n.getMessage('readabilityTitle').toLowerCase()
   );
 
+  $('#foundedBy').html(chrome.i18n.getMessage('foundedBy'));
   $('#readability-content').html(chrome.i18n.getMessage('loading'));
   $('.readability-circle')
       .find('span')

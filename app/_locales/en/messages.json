@@ -94,5 +94,11 @@
   },
   "trustabilityTitle": {
     "message": "Trustability"
+  },
+  "comingSoon": {
+    "message": "Coming Soon"
+  },
+  "foundedBy": {
+    "message": "Founded by EU"
   }
 }
