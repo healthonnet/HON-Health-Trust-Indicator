@@ -40,47 +40,8 @@ var readabilityCallback = function(dataRdb, target, id, progress) {
   }
 };
 
-var trustabilityCallback = function(data, target, id, progress) {
-  if (data.trustability === undefined) {
-    return;
-  }
-
-  var bIsJquery = target instanceof jQuery;
-  if (!bIsJquery) {
-    target = $(target.selector);
-  }
-
-  var score = data.trustability.score;
-
-  if (target.find('.trb').length === 0) {
-
-    var trustabilityColor = 'red';
-    if (score > 33 && score <= 66) {
-      trustabilityColor = 'orange';
-    } else if (score > 66) {
-      trustabilityColor = 'lime';
-    }
-    progress.destroy();
-    progress =
-    new ProgressBar.Circle(
-    document.getElementById(id).querySelector('.trustability-circle'), {
-      strokeWidth: 7,
-      trailWidth: 7,
-      trailColor: '#ddd',
-      color: trustabilityColor,
-      easing: 'easeInOut',
-      duration: 800,
-    });
-    target.find('.trustability-circle')
-      .find('span')
-      .html('<i class="fa fa-stethoscope" aria-hidden="true"></i>');
-    progress.animate(score / 100);
-  }
-};
-
 var requestKconnect = function(event, link) {
   var domain = kconnect.getDomainFromUrl(link);
-  var trustabilityRequest = kconnect.getIsTrustable(domain);
   var readabilityRequest = kconnect.getReadability(link);
   var layerId = 'layer' + event.target.id;
   var $logoId =  $(event.target);
@@ -157,7 +118,7 @@ var requestKconnect = function(event, link) {
     .find('span')
     .html('<i class="fa fa-question" aria-hidden="true"></i>');
 
-  var tProgress = new ProgressBar.Circle(
+  new ProgressBar.Circle(
     document.getElementById(layerId).querySelector('.trustability-circle'), {
     strokeWidth: 7,
     trailWidth: 7,
@@ -167,17 +128,12 @@ var requestKconnect = function(event, link) {
     .find('span')
     .html('<i class="fa fa-question" aria-hidden="true"></i>');
 
-  $layerId.show();
-
-  $.when(trustabilityRequest)
-    .then(function(trustabilityResponse) {
-      trustabilityCallback(trustabilityResponse, $layerId, layerId, tProgress);
-    });
-
   $.when(readabilityRequest)
     .then(function(readabilityResponse) {
       readabilityCallback(readabilityResponse, $layerId, layerId, rProgress);
     });
+
+  $layerId.show();
 };
 
 var updateLinks = function() {
