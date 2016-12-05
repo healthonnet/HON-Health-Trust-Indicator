@@ -50,6 +50,7 @@
     width: 70px;
     height: 70px;
     margin: 0 auto;
+    margin-top: 10px;
     span {
       position: absolute;
       width: 80%;
@@ -83,5 +84,10 @@
     white-space: normal;
     font-size: 0.8em;
     margin-left: 5px;
+  }
+  .coming-soon {
+    font-size: small;
+    color: #A5A4A4;
+    margin: 0;
   }
 }

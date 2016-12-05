@@ -126,7 +126,8 @@ var requestKconnect = function(event, link) {
   });
   $layerId.find('.trustability-circle')
     .find('span')
-    .html('<i class="fa fa-question" aria-hidden="true"></i>');
+    .html('<p class="coming-soon">' +
+      chrome.i18n.getMessage('comingSoon') + '</p>');
 
   $.when(readabilityRequest)
     .then(function(readabilityResponse) {

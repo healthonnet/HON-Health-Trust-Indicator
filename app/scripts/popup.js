@@ -18,6 +18,7 @@ chrome.tabs.query(query, function(tabs) {
   );
 
   $('#foundedBy').html(chrome.i18n.getMessage('foundedBy'));
+  $('#trustability-content').html(chrome.i18n.getMessage('comingSoon'));
   $('#readability-content').html(chrome.i18n.getMessage('loading'));
   $('.readability-circle')
       .find('span')
