@@ -4,6 +4,7 @@ require('babel-core/register');
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import del from 'del';
+import casperJs from 'gulp-casperjs';
 import runSequence from 'run-sequence';
 import {stream as wiredep} from 'wiredep';
 
@@ -150,7 +151,7 @@ gulp.task('package', function() {
 gulp.task('test', function() {
   runSequence(['lint', 'jscs']);
   gulp.src('test/casper.js')
-    .pipe($.casperJs({command: 'test --web-security=no'}));
+    .pipe(casperJs({command: 'test --web-security=no'}));
   // Run casperjs test
 });
 
