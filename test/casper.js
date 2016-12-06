@@ -32,7 +32,7 @@ casper.test.begin(kconnectTest, 2, function suite(test) {
       kConnectApiUrl + 'readability.cgi?data={"url":"https://www.vidal.fr"}',
       'GET'
     );
-    return JSON.parse(readabilityReq).readability.difficulty === 'difficult';
+    return JSON.parse(readabilityReq).readability.difficulty === 'easy';
   }, 'readability informations found');
 
   casper.run(function() {
