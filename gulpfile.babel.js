@@ -97,7 +97,7 @@ gulp.task('lang', () => {
   return download('https://localise.biz:443/api/export/archive/json.zip?' +
   'key=SfHrKVzhFhxgC1I4dT2r_vRs3Duvw4iu&format=chrome')
       .pipe(decompress({strip: 1}))
-      .pipe(gulp.dest('dist'));
+      .pipe(gulp.dest('app'));
 });
 
 gulp.task('chromeManifest', () => {
@@ -161,7 +161,7 @@ gulp.task('test', function() {
 
 gulp.task('build', (cb) => {
   runSequence(
-    ['fonts', 'html', 'images', 'extras'],
+    ['fonts', 'html', 'lang', 'images', 'extras'],
     'chromeManifest', 'size', cb);
 });
 
