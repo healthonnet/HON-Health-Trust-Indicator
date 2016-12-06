@@ -4,13 +4,8 @@ require('babel-core/register');
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import del from 'del';
-import casperJs from 'gulp-casperjs';
 import runSequence from 'run-sequence';
 import {stream as wiredep} from 'wiredep';
-import jscs from 'gulp-jscs';
-import jshint from 'gulp-jshint';
-import download from 'gulp-download';
-import decompress from 'gulp-decompress';
 
 const $ = gulpLoadPlugins();
 
@@ -33,8 +28,8 @@ gulp.task('lint', () => {
     'test/**/*.js',
     '!app/scripts/utils/*.js',
   ])
-    .pipe(jshint('.jshintrc'))
-    .pipe(jshint.reporter('default'));
+    .pipe($.jshint('.jshintrc'))
+    .pipe($.jshint.reporter('default'));
 });
 
 gulp.task('jscs', () => {
@@ -43,8 +38,8 @@ gulp.task('jscs', () => {
     'test/**/*.js',
     '!app/scripts/utils/tld.js',
   ])
-    .pipe(jscs('.jscsrc'))
-    .pipe(jscs.reporter());
+    .pipe($.jscs('.jscsrc'))
+    .pipe($.jscs.reporter());
 });
 
 gulp.task('images', () => {
@@ -94,9 +89,9 @@ gulp.task('fonts', () => {
 });
 
 gulp.task('lang', () => {
-  return download('https://localise.biz:443/api/export/archive/json.zip?' +
+  return $.download('https://localise.biz:443/api/export/archive/json.zip?' +
   'key=SfHrKVzhFhxgC1I4dT2r_vRs3Duvw4iu&format=chrome')
-      .pipe(decompress({strip: 1}))
+      .pipe($.decompress({strip: 1}))
       .pipe(gulp.dest('app'));
 });
 
@@ -155,7 +150,7 @@ gulp.task('package', function() {
 gulp.task('test', function() {
   runSequence(['lint', 'jscs']);
   gulp.src('test/casper.js')
-    .pipe(casperJs({command: 'test --web-security=no'}));
+    .pipe($.casperJs({command: 'test --web-security=no'}));
   // Run casperjs test
 });
 
