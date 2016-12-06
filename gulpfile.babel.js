@@ -9,6 +9,8 @@ import runSequence from 'run-sequence';
 import {stream as wiredep} from 'wiredep';
 import jscs from 'gulp-jscs';
 import jshint from 'gulp-jshint';
+import download from 'gulp-download';
+import decompress from 'gulp-decompress';
 
 const $ = gulpLoadPlugins();
 
@@ -89,6 +91,13 @@ gulp.task('html', ['styles'], () => {
 gulp.task('fonts', () => {
   return gulp.src('app/bower_components/font-awesome/fonts/**')
     .pipe(gulp.dest('dist/fonts'));
+});
+
+gulp.task('lang', () => {
+  return download('https://localise.biz:443/api/export/archive/json.zip?' +
+  'key=SfHrKVzhFhxgC1I4dT2r_vRs3Duvw4iu&format=chrome')
+      .pipe(decompress({strip: 1}))
+      .pipe(gulp.dest('dist'));
 });
 
 gulp.task('chromeManifest', () => {
