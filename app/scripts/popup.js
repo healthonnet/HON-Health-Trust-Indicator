@@ -53,13 +53,10 @@ chrome.tabs.query(query, function(tabs) {
     .then(function(readabilityResponse) {
       var difficulty = readabilityResponse.readability.difficulty;
       var readabilityColor = 'red';
-      var readabilityScore = 0.33;
       if (difficulty === 'average') {
         readabilityColor = '#ffdd00';
-        readabilityScore = 0.66;
       } else if (difficulty === 'easy') {
-        readabilityColor = 'lime';
-        readabilityScore = 1;
+        readabilityColor = 'green';
       }
       rProgress.destroy();
       rProgress = new ProgressBar.Circle('.readability-circle', {
@@ -73,7 +70,7 @@ chrome.tabs.query(query, function(tabs) {
       $('.readability-circle')
         .find('span')
         .html('<i class="fa fa-book" aria-hidden="true"></i>');
-      rProgress.animate(readabilityScore);
+      rProgress.animate(1);
       $('#readability-content').html(
         '<span>' + kconnect.config.difficultyKeyword[difficulty] + '</span>'
       );

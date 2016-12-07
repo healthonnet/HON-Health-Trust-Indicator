@@ -14,13 +14,10 @@ var readabilityCallback = function(dataRdb, target, id, progress) {
 
   if (target.find('.rdb').length === 0) {
     var readabilityColor = 'red';
-    var readabilityScore = 0.33;
     if (difficulty === 'average') {
       readabilityColor = 'orange';
-      readabilityScore = 0.66;
     } else if (difficulty === 'easy') {
-      readabilityColor = 'lime';
-      readabilityScore = 1;
+      readabilityColor = 'green';
     }
     progress.destroy();
     progress =
@@ -36,7 +33,7 @@ var readabilityCallback = function(dataRdb, target, id, progress) {
     target.find('.readability-circle')
       .find('span')
       .html('<i class="fa fa-book" aria-hidden="true"></i>');
-    progress.animate(readabilityScore);
+    progress.animate(1);
   }
 };
 
