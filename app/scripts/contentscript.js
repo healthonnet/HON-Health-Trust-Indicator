@@ -17,7 +17,7 @@ var readabilityCallback = function(dataRdb, target, id, progress) {
   }
 
   var difficulty = dataRdb.readability.difficulty;
-  
+
   if (target.find('.rdb').length === 0) {
     var readabilityColor = 'red';
     if (difficulty === 'average') {
