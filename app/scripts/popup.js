@@ -17,7 +17,8 @@ chrome.tabs.query(query, function(tabs) {
     chrome.i18n.getMessage('readabilityTitle').toLowerCase()
   );
 
-  $('#fundedBy').html(chrome.i18n.getMessage('fundedBy'));
+  $('#about').html(chrome.i18n.getMessage('about'));
+  $('#about').attr('href', chrome.extension.getURL('about.html'));
   $('#trustability-content').html(chrome.i18n.getMessage('comingSoon'));
   $('#readability-content').html(chrome.i18n.getMessage('loading'));
   $('.readability-circle')
