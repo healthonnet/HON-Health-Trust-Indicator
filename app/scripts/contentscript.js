@@ -1,17 +1,23 @@
 'use strict';
 
 var readabilityCallback = function(dataRdb, target, id, progress) {
-  if (dataRdb.readability === undefined) {
-    return;
-  }
-
-  var difficulty = dataRdb.readability.difficulty;
-
   var bIsJquery = target instanceof jQuery;
   if (!bIsJquery) {
     target = $(target.selector);
   }
 
+  if (dataRdb.error) {
+    target.find('.readability-circle')
+      .find('span')
+      .html('<i class="fa fa-ban" aria-hidden="true"></i>');
+  }
+
+  if (dataRdb.readability === undefined) {
+    return;
+  }
+
+  var difficulty = dataRdb.readability.difficulty;
+  
   if (target.find('.rdb').length === 0) {
     var readabilityColor = 'red';
     if (difficulty === 'average') {
@@ -129,6 +135,8 @@ var requestKconnect = function(event, link) {
   $.when(readabilityRequest)
     .then(function(readabilityResponse) {
       readabilityCallback(readabilityResponse, $layerId, layerId, rProgress);
+    }, function(error) {
+      readabilityCallback(error.responseJSON, $layerId, layerId, rProgress);
     });
 
   $layerId.show();
