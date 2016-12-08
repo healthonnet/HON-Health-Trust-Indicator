@@ -1,5 +1,14 @@
 HON Health Trust Indicator
-=======================================
+==========================
+
+### v1.0.1 / 2016-12-08
+
+- Enhancement: add KConnect in copyright
+- Enhancement: use ban icon in popup when error
+- Enhancement: clean long url in about us
+- Enhancement: clean references in about us
+- Fix: use same color for average readability in popup
+
 ### v1.0.0 / 2016-12-08
 
 - Release : Disable Trustability service and make extension production ready
