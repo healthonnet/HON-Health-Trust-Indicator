@@ -56,8 +56,8 @@ Usage
 -----
 
 There are 3 features:
- - Get readability and trustability in search engines;
- - Get readability and trustability from the webpage you are watching;
+ - Get readability ~~and trustability~~ in search engines;
+ - Get readability ~~and trustability~~ from the webpage you are watching;
  - Type ```kconnect``` in the omnibox bar in Google Chrome and search information with khresmoi search engine.
 
 TODO
