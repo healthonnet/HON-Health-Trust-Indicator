@@ -1,5 +1,5 @@
-Kconnect Chrome extension
-===============
+Health Trust Indicator
+======================
 
 [![Build Status](https://travis-ci.org/healthonnet/hon-kconnect-chrome-extension.svg?branch=master)](https://travis-ci.org/healthonnet/hon-kconnect-chrome-extension)
 
