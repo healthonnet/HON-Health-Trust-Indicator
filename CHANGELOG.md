@@ -7,6 +7,8 @@ HON Health Trust Indicator
 - Enhancement: use ban icon in popup when error
 - Enhancement: clean long url in about us
 - Enhancement: clean references in about us
+- Enhancement: clean unused domain
+- Fix: sponsored link in Yahoo (remove popup for these link)
 - Fix: use same color for average readability in popup
 
 ### v1.0.0 / 2016-12-08
