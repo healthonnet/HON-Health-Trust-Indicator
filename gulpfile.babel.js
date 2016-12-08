@@ -144,7 +144,7 @@ gulp.task('package', function() {
   var manifest = require('./dist/manifest.json');
   del.sync(['dist/README.txt', 'dist/**/*.map']);
   return gulp.src('dist/**')
-      .pipe($.zip('hon kconnect chrome extension-' + manifest.version + '.zip'))
+      .pipe($.zip('HON-Health-Trust-Indicatot' + manifest.version + '.zip'))
       .pipe(gulp.dest('package'));
 });
 

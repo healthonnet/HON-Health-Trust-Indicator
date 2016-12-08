@@ -2,7 +2,7 @@
 
   "description": "Add kconnect informations into google search results",
   "manifest_version": 2,
-  "name": "hon kconnect firefox extension",
+  "name": "Health Trust Indicator",
   "version": "1.0.0",
   "default_locale":"en",
   "icons": {
