@@ -78,9 +78,8 @@ chrome.tabs.query(query, function(tabs) {
     }, function() {
       $('#readability-content').html('<p>' +
         chrome.i18n.getMessage('popupReadabilityNoInformation') + '</p>');
-      $('#readability-image').html(
-        '<img src="images/unknown.png" />'
-      );
-      $('#users').hide();
+      $('.readability-circle')
+        .find('span')
+        .html('<i class="fa fa-ban" aria-hidden="true"></i>');
     });
 });
