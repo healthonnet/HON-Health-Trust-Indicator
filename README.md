@@ -1,7 +1,7 @@
 Health Trust Indicator
 ======================
 
-[![Build Status](https://travis-ci.org/healthonnet/hon-kconnect-chrome-extension.svg?branch=master)](https://travis-ci.org/healthonnet/hon-kconnect-chrome-extension)
+[![Build Status](https://travis-ci.org/healthonnet/HON-Health-Trust-Indicator.svg?branch=master)](https://travis-ci.org/healthonnet/HON-Health-Trust-Indicator)
 [![GitHub issues](https://img.shields.io/github/issues/healthonnet/HON-Health-Trust-Indicator.svg)](https://github.com/healthonnet/HON-Health-Trust-Indicator/issues)
 [![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/healthonnet/HON-Health-Trust-Indicator/master/LICENSE)
 
