@@ -7,8 +7,6 @@ import del from 'del';
 import casperJs from 'gulp-casperjs';
 import runSequence from 'run-sequence';
 import {stream as wiredep} from 'wiredep';
-import jscs from 'gulp-jscs';
-import jshint from 'gulp-jshint';
 
 const $ = gulpLoadPlugins();
 
@@ -31,8 +29,8 @@ gulp.task('lint', () => {
     'test/**/*.js',
     '!app/scripts/utils/*.js',
   ])
-    .pipe(jshint('.jshintrc'))
-    .pipe(jshint.reporter('default'));
+    .pipe($.jshint('.jshintrc'))
+    .pipe($.jshint.reporter('default'));
 });
 
 gulp.task('jscs', () => {
@@ -41,8 +39,8 @@ gulp.task('jscs', () => {
     'test/**/*.js',
     '!app/scripts/utils/tld.js',
   ])
-    .pipe(jscs('.jscsrc'))
-    .pipe(jscs.reporter());
+    .pipe($.jscs('.jscsrc'))
+    .pipe($.jscs.reporter());
 });
 
 gulp.task('images', () => {
@@ -89,6 +87,13 @@ gulp.task('html', ['styles'], () => {
 gulp.task('fonts', () => {
   return gulp.src('app/bower_components/font-awesome/fonts/**')
     .pipe(gulp.dest('dist/fonts'));
+});
+
+gulp.task('lang', () => {
+  return $.download('https://localise.biz:443/api/export/archive/json.zip?' +
+  'key=SfHrKVzhFhxgC1I4dT2r_vRs3Duvw4iu&format=chrome')
+      .pipe($.decompress({strip: 1}))
+      .pipe(gulp.dest('app'));
 });
 
 gulp.task('chromeManifest', () => {
@@ -152,7 +157,7 @@ gulp.task('test', function() {
 
 gulp.task('build', (cb) => {
   runSequence(
-    ['fonts', 'html', 'images', 'extras'],
+    ['fonts', 'html', 'lang', 'images', 'extras'],
     'chromeManifest', 'size', cb);
 });
 

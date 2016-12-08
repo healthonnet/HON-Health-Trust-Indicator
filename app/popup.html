@@ -8,9 +8,6 @@
     <script src="./bower_components/progressbar.js/dist/progressbar.min.js"></script>
     <script src="./bower_components/rater/rater.min.js"></script>
     <script src="./scripts/utils/tld.js"></script>
-    <script src="./scripts/utils/md5.js"></script>
-    <script src="./scripts/utils/hash.js"></script>
-    <script src="./scripts/utils/listHON.js"></script>
     <script src="./scripts/kconnect.js"></script>
     <script src="./scripts/popup.js"></script>
     <!-- endbuild -->
@@ -29,7 +26,7 @@
   <div class="search box">
     <h2 id="khresmoi"></h2>
     <form action="http://everyone.khresmoi.eu/hon-search/" method="get" target="_blank">
-      <input type="text" name="q" id="q">
+      <input type="text" name="q" id="q" autocomplete="off">
       <input type="hidden" name="start" value="0">
       <input type="hidden" name="fq" value="docType:html">
       <input type="hidden" name="group.field" value="domain">
@@ -56,15 +53,12 @@
       <p id="readability-content"></p>
     </div>
     <p class="auto"></p>
-    <div class="site-jabber" id="users">
-    </div>
   </div>
-
   <div class="footer">
     <p>
       © 2016 -
       <a href="https://hon.ch/20-years" target="_blank">Health On the Net</a>
-      <!-- - <a href="#" target="_blank">Privacy policy</a> -->
+      <a href="#" id="about" class="float-right" target="_blank"></a>
     </p>
   </div>
 

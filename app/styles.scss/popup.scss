@@ -20,11 +20,11 @@ h1 {
 }
 
 h2 {
-  font-size: 16pt;
+  font-size: 14pt;
 }
 
 h3 {
-  font-size: 14pt;
+  font-size: 13pt;
   color: #44484b;
   font-variant: small-caps;
 }
@@ -46,6 +46,10 @@ a:hover {
 .header {
   position: relative;
   height: 35px;
+}
+
+.header h1 {
+  padding-top: 5px;
 }
 
 .header img {
@@ -212,4 +216,7 @@ li i {
 .auto {
   text-align: center;
   color: rgb(125,125,125);
+}
+.float-right {
+  float: right;
 }

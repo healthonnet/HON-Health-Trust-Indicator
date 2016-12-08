@@ -1,26 +1,29 @@
 'use strict';
 
 var readabilityCallback = function(dataRdb, target, id, progress) {
+  var bIsJquery = target instanceof jQuery;
+  if (!bIsJquery) {
+    target = $(target.selector);
+  }
+
+  if (dataRdb.error) {
+    target.find('.readability-circle')
+      .find('span')
+      .html('<i class="fa fa-ban" aria-hidden="true"></i>');
+  }
+
   if (dataRdb.readability === undefined) {
     return;
   }
 
   var difficulty = dataRdb.readability.difficulty;
 
-  var bIsJquery = target instanceof jQuery;
-  if (!bIsJquery) {
-    target = $(target.selector);
-  }
-
   if (target.find('.rdb').length === 0) {
     var readabilityColor = 'red';
-    var readabilityScore = 0.33;
     if (difficulty === 'average') {
       readabilityColor = 'orange';
-      readabilityScore = 0.66;
     } else if (difficulty === 'easy') {
-      readabilityColor = 'lime';
-      readabilityScore = 1;
+      readabilityColor = 'green';
     }
     progress.destroy();
     progress =
@@ -36,51 +39,12 @@ var readabilityCallback = function(dataRdb, target, id, progress) {
     target.find('.readability-circle')
       .find('span')
       .html('<i class="fa fa-book" aria-hidden="true"></i>');
-    progress.animate(readabilityScore);
-  }
-};
-
-var trustabilityCallback = function(data, target, id, progress) {
-  if (data.trustability === undefined) {
-    return;
-  }
-
-  var bIsJquery = target instanceof jQuery;
-  if (!bIsJquery) {
-    target = $(target.selector);
-  }
-
-  var score = data.trustability.score;
-
-  if (target.find('.trb').length === 0) {
-
-    var trustabilityColor = 'red';
-    if (score > 33 && score <= 66) {
-      trustabilityColor = 'orange';
-    } else if (score > 66) {
-      trustabilityColor = 'lime';
-    }
-    progress.destroy();
-    progress =
-    new ProgressBar.Circle(
-    document.getElementById(id).querySelector('.trustability-circle'), {
-      strokeWidth: 7,
-      trailWidth: 7,
-      trailColor: '#ddd',
-      color: trustabilityColor,
-      easing: 'easeInOut',
-      duration: 800,
-    });
-    target.find('.trustability-circle')
-      .find('span')
-      .html('<i class="fa fa-stethoscope" aria-hidden="true"></i>');
-    progress.animate(score / 100);
+    progress.animate(1);
   }
 };
 
 var requestKconnect = function(event, link) {
   var domain = kconnect.getDomainFromUrl(link);
-  var trustabilityRequest = kconnect.getIsTrustable(domain);
   var readabilityRequest = kconnect.getReadability(link);
   var layerId = 'layer' + event.target.id;
   var $logoId =  $(event.target);
@@ -157,7 +121,7 @@ var requestKconnect = function(event, link) {
     .find('span')
     .html('<i class="fa fa-question" aria-hidden="true"></i>');
 
-  var tProgress = new ProgressBar.Circle(
+  new ProgressBar.Circle(
     document.getElementById(layerId).querySelector('.trustability-circle'), {
     strokeWidth: 7,
     trailWidth: 7,
@@ -165,19 +129,17 @@ var requestKconnect = function(event, link) {
   });
   $layerId.find('.trustability-circle')
     .find('span')
-    .html('<i class="fa fa-question" aria-hidden="true"></i>');
-
-  $layerId.show();
-
-  $.when(trustabilityRequest)
-    .then(function(trustabilityResponse) {
-      trustabilityCallback(trustabilityResponse, $layerId, layerId, tProgress);
-    });
+    .html('<p class="coming-soon">' +
+      chrome.i18n.getMessage('comingSoon') + '</p>');
 
   $.when(readabilityRequest)
     .then(function(readabilityResponse) {
       readabilityCallback(readabilityResponse, $layerId, layerId, rProgress);
+    }, function(error) {
+      readabilityCallback(error.responseJSON, $layerId, layerId, rProgress);
     });
+
+  $layerId.show();
 };
 
 var updateLinks = function() {
