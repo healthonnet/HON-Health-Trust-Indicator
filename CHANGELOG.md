@@ -1,5 +1,8 @@
-HON-Kconnect Chrome extension Changelog
+HON Health Trust Indicator
 =======================================
+### v1.0.0 / 2016-12-08
+
+- Release : Disable Trustability service and make extension production ready
 
 ### v0.0.5 / 2016-06-28
 
