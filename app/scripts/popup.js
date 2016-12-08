@@ -55,7 +55,7 @@ chrome.tabs.query(query, function(tabs) {
       var difficulty = readabilityResponse.readability.difficulty;
       var readabilityColor = 'red';
       if (difficulty === 'average') {
-        readabilityColor = '#ffdd00';
+        readabilityColor = 'orange';
       } else if (difficulty === 'easy') {
         readabilityColor = 'green';
       }
