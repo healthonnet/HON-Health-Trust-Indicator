@@ -71,6 +71,7 @@ Developers
 
  - Cedric FROSSARD
  - Pierre REPETTO-ANDIPATIN
+ - William BELLE
 
 License
 -------
