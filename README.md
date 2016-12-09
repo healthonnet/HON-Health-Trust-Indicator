@@ -1,80 +1,67 @@
-Health Trust Indicator
-======================
+<p align="center">
+  <img alt="Health Trust Indicator" src="https://raw.githubusercontent.com/healthonnet/HON-Health-Trust-Indicator/master/assets/png/readme-logo.png">
+</p>
 
-[![Build Status](https://travis-ci.org/healthonnet/HON-Health-Trust-Indicator.svg?branch=master)](https://travis-ci.org/healthonnet/HON-Health-Trust-Indicator)
-[![GitHub issues](https://img.shields.io/github/issues/healthonnet/HON-Health-Trust-Indicator.svg)](https://github.com/healthonnet/HON-Health-Trust-Indicator/issues)
-[![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/healthonnet/HON-Health-Trust-Indicator/master/LICENSE)
+<p align="center">
+  Easy to read, easy to trust, find your health info
+</p>
 
-Add kconnect informations into google/yahoo/bing 's results
+<p align="center">
+  <a href="https://travis-ci.org/healthonnet/HON-Health-Trust-Indicator">
+    <img alt="Travis Status" src="https://travis-ci.org/healthonnet/HON-Health-Trust-Indicator.svg?branch=master">
+  </a>
+  <a href='https://gemnasium.com/github.com/healthonnet/HON-Health-Trust-Indicator'>
+    <img src="https://gemnasium.com/badges/github.com/healthonnet/HON-Health-Trust-Indicator.svg" alt="Dependency Status" />
+  </a>
+  <a href="https://github.com/healthonnet/HON-Health-Trust-Indicator/issues">
+    <img alt="Github Issues" src="https://img.shields.io/github/issues/healthonnet/HON-Health-Trust-Indicator.svg">
+  </a>
+  <a href="https://raw.githubusercontent.com/healthonnet/HON-Health-Trust-Indicator/master/LICENSE">
+    <img alt="Apache License 2.0" src="https://img.shields.io/badge/license-Apache%202-blue.svg">
+  </a>
+</p>
 
-
-Browser Compatibilies
------
- - Chrome (18+)
- - chromium based Opera versions (15.0+).
- - Firefox - (46.0+) checkout [WebExtensions-API](https://developer.mozilla.org/en-US/Add-ons/WebExtensions). Rename and use manifest.firefox.json file.
-
-Development Prerequisites
------
-Casperjs is used for integration testing. In order to run it you need :
- - [Python](https://www.python.org/)  2.6 or greater for casperjs in the bin/ directory
-
-Build
------
-
-```bash
-$ npm install
-```
-
-Test
-----
-
-```bash
-$ npm test
-```
-
-Run
 ---
 
-```bash
-$ gulp
-```
+Overview
+--------
 
-Or you can use watch task to update source continuously
+Health Trust Indicator is a free browser extension that quickly guides you
+towards health websites you can trust. Because the quality of health content
+is important and because search engines rank results by popularity, not by
+trustworthiness.
 
-```bash
-$ gulp watch
-```
+Install
+-------
 
-Enable extension on Chrome
--------------
+It can be installed through:
+ * [the Chrome Web Store](https://chrome.google.com/webstore/detail/health-trust-indicator/bnfgfpgfhhgphaagbngdclnbacabodof)
+ * Firefox Add-ons (coming soon)
+ * the Opera Web Store (coming soon)
 
- - Go to Settings ==> Extensions
- - Enable Developer mode
- - load unpacked extension...
- - select /path/to/extension/dist
+Features
+--------
 
-Usage
------
+ * **Readability level** - know how easy the content of health websites is.
+ * **Trust indicator** - select trustworthy health pages and avoid information from websites with a low trust score. (coming soon)
+ * **Quick preview** - get readability level ~~and trust indicator~~ in Google, Yahoo and Bing.
+ * **Search** - type ```kconnect``` in the omnibox bar and search information within K4E, the health and medical search engine.
 
-There are 3 features:
- - Get readability ~~and trustability~~ in search engines;
- - Get readability ~~and trustability~~ from the webpage you are watching;
- - Type ```kconnect``` in the omnibox bar in Google Chrome and search information with khresmoi search engine.
+Contributing to Health Trust Indicator
+--------------------------------------
 
-TODO
------------
- - [ ] Support more languages
- - [ ] Enable user specified language for search engine
+Contributions are always welcome, no matter how large or small.
 
+See [Contributing](CONTRIBUTING.md).
 
 Developers
------------
+----------
 
- - Cedric FROSSARD
- - Pierre REPETTO-ANDIPATIN
- - William BELLE
+ * Cedric FROSSARD
+ * Pierre REPETTO-ANDIPATIN
+ * William BELLE
 
 License
 -------
-Apache Licence 2.0
+
+Apache License 2.0
