@@ -1,6 +1,10 @@
 HON Health Trust Indicator
 ==========================
 
+### v1.0.2 / 2016-12-13
+
+- Enhancement: update description in french
+
 ### v1.0.1 / 2016-12-08
 
 - Enhancement: add KConnect in copyright
