@@ -6,13 +6,15 @@
   "version": "1.0.2",
   "default_locale":"en",
   "icons": {
-    "48": "images/icons/icon-48.png"
+    "16": "images/icon-16.png",
+    "48": "images/icon-48.png",
+    "128": "images/icon-128.png"
   },
 
   "applications": {
     "gecko": {
       "id": "kconnect_extension@healthonnet.org",
-      "strict_min_version": "46.0.0"
+      "strict_min_version": "48.0.0"
     }
   },
 
@@ -240,7 +242,9 @@
   ],
   "browser_action": {
     "default_icon": {
-      "48": "images/icon-48.png"
+      "16": "images/icon-16.png",
+      "48": "images/icon-48.png",
+      "128": "images/icon-128.png"
     },
     "default_title": "Kconnect",
     "default_popup": "popup.html"
