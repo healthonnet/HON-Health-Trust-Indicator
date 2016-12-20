@@ -39,7 +39,13 @@ var readabilityCallback = function(dataRdb, target, id, progress) {
     target.find('.readability-circle')
       .find('span')
       .html('<i class="fa fa-book" aria-hidden="true"></i>');
-    progress.animate(1);
+
+    try {
+      progress.animate(1);
+    } catch (e) {
+      progress.set(1);
+    }
+
   }
 };
 
