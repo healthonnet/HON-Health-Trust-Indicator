@@ -9,6 +9,7 @@ import runSequence from 'run-sequence';
 import {stream as wiredep} from 'wiredep';
 
 const $ = gulpLoadPlugins();
+const argv = require('yargs').argv;
 
 gulp.task('extras', () => {
   return gulp.src([
@@ -20,7 +21,7 @@ gulp.task('extras', () => {
   ], {
     base: 'app',
     dot: true,
-  }).pipe(gulp.dest('dist'));
+  }).pipe(argv.firefox ? gulp.dest('distFirefox') : gulp.dest('dist'));
 });
 
 gulp.task('lint', () => {
@@ -56,11 +57,18 @@ gulp.task('images', () => {
       console.log(err);
       this.end();
     })))
-    .pipe(gulp.dest('dist/images'));
+    .pipe(
+      argv.firefox ? gulp.dest('distFirefox/images') : gulp.dest('dist/images')
+    );
 });
+
 gulp.task('styles', () => {
+  const variables = {};
+  variables.chromePrefix =
+    argv.firefox ? '' : 'chrome-extension://__MSG_@@extension_id__';
   return gulp.src('app/styles.scss/*.scss')
     .pipe($.plumber())
+    .pipe($.sassVars(variables))
     .pipe($.sass.sync({
       outputStyle: 'expanded',
       precision: 10,
@@ -81,12 +89,12 @@ gulp.task('html', ['styles'], () => {
     .pipe(assets.restore())
     .pipe($.useref())
     .pipe($.if('*.html', $.minifyHtml({conditionals: true, loose: true})))
-    .pipe(gulp.dest('dist'));
+    .pipe(argv.firefox ? gulp.dest('distFirefox') : gulp.dest('dist'));
 });
 
 gulp.task('fonts', () => {
   return gulp.src('app/bower_components/font-awesome/fonts/**')
-    .pipe(gulp.dest('dist/fonts'));
+    .pipe(argv.firefox ? gulp.dest('distFirefox/fonts') : gulp.dest('dist/fonts'));
 });
 
 gulp.task('lang', () => {
@@ -97,7 +105,10 @@ gulp.task('lang', () => {
 });
 
 gulp.task('chromeManifest', () => {
-  return gulp.src('app/manifest.json')
+  const manifestPath =
+      argv.firefox ? 'app/manifest.firefox.json' : 'app/manifest.json';
+  return gulp.src(manifestPath)
+    .pipe($.rename('manifest.json'))
     .pipe($.chromeManifest({
       background: {
         target: 'scripts/background.js',
@@ -107,10 +118,10 @@ gulp.task('chromeManifest', () => {
   .pipe($.if('*.js', $.sourcemaps.init()))
   .pipe($.if('*.js', $.uglify()))
   .pipe($.if('*.js', $.sourcemaps.write('.')))
-  .pipe(gulp.dest('dist'));
+  .pipe(argv.firefox ? gulp.dest('distFirefox') : gulp.dest('dist'));
 });
 
-gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
+gulp.task('clean', del.bind(null, ['.tmp', 'dist', 'distFirefox']));
 
 gulp.task('watch', ['lint', 'html'], () => {
   $.livereload.listen();
@@ -144,7 +155,7 @@ gulp.task('package', function() {
   var manifest = require('./dist/manifest.json');
   del.sync(['dist/README.txt', 'dist/**/*.map']);
   return gulp.src('dist/**')
-      .pipe($.zip('HON-Health-Trust-Indicatot' + manifest.version + '.zip'))
+      .pipe($.zip('HON-Health-Trust-Indicator' + manifest.version + '.zip'))
       .pipe(gulp.dest('package'));
 });
 

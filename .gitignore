@@ -2,9 +2,11 @@ node_modules
 temp
 .tmp
 dist
+distFirefox
 .sass-cache
 app/bower_components
 test/bower_components
 package
 
 app/styles
+app/README.txt
