@@ -41,7 +41,7 @@ casper.test.begin(kconnectTest, 2, function suite(test) {
 });
 
 // Google
-casper.test.begin(googleSearch, 3, function suite(test) {
+casper.test.begin(googleSearch, 2, function suite(test) {
 
   casper.start('http://www.google.fr/', function() {
     test.assertExists('form[action="/search"]', 'main form is found');
@@ -69,7 +69,6 @@ casper.test.begin(googleSearch, 3, function suite(test) {
     this.page.injectJs('app/scripts/kconnect.js');
     this.page.injectJs('app/scripts/contentscript.js');
 
-    test.assertTitle('vidal - Recherche Google', 'google title is ok');
     test.assertUrlMatch(/q=vidal/, 'search term has been submitted');
   });
 
@@ -79,7 +78,7 @@ casper.test.begin(googleSearch, 3, function suite(test) {
 });
 
 // Yahoo
-casper.test.begin(yahooSearch, 4, function suite(test) {
+casper.test.begin(yahooSearch, 3, function suite(test) {
 
   casper.start('https://fr.yahoo.com/', function() {
     test.assertExists(
@@ -110,7 +109,6 @@ casper.test.begin(yahooSearch, 4, function suite(test) {
     this.page.injectJs('app/scripts/kconnect.js');
     this.page.injectJs('app/scripts/contentscript.js');
 
-    test.assertTitle('vidal - Yahoo Search - Actualités', 'yahoo title is ok');
     test.assertUrlMatch(/p=vidal/, 'search term has been submitted');
   });
 
@@ -120,7 +118,7 @@ casper.test.begin(yahooSearch, 4, function suite(test) {
 });
 
 // Bing
-casper.test.begin(bingSearch, 3, function suite(test) {
+casper.test.begin(bingSearch, 2, function suite(test) {
 
   casper.start('https://www.bing.com/', function() {
     test.assertExists('form[action="/search"]', 'main form is found');
@@ -147,7 +145,6 @@ casper.test.begin(bingSearch, 3, function suite(test) {
     this.page.injectJs('app/scripts/kconnect.js');
     this.page.injectJs('app/scripts/contentscript.js');
 
-    test.assertTitle('vidal - Bing', 'bing title is ok');
     test.assertUrlMatch(/q=vidal/, 'search term has been submitted');
 
   });
