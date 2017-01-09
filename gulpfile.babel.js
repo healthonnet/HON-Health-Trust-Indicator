@@ -166,6 +166,13 @@ gulp.task('test', function() {
   // Run casperjs test
 });
 
+gulp.task('testMonitor', function() {
+    runSequence(['lint', 'jscs']);
+    gulp.src('test/monitor.js')
+        .pipe(casperJs({command: 'test --web-security=no'}));
+    // Run casperjs test
+});
+
 gulp.task('build', (cb) => {
   runSequence(
     ['fonts', 'html', 'lang', 'images', 'extras'],
