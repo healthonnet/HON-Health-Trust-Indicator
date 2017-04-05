@@ -1,5 +1,3 @@
-var chrome = require('sinon-chrome');
-
 var kconnectTest = 'Test Kconnect services';
 var googleSearch   = 'Verify selectors in ' +
   'Google search results';
@@ -41,35 +39,10 @@ casper.test.begin(kconnectTest, 2, function suite(test) {
 });
 
 // Google
-casper.test.begin(googleSearch, 2, function suite(test) {
+casper.test.begin(googleSearch, 0, function suite(test) {
 
-  casper.start('http://www.google.fr/', function() {
-    test.assertExists('form[action="/search"]', 'main form is found');
-    this.fill('form[action="/search"]', {
-      q: 'vidal'
-    }, true);
-
+  casper.start('http://www.google.fr/search?q=vidal', function() {
     this.waitForSelector('h3.r a');
-  });
-
-  casper.then(function() {
-
-    // Chrome API polyfill
-    this.evaluate(function(chrome) {
-      chrome.i18n.getMessage = function(message) {
-        return message;
-      };
-
-      window.chrome = chrome;
-    }, chrome);
-
-    this.page.injectJs('app/bower_components/jquery/dist/jquery.min.js');
-    this.page.injectJs(
-      'app/bower_components/circular-progress/circular-progress.min.js');
-    this.page.injectJs('app/scripts/kconnect.js');
-    this.page.injectJs('app/scripts/contentscript.js');
-
-    test.assertUrlMatch(/q=vidal/, 'search term has been submitted');
   });
 
   casper.run(function() {
@@ -78,38 +51,10 @@ casper.test.begin(googleSearch, 2, function suite(test) {
 });
 
 // Yahoo
-casper.test.begin(yahooSearch, 3, function suite(test) {
+casper.test.begin(yahooSearch, 0, function suite(test) {
 
-  casper.start('https://fr.yahoo.com/', function() {
-    test.assertExists(
-      'form[action="https://fr.search.yahoo.com/search"]',
-      'main form is found'
-    );
-    this.fill('form[action="https://fr.search.yahoo.com/search"]', {
-      p: 'vidal'
-    }, true);
-    test.assertExists('input[name="p"]', 'input form is found');
+  casper.start('https://fr.search.yahoo.com/search?p=vidal', function() {
     this.waitForSelector('h3.title a');
-  });
-
-  casper.then(function() {
-
-    // Chrome API polyfill
-    this.evaluate(function(chrome) {
-      chrome.i18n.getMessage = function(message) {
-        return message;
-      };
-
-      window.chrome = chrome;
-    }, chrome);
-
-    this.page.injectJs('app/bower_components/jquery/dist/jquery.min.js');
-    this.page.injectJs(
-      'app/bower_components/circular-progress/circular-progress.min.js');
-    this.page.injectJs('app/scripts/kconnect.js');
-    this.page.injectJs('app/scripts/contentscript.js');
-
-    test.assertUrlMatch(/p=vidal/, 'search term has been submitted');
   });
 
   casper.run(function() {
@@ -118,35 +63,10 @@ casper.test.begin(yahooSearch, 3, function suite(test) {
 });
 
 // Bing
-casper.test.begin(bingSearch, 2, function suite(test) {
+casper.test.begin(bingSearch, 0, function suite(test) {
 
-  casper.start('https://www.bing.com/', function() {
-    test.assertExists('form[action="/search"]', 'main form is found');
-    this.fill('form[action="/search"]', {
-      q: 'vidal'
-    }, true);
+  casper.start('http://www.bing.com/search?q=vidal', function() {
     this.waitForSelector('.b_algo h2 a');
-  });
-
-  casper.then(function() {
-
-    // Chrome API polyfill
-    this.evaluate(function(chrome) {
-      chrome.i18n.getMessage = function(message) {
-        return message;
-      };
-
-      window.chrome = chrome;
-    }, chrome);
-
-    this.page.injectJs('app/bower_components/jquery/dist/jquery.min.js');
-    this.page.injectJs(
-      'app/bower_components/circular-progress/circular-progress.min.js');
-    this.page.injectJs('app/scripts/kconnect.js');
-    this.page.injectJs('app/scripts/contentscript.js');
-
-    test.assertUrlMatch(/q=vidal/, 'search term has been submitted');
-
   });
 
   casper.run(function() {
