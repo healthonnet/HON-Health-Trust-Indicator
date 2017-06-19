@@ -6,35 +6,45 @@ var query = {active: true, currentWindow: true};
 chrome.tabs.query(query, function(tabs) {
   currentTab = tabs[0];
   var domain = kconnect.getDomainFromUrl(currentTab.url);
-  $('h1').html(chrome.i18n.getMessage('appName'));
-  $('#khresmoi').html(chrome.i18n.getMessage('khresmoiTitle'));
+  $('h1').text(chrome.i18n.getMessage('appName'));
+  $('#khresmoi').text(chrome.i18n.getMessage('khresmoiTitle'));
   $('#q').attr('placeholder',
     chrome.i18n.getMessage('khresmoiPlaceholder'));
   $('#searchSubmit').val(chrome.i18n.getMessage('khresmoiSearch'));
   $('#searchLanguage').val(kconnect.config.khresmoiLanguage);
-  $('#host').html(domain);
-  $('#readability').html(
+  $('#host').text(domain);
+  $('#readability').text(
     chrome.i18n.getMessage('readabilityTitle').toLowerCase()
   );
 
-  $('#about').html(chrome.i18n.getMessage('about'));
+  $('#about').text(chrome.i18n.getMessage('about'));
   $('#about').attr('href', chrome.extension.getURL('about.html'));
-  $('#trustability-content').html(chrome.i18n.getMessage('comingSoon'));
-  $('#readability-content').html(chrome.i18n.getMessage('loading'));
+  $('#trustability-content').text(chrome.i18n.getMessage('comingSoon'));
+  $('#readability-content').text(chrome.i18n.getMessage('loading'));
   $('.readability-circle')
       .find('span')
-      .html('<i class="fa fa-book" aria-hidden="true"></i>');
+      .append($('<i>', {
+        class: 'fa fa-book',
+        'aria-hidden': 'true',
+      }));
 
-  $('.auto').html(
-      '<i class="fa fa-warning" aria-hidden="true"></i> ' +
-      chrome.i18n.getMessage('automatedResults')
+  $('.auto').append(
+    $('<i>', {
+      class: 'fa fa-warning',
+      'aria-hidden': 'true',
+    })
+  ).append(
+    ' ' + chrome.i18n.getMessage('automatedResults')
   );
-  $('#trustability').html(
+  $('#trustability').text(
     chrome.i18n.getMessage('trustabilityTitle').toLowerCase()
   );
   $('.trustability-circle')
     .find('span')
-    .html('<i class="fa fa-stethoscope" aria-hidden="true"></i>');
+    .append($('<i>', {
+      class: 'fa fa-stethoscope',
+      'aria-hidden': 'true',
+    }));
 
   new ProgressBar.Circle('.trustability-circle', {
     strokeWidth: 7,
@@ -70,16 +80,27 @@ chrome.tabs.query(query, function(tabs) {
       });
       $('.readability-circle')
         .find('span')
-        .html('<i class="fa fa-book" aria-hidden="true"></i>');
+        .html($('<i>', {
+          class: 'fa fa-book',
+          'aria-hidden': 'true',
+        }));
       rProgress.animate(1);
       $('#readability-content').html(
-        '<span>' + kconnect.config.difficultyKeyword[difficulty] + '</span>'
+        $('<span>').text(
+          kconnect.config.difficultyKeyword[difficulty]
+        )
       );
     }, function() {
-      $('#readability-content').html('<p>' +
-        chrome.i18n.getMessage('popupReadabilityNoInformation') + '</p>');
+      $('#readability-content').html(
+        $('<p>').text(
+          chrome.i18n.getMessage('popupReadabilityNoInformation')
+        )
+      );
       $('.readability-circle')
         .find('span')
-        .html('<i class="fa fa-ban" aria-hidden="true"></i>');
+        .html($('<i>', {
+          class: 'fa fa-ban',
+          'aria-hidden': 'true',
+        }));
     });
 });

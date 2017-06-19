@@ -9,7 +9,10 @@ var readabilityCallback = function(dataRdb, target, id, progress) {
   if (dataRdb.error) {
     target.find('.readability-circle')
       .find('span')
-      .html('<i class="fa fa-ban" aria-hidden="true"></i>');
+      .html($('<i>', {
+        class: 'fa fa-ban',
+        'aria-hidden': 'true',
+      }));
   }
 
   if (dataRdb.readability === undefined) {
@@ -38,7 +41,10 @@ var readabilityCallback = function(dataRdb, target, id, progress) {
     });
     target.find('.readability-circle')
       .find('span')
-      .html('<i class="fa fa-book" aria-hidden="true"></i>');
+      .html($('<i>', {
+        class: 'fa fa-book',
+        'aria-hidden': 'true',
+      }));
 
     try {
       progress.animate(1);
@@ -62,17 +68,26 @@ var requestKconnect = function(event, link) {
   '"); }';
   document.head.appendChild(fa);
 
-  var popUp = '<div class="kconnectPopup" style="display: none" ' +
-    'id="' + layerId + '">' +
-    '<div class="honPopup-header">' + domain + '</div>' +
-    '<div class="k-infos trustability">' +
-    '<h4>' + chrome.i18n.getMessage('trustabilityTitle') +
-    '</h4><div class="trustability-circle">' +
-    '<span></span></div></div>' +
-    '<div class="k-infos readability">' +
-    '<h4>' + chrome.i18n.getMessage('readabilityTitle') +
-    '</h4><div class="readability-circle">' +
-    '<span></span></div></div>';
+  var popUp = $('<div>', {
+    class: 'kconnectPopup',
+    style: 'display: none',
+    id: layerId,
+  }).append($('<div>', {
+    class: 'honPopup-header',
+  }).text(domain))
+    .append($('<div>',{
+      class: 'k-infos trustability',
+    }).append($('<h4>').text(chrome.i18n.getMessage('trustabilityTitle')))
+      .append($('<div>', {
+        class: 'trustability-circle',
+      }).append($('<span>'))))
+    .append($('<div>',{
+      class: 'k-infos readability',
+    }).append($('<h4>').text(chrome.i18n.getMessage('readabilityTitle')))
+      .append($('<div>', {
+        class: 'readability-circle',
+      }).append($('<span>'))));
+
   $('body').append(popUp);
 
 
@@ -125,7 +140,12 @@ var requestKconnect = function(event, link) {
   });
   $layerId.find('.readability-circle')
     .find('span')
-    .html('<i class="fa fa-question" aria-hidden="true"></i>');
+    .append(
+      $('<i>', {
+        class: 'fa fa-question',
+        'aria-hidden': 'true',
+      })
+    );
 
   new ProgressBar.Circle(
     document.getElementById(layerId).querySelector('.trustability-circle'), {
@@ -135,8 +155,11 @@ var requestKconnect = function(event, link) {
   });
   $layerId.find('.trustability-circle')
     .find('span')
-    .html('<p class="coming-soon">' +
-      chrome.i18n.getMessage('comingSoon') + '</p>');
+    .append(
+      $('<p>', {
+        class: 'coming-soon',
+      }).text(chrome.i18n.getMessage('comingSoon'))
+    );
 
   $.when(readabilityRequest)
     .then(function(readabilityResponse) {
@@ -176,8 +199,11 @@ var updateLinks = function() {
 
     var logoId = 'kconnectLogo_' + index;
 
-    var honCodeLogo = '<div target=\'_blank\' id="' + logoId +
-      '" class="hon kconnectLogo"></div>';
+    var honCodeLogo = $('<div>', {
+        target: '_blank',
+        id: logoId,
+        class: 'hon kconnectLogo',
+      });
 
     if (honLogo.children('.kconnectLogo').length === 0) {
       // Normalize Search Engine parents' behaviors
