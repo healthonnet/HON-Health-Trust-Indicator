@@ -22,10 +22,6 @@ var kconnect = {
     return $.get('https://apikconnect.honservices.org/' +
       '~kconnect/cgi-bin/is-trustable.cgi?domain=' + domain);
   },
-  getSiteJabber: function(domain) {
-    return $.get('https://api.sitejabber.com/v1/businesses/' +
-      domain + '?client_token=8fa1c56da719de8f352c105bd654ca8061a58be3');
-  },
   getReadability: function(link) {
     return $.get('https://apikconnect.honservices.org/' +
       '~kconnect/cgi-bin/get-readability.cgi?url=' + link);
