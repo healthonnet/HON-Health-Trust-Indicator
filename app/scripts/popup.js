@@ -74,13 +74,14 @@ chrome.tabs.query(query, function(tabs) {
       var score = trustabilityResponse.trustability.score;
       trustabilityResponse.trustability.principles.forEach(
         function(principle) {
+          principle = principle.replace(/[^A-Z0-9]/ig, '_');
           principlesHtml.append(
             $('<li>').append(
               $('<i>', {
                 class: 'fa fa-cog',
                 'aria-hidden': 'true',
               })
-            ).append(principle)
+            ).append(chrome.i18n.getMessage(principle))
           );
         });
 
