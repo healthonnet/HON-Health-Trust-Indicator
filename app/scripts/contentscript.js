@@ -6,16 +6,13 @@ var readabilityCallback = function(dataRdb, target, id, progress) {
     target = $(target.selector);
   }
 
-  if (dataRdb.error) {
+  if (dataRdb.error || dataRdb.readability === undefined) {
     target.find('.readability-circle')
       .find('span')
       .html($('<i>', {
         class: 'fa fa-ban',
         'aria-hidden': 'true',
       }));
-  }
-
-  if (dataRdb.readability === undefined) {
     return;
   }
 
@@ -56,7 +53,7 @@ var readabilityCallback = function(dataRdb, target, id, progress) {
 };
 
 var trustabilityCallback = function(data, target, id, progress) {
-  if (data.trustability === undefined) {
+  if (data.error || data.trustability === undefined) {
     target.find('.trustability-circle')
       .find('span')
       .html($('<i>', {
