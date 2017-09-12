@@ -54,12 +54,24 @@ var readabilityCallback = function(dataRdb, target, id, progress) {
 
 var trustabilityCallback = function(data, target, id, progress) {
   if (data.error || data.trustability === undefined) {
+    progress.destroy();
+    progress =
+      new ProgressBar.Circle(
+        document.getElementById(id).querySelector('.trustability-circle'), {
+          strokeWidth: 7,
+          trailWidth: 7,
+          trailColor: '#ddd',
+          color: 'orange',
+          easing: 'easeInOut',
+          duration: 800,
+        });
     target.find('.trustability-circle')
       .find('span')
       .html($('<i>', {
         class: 'fa fa-ban',
         'aria-hidden': 'true',
       }));
+    progress.animate(1);
     return;
   }
 
@@ -95,6 +107,9 @@ var trustabilityCallback = function(data, target, id, progress) {
         class: 'fa fa-stethoscope',
         'aria-hidden': 'true',
       }));
+    if (score === 0) {
+      score = 100;
+    }
     progress.animate(score / 100);
   }
 };

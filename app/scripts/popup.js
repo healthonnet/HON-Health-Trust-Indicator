@@ -4,7 +4,7 @@ var currentTab;
 var query = {active: true, currentWindow: true};
 var principleList = ['Transparency', 'Advertising policy', 'Attribution',
   'Authoritative', 'Complementarity', 'Date',
-  'Financial disclosure', 'Justifiability', 'Privacy', 'Transparency'];
+  'Financial disclosure', 'Justifiability', 'Privacy', 'Transparency',];
 
 chrome.tabs.query(query, function(tabs) {
   currentTab = tabs[0];
@@ -68,9 +68,21 @@ chrome.tabs.query(query, function(tabs) {
     .then(function(trustabilityResponse) {
       // Trustability Informations
       if (trustabilityResponse.trustability === undefined) {
+        tProgress.destroy();
+        tProgress = new ProgressBar.Circle('.trustability-circle', {
+          strokeWidth: 7,
+          trailWidth: 7,
+          trailColor: '#ddd',
+          color: 'orange',
+          easing: 'easeInOut',
+          duration: 800,
+        });
+
         $('#trustability-content').html(
           $('<p>').text(
             chrome.i18n.getMessage('popupTrustabilityNoInformation')));
+
+        tProgress.animate(1);
         return;
       }
       var principlesHtml = $('<ul>');
@@ -79,15 +91,16 @@ chrome.tabs.query(query, function(tabs) {
       principleList.forEach(
         function(principle) {
           var principleTrad = principle.replace(/[^A-Z0-9]/ig, '_');
-          if (trustabilityResponse.trustability.principles.indexOf(principle) > -1 ) {
-              principlesHtml.append(
-              $('<li>').append(
-                $('<i>', {
-                  class: 'fa fa-check',
-                  style: 'color: green',
-                  'aria-hidden': 'true',
-                })
-              ).append(chrome.i18n.getMessage(principleTrad))
+          if (trustabilityResponse.trustability
+              .principles.indexOf(principle) > -1) {
+            principlesHtml.append(
+            $('<li>').append(
+              $('<i>', {
+                class: 'fa fa-check',
+                style: 'color: green',
+                'aria-hidden': 'true',
+              })
+            ).append(chrome.i18n.getMessage(principleTrad))
             );
           } else {
             principlesHtml.append(
@@ -120,6 +133,9 @@ chrome.tabs.query(query, function(tabs) {
       });
       $('.trustability-circle').find('span').text(score);
       $('#trustability-content').html(principlesHtml);
+      if (score === 0) {
+        score = 100;
+      }
       tProgress.animate(score / 100);
 
     });
