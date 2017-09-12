@@ -2,6 +2,9 @@
 
 var currentTab;
 var query = {active: true, currentWindow: true};
+var principleList = ['Transparency', 'Advertising policy', 'Attribution',
+  'Authoritative', 'Complementarity', 'Date',
+  'Financial disclosure', 'Justifiability', 'Privacy', 'Transparency'];
 
 chrome.tabs.query(query, function(tabs) {
   currentTab = tabs[0];
@@ -72,17 +75,31 @@ chrome.tabs.query(query, function(tabs) {
       }
       var principlesHtml = $('<ul>');
       var score = trustabilityResponse.trustability.score;
-      trustabilityResponse.trustability.principles.forEach(
+
+      principleList.forEach(
         function(principle) {
-          principle = principle.replace(/[^A-Z0-9]/ig, '_');
-          principlesHtml.append(
-            $('<li>').append(
-              $('<i>', {
-                class: 'fa fa-cog',
-                'aria-hidden': 'true',
-              })
-            ).append(chrome.i18n.getMessage(principle))
-          );
+          var principleTrad = principle.replace(/[^A-Z0-9]/ig, '_');
+          if (trustabilityResponse.trustability.principles.indexOf(principle) > -1 ) {
+              principlesHtml.append(
+              $('<li>').append(
+                $('<i>', {
+                  class: 'fa fa-check',
+                  style: 'color: green',
+                  'aria-hidden': 'true',
+                })
+              ).append(chrome.i18n.getMessage(principleTrad))
+            );
+          } else {
+            principlesHtml.append(
+              $('<li>').append(
+                $('<i>', {
+                  class: 'fa fa-times',
+                  style: 'color:red',
+                  'aria-hidden': 'true',
+                })
+              ).append(chrome.i18n.getMessage(principleTrad))
+            );
+          }
         });
 
 
