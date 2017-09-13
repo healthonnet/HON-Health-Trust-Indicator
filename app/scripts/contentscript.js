@@ -125,7 +125,11 @@ var trustabilityCallback = function(data, target, id, progress) {
     if (score === 0) {
       score = 100;
     }
-    progress.animate(score / 100);
+    try {
+      progress.animate(score / 100);
+    } catch (e) {
+      progress.set(score / 100);
+    }
   }
 };
 
