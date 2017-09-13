@@ -171,8 +171,8 @@ var requestKconnect = function(event, link) {
       class: 'honPopup-footer',
     }).append(
       $('<a>', {
-        href: "https://search.kconnect.eu/beta/extension",
-        target: "_blank",
+        href: 'https://search.kconnect.eu/beta/extension',
+        target: '_blank',
       }).text(chrome.i18n.getMessage('about'))
     ));
 
