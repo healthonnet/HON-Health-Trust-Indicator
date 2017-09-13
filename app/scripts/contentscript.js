@@ -162,7 +162,15 @@ var requestKconnect = function(event, link) {
     }).append($('<h4>').text(chrome.i18n.getMessage('readabilityTitle')))
       .append($('<div>', {
         class: 'readability-circle',
-      }).append($('<span>'))));
+      }).append($('<span>'))))
+    .append($('<div>',{
+      class: 'honPopup-footer',
+    }).append(
+      $('<a>', {
+        href: "https://search.kconnect.eu/beta/extension",
+        target: "_blank",
+      }).text(chrome.i18n.getMessage('about'))
+    ));
 
   $('body').append(popUp);
 
