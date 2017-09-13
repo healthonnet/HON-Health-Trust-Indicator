@@ -81,7 +81,7 @@ chrome.tabs.query(query, function(tabs) {
           $('<p>').text(
             chrome.i18n.getMessage('popupTrustabilityNoInformation')));
 
-        tProgress.animate(1);
+        tProgress.set(1);
         return;
       }
       var principlesHtml = $('<ul>');
@@ -175,6 +175,17 @@ chrome.tabs.query(query, function(tabs) {
           chrome.i18n.getMessage('popupReadabilityNoInformation')
         )
       );
+      rProgress.destroy();
+      rProgress = new ProgressBar.Circle('.readability-circle', {
+        strokeWidth: 7,
+        trailWidth: 7,
+        trailColor: '#ddd',
+        color: 'orange',
+        easing: 'easeInOut',
+        duration: 800,
+      });
+      rProgress.set(1);
+
       $('.readability-circle')
         .find('span')
         .html($('<i>', {
