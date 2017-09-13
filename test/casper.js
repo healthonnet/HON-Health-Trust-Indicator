@@ -1,8 +1,11 @@
 var kconnectTest = 'Test Kconnect services';
 var googleSearch   = 'Verify selectors in ' +
   'Google search results';
-var yahooSearch    = 'Verify selectors in ' +
-  'Yahoo search results';
+
+/** Disabled
+  var yahooSearch    = 'Verify selectors in ' +
+  'Yahoo search results';*/
+
 var bingSearch     = 'Verify selectors in ' +
   ' Bing search results';
 
@@ -50,7 +53,7 @@ casper.test.begin(googleSearch, 0, function suite(test) {
   });
 });
 
-// Yahoo
+/** Yahoo disabled ---
 casper.test.begin(yahooSearch, 0, function suite(test) {
 
   casper.start('https://fr.search.yahoo.com/search?p=vidal', function() {
@@ -60,7 +63,7 @@ casper.test.begin(yahooSearch, 0, function suite(test) {
   casper.run(function() {
     test.done();
   });
-});
+}); */
 
 // Bing
 casper.test.begin(bingSearch, 0, function suite(test) {

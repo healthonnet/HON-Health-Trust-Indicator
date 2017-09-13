@@ -2,6 +2,9 @@
 
 var currentTab;
 var query = {active: true, currentWindow: true};
+var principleList = ['Transparency', 'Advertising policy', 'Attribution',
+  'Authoritative', 'Complementarity', 'Date',
+  'Financial disclosure', 'Justifiability', 'Privacy', 'Transparency',];
 
 chrome.tabs.query(query, function(tabs) {
   currentTab = tabs[0];
@@ -18,8 +21,7 @@ chrome.tabs.query(query, function(tabs) {
   );
 
   $('#about').text(chrome.i18n.getMessage('about'));
-  $('#about').attr('href', chrome.extension.getURL('about.html'));
-  $('#trustability-content').text(chrome.i18n.getMessage('comingSoon'));
+  $('#trustability-content').text(chrome.i18n.getMessage('loading'));
   $('#readability-content').text(chrome.i18n.getMessage('loading'));
   $('.readability-circle')
       .find('span')
@@ -46,7 +48,7 @@ chrome.tabs.query(query, function(tabs) {
       'aria-hidden': 'true',
     }));
 
-  new ProgressBar.Circle('.trustability-circle', {
+  var tProgress = new ProgressBar.Circle('.trustability-circle', {
     strokeWidth: 7,
     trailWidth: 7,
     trailColor: '#ddd',
@@ -59,6 +61,83 @@ chrome.tabs.query(query, function(tabs) {
   });
 
   var readabilityRequest = kconnect.getReadability(currentTab.url);
+  var trustabilityRequest = kconnect.getIsTrustable(domain);
+
+  $.when(trustabilityRequest)
+    .then(function(trustabilityResponse) {
+      // Trustability Informations
+      if (trustabilityResponse.trustability === undefined) {
+        tProgress.destroy();
+        tProgress = new ProgressBar.Circle('.trustability-circle', {
+          strokeWidth: 7,
+          trailWidth: 7,
+          trailColor: '#ddd',
+          color: 'orange',
+          easing: 'easeInOut',
+          duration: 800,
+        });
+
+        $('#trustability-content').html(
+          $('<p>').text(
+            chrome.i18n.getMessage('popupTrustabilityNoInformation')));
+
+        tProgress.set(1);
+        return;
+      }
+      var principlesHtml = $('<ul>');
+      var score = trustabilityResponse.trustability.score;
+
+      principleList.forEach(
+        function(principle) {
+          var principleTrad = principle.replace(/[^A-Z0-9]/ig, '_');
+          if (trustabilityResponse.trustability
+              .principles.indexOf(principle) > -1) {
+            principlesHtml.append(
+            $('<li>').append(
+              $('<i>', {
+                class: 'fa fa-check',
+                style: 'color: green',
+                'aria-hidden': 'true',
+              })
+            ).append(chrome.i18n.getMessage(principleTrad))
+            );
+          } else {
+            principlesHtml.append(
+              $('<li>').append(
+                $('<i>', {
+                  class: 'fa fa-times',
+                  style: 'color:red',
+                  'aria-hidden': 'true',
+                })
+              ).append(chrome.i18n.getMessage(principleTrad))
+            );
+          }
+        });
+
+
+      var trustabilityColor = 'red';
+      if (score > 33 && score <= 66) {
+        trustabilityColor = 'orange';
+      } else if (score > 66) {
+        trustabilityColor = 'green';
+      }
+      tProgress.destroy();
+      tProgress = new ProgressBar.Circle('.trustability-circle', {
+        strokeWidth: 7,
+        trailWidth: 7,
+        trailColor: '#ddd',
+        color: trustabilityColor,
+        easing: 'easeInOut',
+        duration: 800,
+      });
+      $('.trustability-circle').find('span').text(score);
+      $('#trustability-content').html(principlesHtml);
+      if (score === 0) {
+        score = 100;
+      }
+      tProgress.animate(score / 100);
+
+    });
 
   $.when(readabilityRequest)
     .then(function(readabilityResponse) {
@@ -96,6 +175,17 @@ chrome.tabs.query(query, function(tabs) {
           chrome.i18n.getMessage('popupReadabilityNoInformation')
         )
       );
+      rProgress.destroy();
+      rProgress = new ProgressBar.Circle('.readability-circle', {
+        strokeWidth: 7,
+        trailWidth: 7,
+        trailColor: '#ddd',
+        color: 'orange',
+        easing: 'easeInOut',
+        duration: 800,
+      });
+      rProgress.set(1);
+
       $('.readability-circle')
         .find('span')
         .html($('<i>', {

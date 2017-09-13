@@ -254,7 +254,6 @@ chrome.webRequest.onCompleted.addListener(debounce(function(details) {
     '*://*.google.co.zm/*',
     '*://*.google.co.zw/*',
     '*://*.bing.com/*',
-    '*://*.search.yahoo.com/*',
   ],
   types: ['xmlhttprequest'],
 });
