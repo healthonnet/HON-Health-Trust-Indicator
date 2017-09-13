@@ -78,7 +78,7 @@ chrome.tabs.query(query, function(tabs) {
         });
         $('.trustability-circle')
           .find('span')
-          .append($('<i>', {
+          .html($('<i>', {
             class: 'fa fa-ban',
             'aria-hidden': 'true',
           }));
