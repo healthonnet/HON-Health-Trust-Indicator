@@ -7,12 +7,26 @@ var readabilityCallback = function(dataRdb, target, id, progress) {
   }
 
   if (dataRdb.error || dataRdb.readability === undefined) {
-    target.find('.readability-circle')
+    progress.destroy();
+    progress =
+      new ProgressBar.Circle(
+        document.getElementById(id).querySelector('.readability-circle'), {
+          strokeWidth: 7,
+          trailWidth: 7,
+          trailColor: '#ddd',
+          color: 'orange',
+          easing: 'easeInOut',
+          duration: 800,
+        });
+
+    target.find('.readability')
       .find('span')
       .html($('<i>', {
         class: 'fa fa-ban',
         'aria-hidden': 'true',
       }));
+
+    progress.set(1);
     return;
   }
 
@@ -36,7 +50,8 @@ var readabilityCallback = function(dataRdb, target, id, progress) {
       easing: 'easeInOut',
       duration: 800,
     });
-    target.find('.readability-circle')
+
+    target.find('.readability')
       .find('span')
       .html($('<i>', {
         class: 'fa fa-book',
@@ -65,13 +80,13 @@ var trustabilityCallback = function(data, target, id, progress) {
           easing: 'easeInOut',
           duration: 800,
         });
-    target.find('.trustability-circle')
+    target.find('.trustability')
       .find('span')
       .html($('<i>', {
         class: 'fa fa-ban',
         'aria-hidden': 'true',
       }));
-    progress.animate(1);
+    progress.set(1);
     return;
   }
 
@@ -199,7 +214,7 @@ var requestKconnect = function(event, link) {
     trailWidth: 7,
     trailColor: '#ddd',
   });
-  $layerId.find('.readability-circle')
+  $layerId.find('.readability')
     .find('span')
     .append(
       $('<i>', {
@@ -214,7 +229,7 @@ var requestKconnect = function(event, link) {
     trailWidth: 7,
     trailColor: '#ddd',
   });
-  $layerId.find('.trustability-circle')
+  $layerId.find('.trustability')
     .find('span')
     .append(
       $('<i>', {
