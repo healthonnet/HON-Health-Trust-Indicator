@@ -264,10 +264,16 @@ var updateLinks = function() {
   if (window.location.host.indexOf('google') > -1) {
     hrefSelector = 'h3.r>a';
   }
+
+  /**
+   * Yahoo has inserted a track link on each results
+   * so we cannot use the target url for testing
   // Match Yahoo
   else if (window.location.host.indexOf('yahoo') > -1) {
     hrefSelector = '#web div.compTitle h3.title>a';
   }
+  */
+
   // Match Bing
   else if (window.location.host.indexOf('bing') > -1) {
     hrefSelector = 'li.b_algo h2>a';
