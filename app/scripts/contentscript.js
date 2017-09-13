@@ -309,7 +309,7 @@ var updateLinks = function() {
       // Normalize Search Engine parents' behaviors
       honLogo.parent().css('overflow','visible');
       honLogo.parent().css('position','relative');
-      honLogo.append(honCodeLogo);
+      honLogo.prepend(honCodeLogo);
 
       // Add onClick listener
       $('#' + logoId).one('click', function(e) {
