@@ -1,10 +1,6 @@
 'use strict';
 
 var readabilityCallback = function(dataRdb, target, id, progress) {
-  var bIsJquery = target instanceof jQuery;
-  if (!bIsJquery) {
-    target = $(target.selector);
-  }
 
   if (dataRdb.error || dataRdb.readability === undefined) {
     progress.destroy();
@@ -90,11 +86,6 @@ var trustabilityCallback = function(data, target, id, progress) {
     return;
   }
 
-  var bIsJquery = target instanceof jQuery;
-  if (!bIsJquery) {
-    target = $(target.selector);
-  }
-
   var score = data.trustability.score;
 
   if (target.find('.trb').length === 0) {
@@ -116,7 +107,7 @@ var trustabilityCallback = function(data, target, id, progress) {
           easing: 'easeInOut',
           duration: 800,
         });
-    target.find('.trustability-circle')
+    target.find('.trustability')
       .find('span')
       .html($('<i>', {
         class: 'fa fa-stethoscope',
