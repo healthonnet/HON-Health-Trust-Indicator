@@ -72,7 +72,7 @@ chrome.tabs.query(query, function(tabs) {
           strokeWidth: 7,
           trailWidth: 7,
           trailColor: '#ddd',
-          color: 'orange',
+          color: 'black',
           easing: 'easeInOut',
           duration: 800,
         });
@@ -186,7 +186,7 @@ chrome.tabs.query(query, function(tabs) {
         strokeWidth: 7,
         trailWidth: 7,
         trailColor: '#ddd',
-        color: 'orange',
+        color: 'black',
         easing: 'easeInOut',
         duration: 800,
       });

@@ -14,7 +14,7 @@ var readabilityCallback = function(dataRdb, target, id, progress) {
           strokeWidth: 7,
           trailWidth: 7,
           trailColor: '#ddd',
-          color: 'orange',
+          color: 'black',
           easing: 'easeInOut',
           duration: 800,
         });
@@ -76,7 +76,7 @@ var trustabilityCallback = function(data, target, id, progress) {
           strokeWidth: 7,
           trailWidth: 7,
           trailColor: '#ddd',
-          color: 'orange',
+          color: 'black',
           easing: 'easeInOut',
           duration: 800,
         });
