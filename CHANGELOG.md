@@ -1,6 +1,14 @@
 HON Health Trust Indicator
 ==========================
 
+### v1.1.0 / 2017-09-15
+
+- Feature: Enable Trustability service
+- Enhancement: Secure DOM generation.
+- Enhancement: Firefox support
+- Release: Disable Yahoo support see #23
+- Fixes: #25, #24, #22, #21, #20
+
 ### v1.0.2 / 2016-12-13
 
 - Enhancement: update description in french
