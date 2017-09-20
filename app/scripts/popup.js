@@ -2,7 +2,7 @@
 
 var currentTab;
 var query = {active: true, currentWindow: true};
-var principleList = ['Transparency', 'Advertising policy', 'Attribution',
+var principleList = ['Advertising policy', 'Attribution',
   'Authoritative', 'Complementarity', 'Date',
   'Financial disclosure', 'Justifiability', 'Privacy', 'Transparency',];
 
