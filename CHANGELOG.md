@@ -1,6 +1,10 @@
 HON Health Trust Indicator
 ==========================
 
+### v1.1.1 / 2017-09-20
+
+- Fixes: #26
+
 ### v1.1.0 / 2017-09-15
 
 - Feature: Enable Trustability service
