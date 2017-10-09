@@ -1,12 +1,8 @@
-var kconnectTest = 'Test Kconnect services';
-var googleSearch   = 'Verify selectors in ' +
-  'Google search results';
-
-var yahooSearch    = 'Verify selectors in ' +
-  'Yahoo search results';
-
-var bingSearch     = 'Verify selectors in ' +
-  ' Bing search results';
+var kconnectTest     = 'Test Kconnect services';
+var googleSearch     = 'Verify selectors in Google search results';
+var yahooSearch      = 'Verify selectors in Yahoo search results';
+var duckduckgoSearch = 'Verify selectors in Duckduckgo search results';
+var bingSearch       = 'Verify selectors in Bing search results';
 
 // Webservices Kconnect
 casper.test.begin(kconnectTest, 2, function suite(test) {
@@ -77,7 +73,7 @@ casper.test.begin(bingSearch, 0, function suite(test) {
 });
 
 // Duckduckgo
-casper.test.begin(bingSearch, 0, function suite(test) {
+casper.test.begin(duckduckgoSearch, 0, function suite(test) {
 
   casper.start('https://duckduckgo.com/?q=vidal&t=h_&ia=web', function() {
     this.waitForSelector('h2.result__title>a.result__a');
