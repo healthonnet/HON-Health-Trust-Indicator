@@ -126,6 +126,9 @@ var trustabilityCallback = function(data, target, id, progress) {
 
 
 var requestKconnect = function(event, link) {
+  // Prevent Duckduckgo onclick redirect
+  event.stopPropagation();
+
   var domain = kconnect.getDomainFromUrl(link);
   var trustabilityRequest = kconnect.getIsTrustable(domain);
   var readabilityRequest = kconnect.getReadability(link);
@@ -279,6 +282,13 @@ var updateLinks = function() {
   else if (window.location.host.indexOf('bing') > -1) {
     hrefSelector = 'li.b_algo h2>a';
   }
+
+  // Match DuckDuckGo
+  else if (window.location.host.indexOf('duckduckgo') > -1) {
+    hrefSelector = 'h2.result__title>a.result__a';
+    timeToWait = 1000;
+  }
+
   setTimeout(function() {
     var nodeList = document.querySelectorAll(hrefSelector);
     for (var i = 0; i < nodeList.length; ++i) {
