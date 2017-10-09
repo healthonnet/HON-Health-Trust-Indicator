@@ -44,7 +44,7 @@ Features
 
  * **Readability level** - know how easy the content of health websites is.
  * **Trust indicator** - select trustworthy health pages and avoid information from websites with a low trust score. (coming soon)
- * **Quick preview** - get readability level and trust indicator in Google, ~~Yahoo~~ and Bing.
+ * **Quick preview** - get readability level and trust indicator in Google, Yahoo and Bing.
  * **Search** - type ```kconnect``` in the omnibox bar and search information within Kconnect search, the health and medical search engine.
 
 Contributing to Health Trust Indicator

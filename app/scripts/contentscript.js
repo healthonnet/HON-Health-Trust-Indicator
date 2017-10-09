@@ -262,57 +262,58 @@ var updateLinks = function() {
   // Get links
   var links = [];
   var hrefSelector = '';
+  var timeToWait = 1;
   var trustabilityRequested = 0;
   // Match Google
   if (window.location.host.indexOf('google') > -1) {
     hrefSelector = 'h3.r>a';
   }
 
-  /**
-   * Yahoo has inserted a track link on each results
-   * so we cannot use the target url for testing
   // Match Yahoo
   else if (window.location.host.indexOf('yahoo') > -1) {
     hrefSelector = '#web div.compTitle h3.title>a';
+    timeToWait = 1000;
   }
-  */
 
   // Match Bing
   else if (window.location.host.indexOf('bing') > -1) {
     hrefSelector = 'li.b_algo h2>a';
   }
-  var nodeList = document.querySelectorAll(hrefSelector);
-  for (var i = 0; i < nodeList.length; ++i) {
-    links[i] = nodeList[i].href;
-  }
-  links.forEach(function(link, index) {
-    var honLogo = $(nodeList.item(index)).parent();
-
-    var logoId = 'kconnectLogo_' + index;
-
-    var honCodeLogo = $('<div>', {
-        target: '_blank',
-        id: logoId,
-        class: 'hon kconnectLogo',
-      });
-
-    if (honLogo.children('.kconnectLogo').length === 0) {
-      // Normalize Search Engine parents' behaviors
-      honLogo.parent().css('overflow','visible');
-      honLogo.parent().css('position','relative');
-      honLogo.prepend(honCodeLogo);
-
-      // Add onClick listener
-      $('#' + logoId).one('click', function(e) {
-        requestKconnect(e, link);
-      });
+  setTimeout(function() {
+    var nodeList = document.querySelectorAll(hrefSelector);
+    for (var i = 0; i < nodeList.length; ++i) {
+      links[i] = nodeList[i].href;
     }
 
-    trustabilityRequested++;
-    if (trustabilityRequested === links.length) {
-      deferred.resolve();
-    }
-  });
+    links.forEach(function(link, index) {
+      var honLogo = $(nodeList.item(index)).parent();
+
+      var logoId = 'kconnectLogo_' + index;
+
+      var honCodeLogo = $('<div>', {
+          target: '_blank',
+          id: logoId,
+          class: 'hon kconnectLogo',
+        });
+
+      if (honLogo.children('.kconnectLogo').length === 0) {
+        // Normalize Search Engine parents' behaviors
+        honLogo.parent().css('overflow','visible');
+        honLogo.parent().css('position','relative');
+        honLogo.prepend(honCodeLogo);
+
+        // Add onClick listener
+        $('#' + logoId).one('click', function(e) {
+          requestKconnect(e, link);
+        });
+      }
+
+      trustabilityRequested++;
+      if (trustabilityRequested === links.length) {
+        deferred.resolve();
+      }
+    });
+  }, timeToWait);
 
   return deferred.promise();
 };
