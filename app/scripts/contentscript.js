@@ -287,6 +287,9 @@ var updateLinks = function() {
   else if (window.location.host.indexOf('duckduckgo') > -1) {
     hrefSelector = 'h2.result__title>a.result__a';
     timeToWait = 1000;
+    $('head').bind('DOMSubtreeModified', function() {
+      updateLinks();
+    });
   }
 
   setTimeout(function() {
