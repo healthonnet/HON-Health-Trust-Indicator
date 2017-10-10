@@ -1,6 +1,7 @@
 {
   "name": "hon-health-trust-indicator",
   "private": true,
+  "version": "1.2.0",
   "engines": {
     "node": ">=0.8.0",
     "npm": ">=1.4.4"

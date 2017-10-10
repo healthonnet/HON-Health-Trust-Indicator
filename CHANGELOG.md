@@ -1,6 +1,10 @@
 HON Health Trust Indicator
 ==========================
 
+### v1.2.0 / 2017-10-10
+- Fixes: #23 - yahoo support
+- Feature: Enable Duckduckgo support
+
 ### v1.1.1 / 2017-09-20
 
 - Fixes: #26
