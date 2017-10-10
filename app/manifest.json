@@ -231,6 +231,7 @@
         "*://*.google.co.zm/*",
         "*://*.google.co.zw/*",
         "*://*.bing.com/*",
+        "*://*.duckduckgo.com/*",
         "*://*.search.yahoo.com/*",
         "*://*.wikipedia.org/*",
         "*://*.nlm.nih.gov/medlineplus/*"
