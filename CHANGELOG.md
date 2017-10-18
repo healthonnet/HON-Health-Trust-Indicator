@@ -1,6 +1,9 @@
 HON Health Trust Indicator
 ==========================
 
+### v1.2.1 / 2017-10-18
+- chore: ignore duckduckgo ads
+
 ### v1.2.0 / 2017-10-10
 - Fixes: #23 - yahoo support
 - Feature: Enable Duckduckgo support
